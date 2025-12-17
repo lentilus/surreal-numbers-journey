@@ -1,0 +1,810 @@
+Useful Links:
+
+Winning Ways:
+https://dn720002.ca.archive.org/0/items/winning-ways-for-your-mathematical-plays-v-1/Winning%20Ways%20for%20Your%20Mathematical%20Plays%20V1_text.pdf
+
+Surreal numbers thing
+---------------------
+
+Hot take: Surreale Zahlen sind eine Sprache, die zwischen Spielen, Ordinals, Reals und ... uebersetzen kann.
+
+Krass
+- Abitrary Unendlichekit
+- Körper
+- Totally Ordered
+- Universal Property (maximal totally ordered field)
+- Können ALLES darein einbetten => Vergleichen
+
+
+1. Es ist verblueffend wie aus zwei einfachen Regel so eine schoene Welt waechst. (Es ist schoen , vielleicht auch ohne anspruch an nuetzlichkeit)
+2. Unified theory
+3. Comparison of different games
+
+
+
+
+
+
+## Index
+1. RB(G) Hackenbush
+2. Konstruktion "normaler" Zahlen
+3. Mutiplikation + Algebra + 
+4. Nim
+5. Cooling Processes
+6. Freies forschen / Fragen
+7. Rotationsvorbereitung
+8. Rotation
+
+### Notes
+- Wir sollten Papier mitbringen (oder das in Kursmail schreiben, dass man vmtl. welches braucht)
+- Für die Überlegungen hier: Besonders makieren, wenn wir Fragen stellen, wann sie überlegen sollen,
+was wir als Antwort erwarten.
+- Ein "Plakat of insight" mit Dingen die wir feststellen
+    - Addition
+    - Negation
+    - Wert einer Position bestimmen
+- Pausen bei schweren Dingen ("vlt in Notizen")
+- Am Ende von Schienen => Rätsel zum entspannen
+
+## 1 ##
+
+Meta-Orga
+---------
+
+Hallo
+Ich bin Linus/Felix
+Wenn ihr Probleme / Anmerkungen habe, kommt zu uns oder Vertrauenspersonen.
+
+Was erwartet ihr von dem Kurs?
+Mathematischer Hintergrund
+
+Immer Fragen reinwerfen - nach dem Kurs zu uns kommen.
+Wir wollen niemanden verlieren
+
+Wir wollen uns Hackenbush anschauen. 
+- zwei Spieler
+- rot (S1) / blau (S2) (- merken weil Rot eine Signalfarbe ist die einem zuerst auffällt - oder so; ergibt erst Sinn bei vorzeichen)
+- Spielfläche, mit ein paar roten und blauen strichen
+- abwechselnd entfernt man einen Strich seiner Farbe, alles was nicht mehr mit dem Boden verbunden ist,
+geht weg
+- wer keinen Zug machen kann hat verloren
+
+Hier gewinnt rot immer:
+Hier gewinnt blau immer:
+Hier gewinnt der zweite Spieler immer:
+
+Vielleicht etwas spielen, ausprobieren um ein Gefühl zu bekommen:
+Framing - Ihr könnt euch zusammen überlegen, wer bei diesen Spielen gewinnen würde
+-- 1/2
+-- ein kompliziereres -1/2
+-- Irgendwas mit kreisen
+
+Dann vergleichen.
+Was wir jetzt machen können: 
+Wissen das zwei Spiele win für rot sind: Wenn wir sie zusammen tun immernoch win für rot.
+Wir wollen das irgendwie quantifizieren.
+Vielleicht erinnern: Spiele sind Zahlen... was wäre, wenn wir sagen
+
+_______ = 0
+___I___ = 1
+___J___ = -1
+
+?
+
+Welchen Wert hätter dann 2?
+Was ist 1+ -1? Also scheint es erstmal Sinn zu ergeben.
+
+Fällt euch eine Position ein, die 1/2 wäre? Oder -3/4?
+Wie würden wir denn testen ob, etwas 1/2 ist?
+
+=> Spiele (Hackenbush) addiert man, indem man sie zusammen tut
+
+Was wäre -1/2?
+=> Spiele negiert man, indem man das inverse nimmt
+
+Rmk: Es gibt versch Spiele mit dem selben Wert. Aber die Addition ist davon unabhängig.
+Wir können also sagen, das zwei Spiele äquivalent sind, wenn G-H =ca= 0
+Ergibt sinn.
+
+Rätsel: Finde Spiel mit Wert 1/3
+=> Kommen nur beliebig nah dran... 
+Welche Zahlen können wir damit erreichen?
+Antwort: a/2^n
+
+Kennt ihr das beliebig nah dran kommen irgendwo her?
+=> Dezimaldarstellung... Vervollständigung Q => R
+Da können wir Dinge darstellen als a/10^n ...
+
+Das Problem:
+Wie übertragen wir das in eine Hackenbush position?
+Also wir wollen irgendwie den Grenzwert als eine Position darstellen, aber..
+Wenn wir a mal 2^-k nebeineinander Stellen ist das doof, weil sie sehr unterschiedlich aussehen.
+Bei a/2^n ist alles gleich für den Anfang und nur das Ende (was immer weniger wichtig wird - epsilon und so - wird verändert)
+Nach vorschlägen hören
+=> Vielleicht, wenn man die immer weiter aufeinander stellt.
+
+Frage: Was passiert, wenn wir einen blauen haben, dann einen Roten und dann in irgendeiner Reihenfolge
+=> Binärdarstellung!!! (WOOOOOWWWW)
+^^ die antwort kann abstrakt oder explizit sein
+
+Das heißt, wenn wir einen guten unendlichen Stack haben ist alles toll.
+(Ergibt das Sinn fragen)
+So vorstellen undendlich viele übereinander, aber wenn man unten einen wegnimmt verschwinden alle drüber.
+
+Frage: Was ist 2/3?
+=> Immer abwechselnd rot, blau
+=> Austesten lassen!
+
+Jetzt experimentieren wir etwas rum.
+
+(Ein Gefühl für Ordinals)
+Q: Nur blaue
+Q: Nur blaue und nur rote
+Q: 2x nur blaue und 1x nur rote
+
+Wir haben jetzt spielen (t.w. sehr große) Zahlen zugeordnet.
+Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt immer... bla.
+
+Könnt ihr euch Zahl ausdenken, die kleiner ist als 1/n für alle n?
+
+Q: e = 1/omega^n
+
+Könnt ihr euch noch eine kleinere Zahl vorstellen?
+A: 1/(omega^n + 1)
+
+Falls die Frage kommt: Was genau ist ein Spiel:
+Wir werden nächste? Schiene formalisieren was diese Zahlen sind. Und dann wird hoffentlich auch direkt klar, was mögliche Hackenbush Spiele sind. Aber die Kurze antwort: Wenn es keine Kreise gibt, dann hast du eine Funktion die jeder kleineren Zahl als Ordinal eine Farbe zuordnet. (Insb. sind alle Spiele endlich)
+
+Q: 1/2 Omega
+Müsste rot und blau Omega übereinander sein?
+
+Q: Wie sieht Omega x Omega aus?
+
+
+================
+================
+
+Wir haben jetzt ein ziemlich gutes Gefühl für Red-Blue Hackenbush. Aber jeder Informatiker weiß:
+Man braucht RBG und nicht nur RB. Also grün..
+
+Wir spielen jetzt Hackenbush auch mir grünen Strichen. Die können beide durchschneiden.
+
+Bsp: Grüner mit Rotem darüber und Grüner mit blauem darüber. (?) Es soll halt noch nicht dazu führen, dass "Grün - seltsam" ist
+
+Schaut euch mal diese Position an:
+
+Felix Blume
+- Ist sie positiv? => Ja
+- Ist sie < 1/2?
+- Welchen Wert hat sie?
+=> Kleiner als 1/omega
+
+Nennen wir UP
+
+Vlt schauen wir uns mal einfach nur den grünen Stängel an..
+Wer gewinnt?
+=> der erste Spieler
+Passt also nicht ganz zu unseren Sachen
+=> (RB)G Hackenbush ist seltsam
+
+Schauen wir mal an, wie sich die Sachen verhalten.
+
+Wir haben immernoch die Definitionen:
+a = b, falls...
+Sagen jetzt a | b falls... n-m immer gewonnen oder verloren wird => größer/kleiner 0
+
+Schauen uns mal ein Paar bespiele an..
+Was ist das inverse von 1 grün? (Stern)
+Was ist das inverse von 2 grün? (Stern2)
+=> Inverse von allen grünen ist toll
+
+Was ist
+1 grün + 2 grün? ... 3 grün
+Was ist
+1 grün + 3 grün? ... 2 grün
+(entweder: selbst-invers, oder ausprobieren)
+=> Nicht mit 0 vergleichbar
+
+Q: Ist größer, kleiner transitiv?
+Ja
+Q: Ist vergleichbar transitiv?
+Nein
+
+Wir wissen: 0 ist nicht vergleichbar mit *
+Q: Findet ihr eine Stellung die sowohl mit 0 als auch 1 nicht vergleichbar ist?
+
+[Important Mindfuck]
+Q: Findet ihr eine Stellung, die mit 0 nicht vergleichbar ist, aber so dass 2 mal die Stellung mit 0 vergleichbar ist?
+A: Omega grün, dann 1 Blau
+
+Rmk: Asymmetrie
+Es gibt viele Postionen, wo der erste Spiele gewinnt - die qualitativ underschiedlich sind. Aber wenn der zweiter Spieler gewinnt (0) sind sie alle ähnlich (First Move advantage)
+
+## 2 ##
+ 
+Wir haben jetzt Spiele gesehen und ihnen Zahlen zugeordnet.
+Sind auf seltsame Dinge gestoßen (Grün?)
+Und auch diese unendlichen hohen Türme und wollen das jetzt etwas formalisieren.
+
+Fangen wir am zur Wiederholung mal die "normalen Zahlen zu definieren" (also N, Z, Q, R)
+Vorallem um ein Gefühl dafür zu bekommen, wie Definitionen für sowas aussehen können, wenn ihr das noch nie gemacht habt 
+
+Habt ihr das schonmal gesehen?
+=> Wenn nicht, nicht schlimm, nicht sooo wichtig. Aber ganz nett.
+
+### Natürliche Zahlen (Peano)
+
+Natürliche Zahlen...
+haben 0
+und wenn n eine natürliche Zahl ist, dann kann man den Nachfolger s(n) "=" n+1 bilden
+und wir haben
+
+s(n) != s(m) fall n != m
+s(n) != 0
+
+Also können wir eine natürliche Zahlen eindeutig darstellen als
+s(....s(0))
+Oder als Abkürzung:
+xxxxxxxxxxxx (12)
+(freier Monoid in einer Variable)
+
+
+Jetzt können wir den Zahlen Namen geben...
+1, 2, ...
+
+Wir haben eine strikte Ordnung auf den Zahlen
+
+Jetzt brauchen wir Addition..
+Wir sagen
+
+n + 0 = 0
+n + 1 = s(n)
+n + s(m) = s(n) + m
+
+Und das ist wohldefiniert
+=> Glaubt ihr das?
+
+Wir können jetzt damit Induktionen machen:
+
+Eine Aussage gilt für alle natürlichen Zahlen g.d.w. sie für 0 gilt und wenn sie für n gilt, gilt sie auch für s(n).
+(Bild)
+Weil genau Definition.
+Wir können das auch anders sagen:
+Eine Aussage gilt für alle n, g.d.w. wenn sie für alle m < n folgt die Aussage für m
+
+Kommt euch das bekannt vor?
+(Dann evt.) Beispiel:
+
+Question: Sum_k=1^n k = 1 + 2 + ... = n(n+1)/2
+Question: Könnt ihr mit diesem Bild einen grafischen Beweis finden (Halbes Rechteck)
+
+Multiplikation:
+
+m * 0 = 0
+m * 1 = m
+m * s(n) = m * n + m
+
+==================
+==================
+
+Ganze Zahlen:
+
+Wir wollen negative Zahlen einführen, Minus rechnen.
+Aber wenn wir 7-11 rechnen, haben wir ein Problem, weil wir keine natürliche Zahl mehr haben.
+Idee: Identifiziere Zahlen mit solchen Rechnungen, wir wollen also
+
+7-11 "=" -4
+und
+11-7 "=" 4
+
+=> Die ganzen Zahlen definieren wir als N x N / \equiv
+(Also tupel (n,n) sodass wir bestimmte Tupel identifizieren)
+
+(7, 11) "=" (2,6)
+7-11 "=" 2-6
+
+Idee, wie wir das defnieren können mit Sachen die wir mit nat. Zahlen machen können?
+=> 11+2 = 7+6
+Evt. Q: Wie würdet ihr Addition und Multiplikation definieren?
+
+================
+================
+
+Q: Wie ist das mit rationale Zahlen?
+
+A: (a, b) (b != 0)
+=> Wir benutzen sogar die Notation.
+
+===============
+===============
+
+Jetzt machen wir etwas interessanteres. Wisst ihr was die reellen Zahlen sind?
+=> Basically "alle" Zahlen auf dem Zahlenstrahl
+- pi, e, wurzel 2, jede Kommazahl
+
+Es gibt bei Q ganz viele Lücken. Also zB keine Zahl die zum Quadrat 2 hat (!)
+(Interessante Übungsaufgabe)
+
+Schauen wir uns zB die Zahl
+0.110100100010000...
+an. Sie ist nicht rational
+(Interessante Übungsaufgabe)
+
+Aber wir wissen genau, wo sie hin kommt. Zwischen die Menge.. und die Menge ..
+Beachte: Die linke Menge reicht aus.
+=> Machen das zur Definition
+
+Ein Dedekind Schnitt ist ...
+Wir definieren relle Zahlen als Menge aller Dedekind Schnitte.
+
+Q: Dedekind Schnitt für Wurzel 2?
+A: ... x^2 < 2, sign ... x^2 >= 2, sign
+
+Rmk: Seht wie rationale Zahlen eingebettet werden?
+Q: Wie ist Mult/ Addition definiert?
+
+===============
+Pause
+===============
+
+Wir haben bei Hackenbush immer mehr Striche aufeinander gesetzt. Und irgendwann waren das (abzählbar) unendlich viele.
+Und dann haben wir noch einen Strich oben drauf gesetzt? Was haben wir eigentlich da gemacht?
+Wie können wir Infty + 1 rechnen, sodass es Sinn ergibt?
+
+Implizit haben wir die Ordinal Numbers benutzt.
+[Everything is fine meme, dog in fire, "alles in Ordnung"]
+[Bishofe der Mathematik / kleine Brüder von Kardinälen]
+[Schön aufgereiht aber sehr viele]
+
+Wie wollen zählen und um das mathematisch zu machen ordnen wir jeder Zahl eine Menge zu.
+
+0 = {}
+1 = {0}
+2 = {0, 1}
+...
+
+Das tolle dabei ist, die Kardinalität der Zahl entspricht der Zahl.
+Teilbarkeit entspricht der Ordnungsrelation.
+
+Wir können definieren n + 1 = {...n , n}
+=> Modell für natürliche Zahlen
+
+Und wir haben n \subset m für n \in m
+
+Formal Def: Eine Ordinal number, ist eine Menge, die diese Eigenschaft erfüllt.
+
+(aber uns genügt es einfach weiter mit der Konstruktion zu machen und ein Gefühl dafür zu bekommen)
+
+Wir können uns jetzt die Menge aller natürlichen anschauen
+{0, ..., n , ...}
+die nennen wir Omega. Hat wieder die Ordinal number property. Und es ist nicht n +1 für ein n
+=> Nennen wir Limit Ordinal
+Aber wir können wieder +1 rechnen!
+{...N, N}
+
+Wenn wir so weiter machen können wir ganz viele Zahlen konstruieren, und zwar
+
+a) Successer ordinals
+b) Limit ordinals = Ordinal Property + Nicht successor ordinal
+
+{...N,  ...N+N} = 2N
+{...N,  ...2N} = NN
+{...NN, ...NN^NN, ..NN^NN^NN, ...NN^NN^NN^NN} = ...
+
+Ordinal numbers sind
+- Total geordnet (Teilbarkeit)
+- Sehr foundational (für jede Kardinal gibt es ein Ordinal === Axiom of Choice)
+
+Wir können mit Ordinals coole Induktion machen, erstmal ein Beispiel:
+
+Jede absteigende Folge von Ordinals terminiert. 
+Proof: 
+Angenommen es gibt eine eine unendliche tiefe absteigende Folge. Wegen well-foundedness gibt es keine unendlich tiefen Mengen
+=> Wdspr.
+(Wenn ihr den Beweis nicht mögt => könnt das einfach annehmen.)
+
+# Jede nicht-leere Sammlung an Ordinals hat ein Minimum
+Nimm eine absteigende Folge an Ordinals => Terminiert
+
+# Transfinite Induktion
+Angenommen P(X) ist eine Eigenschaft von Ordinals. Wenn
+P(Y) für alle Y < X => P(X)
+Dann gilt die Aussage P(X) für alle Ordinals. 
+Sonst gibt es kleinstes für das das nicht gilt.
+
+Q: Every infinite ordinal can be uniquely written as the sum of a limit ordinal and a finite ordinal
+
+Wir können das Prinzip von transfiniter Induktion auch umdrehen und rekursiv Dinge definieren.
+
+Bsp: Konstruktion einer Basis einer Vektorraums mittels Choice, für jeden Ordinal einen Vektor der nicht schon gespannt wird.
+
+Das wichtigste Beispiel für uns kommt aber mit den Surrealen Zahlen
+
+
+Q: Ein paar Spiele/Positionen überlegen, anschauen
+
+
+
+## 3 ##
+
+
+## 3 ##
+
+Surreal Numbers
+
+Wir bleiben erstmal bei Red-Blue Hackenbush.
+Wenn ihr eine Position habt, wie habt ihr deren Wert bestimmt? Also wie bestimmt ihr den Wert von 3/4?
+=> Was kann der eine machen, was kann der andere machen?
+Das heißt ein Spiel ist beschrieben dadurch, was für Positionen jeder spieler daraus ableiten kann.
+
+Und wir haben folgende Eigenschaft:
+Q: Wenn L einen Zug macht ist es immer besser für ??, als wenn R einen Zug macht.
+Jeden Zug den du machst wird das Spiel für dich schlechter und für den anderen nicht unbedingt
+Heuristisch: Stacks anschauen
+
+Wenn rot einen Zug macht ist es danach schlechter für Rot, als wenn blau einen Zug gemacht hätte
+[Entweder heuristisch, oder Argument ausdenken]
+
+Zudem sind Spiele sind ja endlich. Wenn wir also alle möglichen Werte durchnummerieren wollen, dann können wir einfach nach Maximalanzahl der Züge gehen.
+
+
+========
+Damit können wir surreal numbers wiefolgt definieren:
+
+Jede surreale zahl ist einer Zahl X = { left | right }, sodass left und right Mengen von Surrealen zahlen sind, die früher entstanden sind.
+sodass alles aus left < alles aus right
+
+Eine Zahl ist kleiner gleich als eine andere Zahl, wenn alle linken zahlen des ersten kleiner gleich sind als die zweite Zahl und alle rechten des zweiten (echt) größer als die erste Zahl.
+Zwei Zahlen sind gleich, falls jeweils <=
+
+========
+
+Beispiele: 0, 1, -1
+Direkt zu Hackenbush mappen
+Beispiel: 2 = ..
+Beispiel: -1, 1
+
+Man kann sich das auch formaler mit rekusiver Definition vorstellen:
+
+Am ersten Tag entsteht 0
+Am zweiten Tag entsteht dann -+1
+Am dritten Tag ...
+Was ist mit {1, -1}
+Was ist mit {-1, 1}
+
+Und am Omega Tag gibt es zB...
+=> Die rellen Zahlen werden an Tag Omega geboren.
+
+https://www.whitman.edu/Documents/Academics/Mathematics/Grimm.pdf
+
+Rmk/Question: <= Transitiv
+
+Wie definiert ihr Addition?
+Und additive Inverse?
+
+Question: Ein Paar positionen für surreale Zahlen finden
+
+Rmk/Question: <= XL <= X <= XR
+Finding the correct number is simplicity itself?
+=> Die erste Zahl die entsteht die kleiner links und größer rechts ist.
+Beweis?
+
+Jetzt wollen wir un Multiplikation anschauen.
+
+Erstmal an Hackenbush positionen
+Q: Wie rechne ich ... mal drei? ... mal -1?
+
+Wenn wir mehr machen wollen, müssen wir erstmal arbeiten. Aber wir schauen uns erstmal Stacks an:
+Q: Jetzt habe ich so einen Stack.. welchen Wert hat der (3/4). Wie kann ich daraus einen Stack machen mit dem wert 3/8?
+=> Stacks halbieren, mal vielfache rechnen..
+A: Was passiert, wenn ich oben einer in einer Farbe drauf tue? (pm 1/2^n)
+
+Q: Was ist Omega/2 in Hackenbush?
+Q: Wie sieht Omega/2 als Surreale Zahl aus?
+
+Aber im allgemeinen Zahlen mulitplizieren oder Teilen ist sehr schwer. Z.b 3*1 = 3, aber 1/3 ist sehr schlimm.
+Also müssen wir uns den formalismus genauer anschauen.
+
+Welche eigenschaften muss so eine Multiplikation haben?
+- distributiv
+- kommutativ
+- unit
+- 0
+- sollte allgemeine Multiplikation verallgemeinern
+- invertierbar
+- wohldefiniert
+
+Q: Herum experimentieren:
+- vlt grafisch?
+- vlt mit kleinen Zahlen?
+- relle Zahlen ist auch doof
+
+Q: Was ist Omega * epsilon?
+(Als positionen)
+A: 1!!!
+
+Rmk: Es gibt auch inverse und wir bekommen einen Körper, aber Inverse sind so doof wie multiplikation.. Siehe reelle Zahlen.
+
+Dieser Körper ist sehr groß (eine echte Klasse.) (Tatsächlich lässt sich jeder geordnete Körper - basierend auf einer Menge) - darin einbetten.
+- wenn man ihn versteht, versteht man alle
+- wenn man etwas für ih definiert, definiert man es für alle
+- ...
+- universelle Konstruktion
+
+Wir wollen uns mal ein bisschen mit lustigen Unterkörpern beschäftigen. Fangen an mit 
+Hyperreals
+
+Wir haben ja dieses Epsilon und wollen damit jetzt Dinge machen.
+
+
+
+
+Warum machen wir das? Motivation: Ermoeglicht Rechnen mit Zahlen groesser als Omega, die konsistent mit uns bekannter multiplikation ist.
+andere Motivation: Wir konnten nicht nur die reellen Zahlen in den surrealen recovern, sondern auch noch ihre struktur.
+--> Haben also einen groesseren Zahlenraum geschaffen ohne Struktur zu verlieren (Sternchen: kein Kontinuum mehr)
+Antworten:
+- Objekte kennen lernen; damit andere Spiele analysieren können
+- Transfinite Induktion => Anwenden auf konkrete Probleme, wie zB Nim Kreise (Multiplikation definieren)
+-
+DAS ist Mathematk. Wir nehmen irgendwelche Spielregeln. Und spielen.
+=> Wir sollten das irgendwie noch benutzen
+
+Rätsel: Epsilon * Omega (sehr toll)
+?? Rätsel: Finde ein Bild für Omega x Omega
+?? Rätsel: Find ein Bild für 1/2 Omega
+
+=> Wir können damit Alles einbettern, Analysis machen, etc.
+(Einziges Problem: Sehr viele Zahlen -> nicht die optimale Menge für manche Dinge)
+
+zB: Hyperreals, Analysis
+R + Epsilon => Definiere Limits, ...
+Frage: Verallg. Reelle Zahlen?
+- Addition, Negation (Fokus auf Herstellung aus vorher entstandenen Zahlen)
+- Multiplikation... mit natürlichen /ganzen Zahlen
+Raetsel: Binärdarstellung Stack
+Raetsel: Wie teilt man einen Stack durch 2?
+=> Es gibt keine tolle grafische Regel (units und nachkommastellen und separat)
+- Formale Definition (mit transfiniter Induktion)
+- evt. prüfen, dass es Definition erfüllt
+- Zu tedious -- nicht machen: (Raetsel : Finde zu allg. Zahl ein inverses.)
+- Es gibt Inverse => Körper; aber nicht schön
+
+Warum machen wir das? Motivation: Ermoeglicht Rechnen mit Zahlen groesser als Omega, die konsistent mit uns bekannter multiplikation ist.
+andere Motivation: Wir konnten nicht nur die reellen Zahlen in den surrealen recovern, sondern auch noch ihre struktur.
+--> Haben also einen groesseren Zahlenraum geschaffen ohne Struktur zu verlieren (Sternchen: kein Kontinuum mehr)
+Antworten:
+- Objekte kennen lernen; damit andere Spiele analysieren können
+- Transfinite Induktion => Anwenden auf konkrete Probleme, wie zB Nim Kreise (Multiplikation definieren)
+-
+DAS ist Mathematk. Wir nehmen irgendwelche Spielregeln. Und spielen.
+=> Wir sollten das irgendwie noch benutzen
+
+Rätsel: Epsilon * Omega (sehr toll)
+?? Rätsel: Finde ein Bild für Omega x Omega
+?? Rätsel: Find ein Bild für 1/2 Omega
+
+=> Wir können damit Alles einbettern, Analysis machen, etc.
+(Einziges Problem: Sehr viele Zahlen -> nicht die optimale Menge für manche Dinge)
+
+zB: Hyperreals, Analysis
+R + Epsilon => Definiere Limits, ...
+
+## 4 ##
+
+### Getting Nimble with Nimbers
+
+~ Es folgt kleine Wiederholung von Schiene 1 ~
+
+Neue Regel
+----------
+Gruene Striche duerfen von beiden Spieler*innen entfernt werden.
+
+Raetsel: Wie ist der Wert von
+ B
+_G_?
+Antwort: Schwer zu sagen.
+
+Raetsel: Was ist mit _G_? Was kann man zu _G_ dazu addieren, um auf 0 zu kommen?
+Antwort: _G_G_ = 0, aber wir wissen trotzdem nicht, was _G_ ist.
+
+Wir schreiben Spiele wie _G_ erstmal in unserer _Strichnotation_ und machen uns ueber den "Wert" spaeter Gedanken.
+_G_ = {0 | 0}
+
+Wie ist es mit n langen Schlangen? Also:
+ G
+ .
+ .
+ G
+_G_
+Antwort: Bei Laenge n stehen in der Strichnoation auf beiden Seiten alle "gekoepften" Schlangen.
+
+Notation
+--------
+*0 = { | }
+*1 = {*0 | *0} = {0 | 0}
+*2 = {*0,*1 | *0,*1} = {0,* | 0,*}
+...
+
+Raetsel: Was ist * + *2 ?
+Antwort: { {*|*}, *, *2 | {*|*}, *, *2 } = {0, *, *2 | 0, *, *2} = *3
+
+Raetsel: Was ist *3 + *5? A: *6
+         Was ist *3 + *6? A: *5
+         Was ist *5 + *6? A: *3
+
+Raetsel: Blume mit einem gruenen Staengel unten und unendlich vielen roten/blauen Blaettern.
+A: Up / Down
+
+Ratsel: Blume + Blume
+Takeaway: Summe endlicher Spiele kann unendlich sein.
+
+Nimber sind also irgendwie komisch, aber woran liegt das?
+Was waren eure Strategien um die Werte der Summen auszurechnen?
+
+~ Vielleicht ist allen schon klar, dass _something_ + _something_ = 0 ~
+~ Dann kann man das naechste skippen ~
+
+Raetsel: Was ist mit *16 + *4? A: 0.
+
+Takeaway (nicht formal gezeigt): Nimbers sind Koerper mit Charakteristik 2.
+
+Ein Beispiel fuer ein Spiel wo Nimber auftauchen ist Nim:
+Nim: Mehrere Stapel mit Muenzen.
+
+Regeln (so grob)
+------
+1. Abwechselnde Zuege beider Spieler
+2. Ein Zug ist: Einen Stapel um beliebige Anzahl Muenzen kleiner machen
+3. Wer nicht ziehen kann verliert.
+
+~ Leute kurz Nim spielen lassen, damit sie sehen, dass es genau wie G-Hackenbush ist ~
+
+Nimber tauchen ueberall auf, wo beide Spieler die gleichen Zuege machen koennen.
+Nimb-Arithmetik erlaubt uns solche Spiele, oder solche Teile von Spielen zu untersuchen.
+
+~ Hier moeglicherweise noch mehr Spiele Erwaehnen, die Nimber beherbergen ~
+
+Noch ein Nim Raetsel
+Raetsel: (\*Omega)³ = \*2 (ansonsten analoges raetsel)
+Note: Omega^3 haben wir nicht definiert, stattdessen denke an Omega-Cube aus "Spiel".
+
+Wir untersuchen jetzt systematisch Baeume
+
+Raetsel: Wie ist der Wert von
+    G G
+  G G G
+    G
+ ___G___?
+Antwort: Muss nachrechnen.
+
+Siehe auch
+- https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
+- Winning Ways p. 191
+
+Noch offen : Circle collapsing und Fusion Principle (Winning Ways p. 193)
+
+
+## 5 ##
+
+### Cooling Processes
+
+Motivation:
+Wir haben Strategien gesehen um in RB und G Hackenbush den besten Zug zu finden. Aber wie sieht es aus, wenn wir die Spiele mischen?
+
+Wir wollen jetzt herausfinden, wie sehr ein Zug dem jeweiligen Spieler hilft.
+
+Aendert L durch seinen Zug die Spielposition von G zu G^L, dann aendert sich die Spielposition um G^L-G.
+Umgekehrt kann R die Spielposition um G-G^R aendern. G^L-G jetzt _Vorteil_ fuer L. (Opportunity Cost)
+TODO: Wir brauchen ein besseres Wort 
+
+Raetsel: Berechnet den Vorteil einiger Zuege in Spielen die Zahlen sind.
+Takeaway: Der Vorteil ist stehts negativ.
+
+-> Der Grund dafuer ist, dass fuer x gilt x^L < x < x^R.
+
+Raetsel: Berechnet den Vorteil einer Zuege in *3
+Takeaway: Der Vorteil ist stehts positiv.
+
+Theorem: DON'T MOVE IN A NUMBER UNLESS THERE'S NOTHING ELSE TO DO!
+
+
+Weil niemand in der Zahl ziehen moechte, koennen wir im allgemeinen zu einem Spiel x addieren indem wir {G^L | G^R} + x = {G^L+x | G^R+x}
+--> Das nennen wir _translation principle_.
+
+Wir gucken uns das Spiel {2| -1} an.
+TODO: hier vielleicht ein passendes RGB-Hackbush  finden.
+
+{2 | -1}
+
+~ Hier Wolken malen ~
+TODO
+  Stops sind die Enden der Wolke
+  Warum funktioniert Cooling um den Mean zu finden?
+
+
+## 6 ##
+
+Puffer: Let people explore what they want.
+Suggestion:
+- Look at other games (Conway)
+- Große Zahlen / Seltsamere sachen wie UP/UPON/OFF/OOF
+Maybe some Q and A
+
+
+## 7 ##
+
+Rotation
+- Hackenbush / Nim
+- Spiele sind Zahlen ??
+- Spiele addieren und so werte bestimmen
+=> Schienenteilis Rätseln lassen (letzt 5/10 minuten)
+
+(Feedback)
+
+
+
+===================================
+===================================
+
+Todoooo
+- Cooling process anschauen?
+- Very weak Script.. Rätsel !!!
+- Inhalt
+
+
+Narrativ
+Wir gucken uns spiele an und sehen irgendwie, dass spiele ein bisschen wie Zahlen sind
+manche spiele (nimbers) sind aber komisch und passen nicht ganz zu unseren "normalen" vorstelung von zahlen.
+Wenn wir ein bisschen struktur wieder wegnehmen (uns nur rb hackenbusch anschauen), koennen wir vielleicht unsere "Alltagszahlen" recovern, so dass sich alles verhaelt, wie wir es kennen.
+OKay super, wir finden alle zahlen die wir schon kannten, aber haben sogar noch mehr.
+Das ist irgendwie toll, weil wir einen allgemeineren Zahlenbegriff gefunden haben
+
+Was ist, wenn wir jetzt gruen wieder dazu tun?
+Dann werden dinge komisch, aber wir koennen trotzdem damit arbeiten als waeren es "normale zahlen"
+
+
+
+Rotation
+-
+
+Feedback
+
+
+
+
+Random Themen, die wir noch hatten:
+- Funktionen
+- Analysis
+- Cooling Process
+- Formal Definition Game
+- Partial information 
+- Other games : childish Hackenbush, Col, cutcake
+
+
+Geburtstage feieren
+
+
+Probleme
+--------
+ - Was ist mit Gaps? (was wenn L/R kein set ist?) ~ Dedekind Schnitte
+
+
+
+
+Numbers sind Games
+Wir haben unsere Labormaus: Hackenbush
+Wollen versch. positionen Zahlen zuordnen
+
+
+
+Formal Definition "Game"
+see https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://figshare.mq.edu.au/ndownloader/files/43233216&ved=2ahUKEwja_MO6oqGRAxUj3AIHHYO3KyMQFnoECBoQAQ&usg=AOvVaw2Os6zAf-dm_K-ycXwrZ1lc
+- each game state has a function that assigns it its prev. game
+- moves are maps from game states to game states
+- a strategie is a set of moves closed under itself (oder so)
+
+Surreal "Neu" 
+
+Idee: 
+Wir sollten den Leuten sagen:
+Manchmal enthalten wir euch Motivation vor, wenn ihr das Gefuehl habt euch fehlt gerade zu viel Motivation und ihr wisst nicht warum wir gerade machen, was wir machen, fragt immer nach, und wir koennen euch im Zweifel mehr Motivation geben.
