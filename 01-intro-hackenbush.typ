@@ -5,69 +5,160 @@
 
 == Herzlich Willkommen
 
-Hallo
-Ich bin Linus/Felix
-Wenn ihr Probleme / Anmerkungen habe, kommt zu uns oder Vertrauenspersonen.
+Hallo, Ich bin Linus/Felix.
 
-Was erwartet ihr von dem Kurs?
-Mathematischer Hintergrund
+#orga[
+  - Wenn ihr Probleme / Anmerkungen habe, kommt zu uns oder Vertrauenspersonen.
+  - Was erwartet ihr von dem Kurs?
+  - Was ist euer mathematischer Hintergrund?
+  - Ihr koennt immer Fragen einwerfen, oder nach dem Kurs direkt zu uns kommen!
+  - Wir wollen niemanden verlieren.
+]
 
-Immer Fragen reinwerfen - nach dem Kurs zu uns kommen.
-Wir wollen niemanden verlieren
+Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie folgt.
 
+#let game = [
+  - R
+  - B
+    - R
+]
 == Spielregeln
-Wir wollen uns Hackenbush anschauen. 
-- zwei Spieler
-- rot (S1) / blau (S2) (- merken weil Rot eine Signalfarbe ist die einem zuerst auffällt - oder so; ergibt erst Sinn bei vorzeichen)
-- Spielfläche, mit ein paar roten und blauen strichen
-- abwechselnd entfernt man einen Strich seiner Farbe, alles was nicht mehr mit dem Boden verbunden ist,
-geht weg
-- wer keinen Zug machen kann hat verloren
+- Es gibt zwei Spieler, _Rot_ und _Blau_.
+- Ein Spiel sieht z.B so aus $#hackenbush-position(game)$.
+- Das Spiel wird in abwechselnden Zuegen gespielt. Im eigenen Zug darf ein Strich der eigenen Farbe entfernt werden.
+Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
+- Ist man am Zug und kann keinen Strich entfernen, hat man verloren.
 
 
-Hier gewinnt rot immer:
-Hier gewinnt blau immer:
-Hier gewinnt der zweite Spieler immer:
+#example[
+  In diesem Spiel gewinnt immer _Rot_.
+  $
+  #hackenbush-position[
+    - R
+      - R
+    - B
+  ]
+  $
+]
 
-Vielleicht etwas spielen, ausprobieren um ein Gefühl zu bekommen:
-Framing - Ihr könnt euch zusammen überlegen, wer bei diesen Spielen gewinnen würde
--- 1/2
--- ein kompliziereres -1/2
--- Irgendwas mit kreisen
+#example[
+  In diesem Spiel gewinnt immer _Blau_.
+  $
+  #hackenbush-position[
+    - B
+      - R
+    - B
+  ]
+  $
+]
 
-Dann vergleichen.
+#example[
+  In diesem Spiel gewinnt immer der zweite Spieler.
+  $
+  #hackenbush-position[
+    - R
+    - B
+  ]
+  $
+]
+
+#orga[
+  Jetzt lassen wir die Leute sich selber Spielpositionen ueberlegen und lassen sie schauen wer dann gewinnt.
+  Vielleicht kann man ein paar am Whiteboard besprechen?
+]
+
+
+#comment[Warum fragen wir das hier?]
+- 1/2
+- ein kompliziereres -1/2
+- Irgendwas mit kreisen
+
+
 Was wir jetzt machen können: 
 Wissen das zwei Spiele win für rot sind: Wenn wir sie zusammen tun immernoch win für rot.
 Wir wollen das irgendwie quantifizieren.
 Vielleicht erinnern: Spiele sind Zahlen... was wäre, wenn wir sagen
 
-```
-_______ = 0
-___I___ = 1
-___J___ = -1
-```
+Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
+und wir "tun die Spiele zusammen",
+dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
 
-?
+#let one = hackenbush-position[ - R ]
+#let minus-one = hackenbush-position[ - B ]
+$
+  #one := 1, .. "und" #minus-one := -1
+$
 
-Welchen Wert hätter dann 2?
-Was ist 1+ -1? Also scheint es erstmal Sinn zu ergeben.
+Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
 
-Fällt euch eine Position ein, die 1/2 wäre? Oder -3/4?
-Wie würden wir denn testen ob, etwas 1/2 ist?
+#let two = hackenbush-position[
+  - R
+  - R
+]
 
-=> Spiele (Hackenbush) addiert man, indem man sie zusammen tut
+#let zero = hackenbush-position[
+  - R
+  - B
+]
 
-Was wäre -1/2?
-=> Spiele negiert man, indem man das inverse nimmt
+#puzzle($2$)[
+  $#two = dots$
+][
+  $#two = 2$
+]
+
+#puzzle($0$)[
+  $#one + minus-one = dots$
+][
+  $#one + minus-one = 0$
+]
+
+Fazit: Das kling sinnvoll.
+Wir legen fest: *Spiele addiert man indem man sie zusammen tut.*
+
+#puzzle[$1/2$][
+  Findet ihr eine Position die den Wert $1/2$ haette?
+][
+  $#hackenbush-position[
+    - R
+      - B
+  ]$
+]
+
+#puzzle[$-3/4$][
+  Findet ihr eine Position die den Wert $-3/4$ haette?
+][
+  #comment[TODO]
+]
+
+#puzzle[$-1/2$][
+  Findet ihr eine Position die den Wert $-1/2$ haette?
+][
+  $#hackenbush-position[
+    - B
+      - R
+  ]$
+]
+
+Wie ist die Beziehung von $1/2$ und $-1/2$? Wir sehen:
+*Man negiert Spiele, indem man _Rot_ mit _Blau_ und _Blau_ mit _Rot_ ersetzt.*
+
 
 Rmk: Es gibt versch Spiele mit dem selben Wert. Aber die Addition ist davon unabhängig.
 Wir können also sagen, das zwei Spiele äquivalent sind, wenn G-H =ca= 0
 Ergibt sinn.
 
-Rätsel: Finde Spiel mit Wert 1/3
-=> Kommen nur beliebig nah dran... 
-Welche Zahlen können wir damit erreichen?
-Antwort: a/2^n
+#puzzle[$1/3$][
+  Findet ihr ein Spiel mit dem Wert $1/3$?
+][
+  mit endlich vielen Strichen kommen wir "nur" beliebig nah dran.
+]
+
+#puzzle[Followup-Frage][
+  Welche Zahlen koennen wir also mit endlich vielen Strichen darstellen?
+][
+  $+- n/2^m$, fuer beliebige natuerliche Zahlen $n$ und $m$.
+]
 
 Kennt ihr das beliebig nah dran kommen irgendwo her?
 => Dezimaldarstellung... Vervollständigung Q => R
