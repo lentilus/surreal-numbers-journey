@@ -12,6 +12,25 @@
 #let up = $arrow.t$
 #let tiny = $epsilon$
 
+#let list-to-array(it) = {
+  if it.has("children") {
+    it.children.filter(c => c != [ ]).map(list-to-array)
+  } else if it.has("body") {
+    list-to-array(it.body)
+  } else {
+    it
+  }
+}
+
+#let hackenbush-position = list => [
+  #set align(center)
+
+  `TODO: draw as a tree`
+
+  #list-to-array(list)
+]
+
+
 
 #let template(doc) = {
   set heading(numbering: "1.")
