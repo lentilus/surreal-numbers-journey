@@ -1,7 +1,7 @@
 #import "template.typ": *
 #show: template
 
-= Cooling Processes
+= Sehr coole Sachen
 
 Motivation:
 Wir haben Strategien gesehen um in RB und G Hackenbush den besten Zug zu finden. Aber wie sieht es aus, wenn wir die Spiele mischen?
