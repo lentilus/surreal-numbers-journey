@@ -1,30 +1,45 @@
 #import "template.typ": *
+#import "hackenbush.typ": *
 #show: template
 
 = Rot-Gruen-Hackenbush
 
-== Herzlich Willkommen
-
-Hallo, Ich bin Linus/Felix.
-
-#orga[
-  - Wenn ihr Probleme / Anmerkungen habe, kommt zu uns oder Vertrauenspersonen.
-  - Was erwartet ihr von dem Kurs?
-  - Was ist euer mathematischer Hintergrund?
-  - Ihr koennt immer Fragen einwerfen, oder nach dem Kurs direkt zu uns kommen!
-  - Wir wollen niemanden verlieren.
-]
-
 Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie folgt.
 
-#let game = [
-  - R
-  - B
-    - R
+#comment[
+  Getting back the list from a comment is reallllly hard.
+  If you want to use that syntax though, you can try to convert it into my normal form (see also hackenbush.typ)
+
+  I have written two methods to render hackenbush. One for general applications and one for easy applications. For examples see the comments in hackebush.typ
+  I didn't write docs (yet?) though.
+
+  Longterm maybe we want to add some formatting or so on top of it.
 ]
+
 == Spielregeln
 - Es gibt zwei Spieler, _Rot_ und _Blau_.
-- Ein Spiel sieht z.B so aus $#hackenbush-position(game)$.
+- Ein Spiel sieht z.B so aus:
+
+#hackenbush(
+  (
+    (0, 0),
+    (0, 1),
+    (0, 2),
+    (1, 0),
+    (1, 1),
+  ),
+  (
+    (0, 1, blue),
+    (1, 2, red),
+    (3, 4, red),
+  ),
+)
+
+#directed_hackenbush((
+  ("B", "R"),
+  "R",
+))
+
 - Das Spiel wird in abwechselnden Zuegen gespielt. Im eigenen Zug darf ein Strich der eigenen Farbe entfernt werden.
 Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 - Ist man am Zug und kann keinen Strich entfernen, hat man verloren.
@@ -33,32 +48,21 @@ Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 #example[
   In diesem Spiel gewinnt immer _Rot_.
   $
-  #hackenbush-position[
-    - R
-      - R
-    - B
-  ]
+    #directed_hackenbush((("R", "R"), "B"))
   $
 ]
 
 #example[
   In diesem Spiel gewinnt immer _Blau_.
   $
-  #hackenbush-position[
-    - B
-      - R
-    - B
-  ]
+    #directed_hackenbush((("B", "R"), "B"))
   $
 ]
 
 #example[
   In diesem Spiel gewinnt immer der zweite Spieler.
   $
-  #hackenbush-position[
-    - R
-    - B
-  ]
+    #directed_hackenbush(("R", "B"))
   $
 ]
 
@@ -74,7 +78,7 @@ Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 - Irgendwas mit kreisen
 
 
-Was wir jetzt machen können: 
+Was wir jetzt machen können:
 Wissen das zwei Spiele win für rot sind: Wenn wir sie zusammen tun immernoch win für rot.
 Wir wollen das irgendwie quantifizieren.
 Vielleicht erinnern: Spiele sind Zahlen... was wäre, wenn wir sagen
@@ -83,23 +87,16 @@ Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
 und wir "tun die Spiele zusammen",
 dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
 
-#let one = hackenbush-position[ - R ]
-#let minus-one = hackenbush-position[ - B ]
+#let one = directed_hackenbush(("R",))
+#let minus-one = directed_hackenbush(("B",))
 $
   #one := 1, .. "und" #minus-one := -1
 $
 
 Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
 
-#let two = hackenbush-position[
-  - R
-  - R
-]
-
-#let zero = hackenbush-position[
-  - R
-  - B
-]
+#let two = directed_hackenbush(("R", "R"))
+#let zero = directed_hackenbush(("R", "B"))
 
 #puzzle($2$)[
   $#two = dots$
@@ -119,10 +116,7 @@ Wir legen fest: *Spiele addiert man indem man sie zusammen tut.*
 #puzzle[$1/2$][
   Findet ihr eine Position die den Wert $1/2$ haette?
 ][
-  $#hackenbush-position[
-    - R
-      - B
-  ]$
+  $#directed_hackenbush((("R", "B"),))$
 ]
 
 #puzzle[$-3/4$][
@@ -134,10 +128,7 @@ Wir legen fest: *Spiele addiert man indem man sie zusammen tut.*
 #puzzle[$-1/2$][
   Findet ihr eine Position die den Wert $-1/2$ haette?
 ][
-  $#hackenbush-position[
-    - B
-      - R
-  ]$
+  $#directed_hackenbush((("B", "R"),))$
 ]
 
 Wie ist die Beziehung von $1/2$ und $-1/2$? Wir sehen:
