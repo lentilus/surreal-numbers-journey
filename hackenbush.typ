@@ -3,7 +3,7 @@
 #let hackenbush(
   nodes,
   edges,
-  size: 1.5,
+  size: 0.7,
 ) = {
   cetz.canvas({
     import cetz.draw: *
@@ -23,6 +23,7 @@
         stroke: (
           dash: style,
           paint: color,
+          thickness: 2.5pt
         ),
       )
     }
@@ -31,9 +32,12 @@
     for node in nodes {
       circle(
         node,
-        fill: black,
-        stroke: none,
-        radius: .05,
+        fill: white,
+        stroke: (
+          paint: black,
+          thickness: 0.8pt
+        ),
+        radius: 2.0pt,
       )
     }
 
@@ -52,6 +56,7 @@
       (min-x - 1, 0),
       (max-x + 1, 0),
       stroke: (
+        dash: "dotted",
         paint: black,
         thickness: 1pt,
       ),
