@@ -41,7 +41,7 @@ Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie
 ))
 
 - Das Spiel wird in abwechselnden Zuegen gespielt. Im eigenen Zug darf ein Strich der eigenen Farbe entfernt werden.
-Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
+  Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 - Ist man am Zug und kann keinen Strich entfernen, hat man verloren.
 
 
@@ -77,18 +77,27 @@ Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 - ein kompliziereres -1/2
 - Irgendwas mit kreisen
 
+#comment[AB HIER MUSS ALLES AUF VORZEICHEN GEPRUEFT WERDEN, WEIL ICH LOST WAR]
 
+<<<<<<< HEAD
 Was wir jetzt machen können:
 Wissen das zwei Spiele win für rot sind: Wenn wir sie zusammen tun immernoch win für rot.
 Wir wollen das irgendwie quantifizieren.
 Vielleicht erinnern: Spiele sind Zahlen... was wäre, wenn wir sagen
+=======
+>>>>>>> 27d1be3d8e0e8fae11e467744c56d5892a6174df
 
 Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
 und wir "tun die Spiele zusammen",
 dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
 
+<<<<<<< HEAD
 #let one = directed_hackenbush(("R",))
 #let minus-one = directed_hackenbush(("B",))
+=======
+#let one = hackenbush-position[ - B ]
+#let minus-one = hackenbush-position[ - R ]
+>>>>>>> 27d1be3d8e0e8fae11e467744c56d5892a6174df
 $
   #one := 1, .. "und" #minus-one := -1
 $
@@ -201,38 +210,185 @@ So vorstellen undendlich viele übereinander, aber wenn man unten einen wegnimmt
   ) = 2/3 $.
 ]
 
-Jetzt experimentieren wir etwas rum.
+Jetzt experimentieren wir etwas rum und wollen ein Gefuehl fuer solche _Tuerme_ bekommen.
 
-(Ein Gefühl für Ordinals)
-Q: Nur blaue
-Q: Nur blaue und nur rote
-Q: 2x nur blaue und 1x nur rote
+#puzzle[Blauer Turm][
+  Welchen Wert wuerdet ihr dem (unendlich hohen) Turm aus nur blauen Segmenten zuordnen?
+  $#hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+  ]$
+][
+  Der Turm ist groesser als jede endliche Zahl. Egal welches Spiel mit endlich vielen Segmenten wir dazu addieren, blau gewinnt immer. Sei Wert ist also irgendwie $oo$
+]
+
+#puzzle[Blauer Turm + roter Turm][
+  Welchen Wert wuerdet ihr diesem Turm zuordnen?
+  $#hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+    - R
+      - R
+        - R
+          - dots.v
+  ]$
+][
+  1. Ein Argument dafuer, dass der Wert 0 ist, waere, dass das Spiel genauso aussieht, wenn wir es invertieren.
+  2. Anderes Argument: Erster Spieler muss seinen Stamm auf Hoehe $n$ abschneiden. Zweiter Spieler schneidet dann seinen bei $n+1$ ab.
+     Also verliert, wer beginnt, also $0$.
+]
+
+#puzzle[Blauer + blauer + roter Turm][
+  Wie ist dann der Wert von
+  $
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+    - B
+      - B 
+        - B
+          - dots.v
+    - R
+      - R
+        - R
+          - dots.v
+  ]
+  $?
+][
+  $
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+    - B
+      - B 
+        - B
+          - dots.v
+    - R
+      - R
+        - R
+          - dots.v
+  ] =
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+    - R
+      - R
+        - R
+          - dots.v
+  ] +
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+  ] =
+  0 +
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+  ] =
+  #hackenbush-position[
+    - B
+      - B 
+        - B
+          - dots.v
+  ]
+  $.
+]
+
+#definition[
+  Wir nennen $#hackenbush-position[
+    - B
+      - B
+        - B
+          - dots.v
+  ]$ ab jetzt $omega$
+]
 
 Wir haben jetzt spielen (t.w. sehr große) Zahlen zugeordnet.
 Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt immer... bla.
 
-Könnt ihr euch Zahl ausdenken, die kleiner ist als 1/n für alle n?
+#puzzle[Seeehr kleine Zahl][
+  Könnt ihr euch Zahl ausdenken, die kleiner ist als $1/n$ für alle $n$?
+][
+  Ein Beispiel waere
+  $
+  #hackenbush-position[
+    - B
+      - R
+        - R
+          - R
+            - dots.v
+  ] = 1/omega
+  $
+  #comment[Hier stand 1/omega^n, aber ich denke, dass sollte 1/omega sein, oder?]
+]
 
-Q: e = 1/omega^n
+#puzzle[Noch kleiner][
+  Könnt ihr euch noch eine kleinere Zahl vorstellen?
+][
+  Wie waere es mit $1/(omega + 1)$
+]
 
-Könnt ihr euch noch eine kleinere Zahl vorstellen?
-A: 1/(omega^n + 1)
+#orga[
+  Falls die Frage kommt: Was genau ist ein Spiel:
+  Wir werden nächste? Schiene formalisieren was diese Zahlen sind. Und dann wird hoffentlich auch direkt klar, was mögliche Hackenbush Spiele sind. Aber die Kurze antwort: Wenn es keine Kreise gibt, dann hast du eine Funktion die jeder kleineren Zahl als Ordinal eine Farbe zuordnet. (Insb. sind alle Spiele endlich)
+]
 
-Falls die Frage kommt: Was genau ist ein Spiel:
-Wir werden nächste? Schiene formalisieren was diese Zahlen sind. Und dann wird hoffentlich auch direkt klar, was mögliche Hackenbush Spiele sind. Aber die Kurze antwort: Wenn es keine Kreise gibt, dann hast du eine Funktion die jeder kleineren Zahl als Ordinal eine Farbe zuordnet. (Insb. sind alle Spiele endlich)
 
-Q: 1/2 Omega
-Müsste rot und blau Omega übereinander sein?
+#puzzle[Omega Halbe][
+  Wie koennen wir $1/2 omega$ als Hackenbush-Position konstruieren?
+][
+  Müsste rot und blau Omega übereinander sein?
+]
 
-Q: Wie sieht Omega x Omega aus?
-
+#puzzle[Omega x Omega ][
+  Der Titel ist Programm.
+][
+  $omega$ viele $omega$ hohe blaue Tuerme.
+]
 
 Wir haben jetzt ein ziemlich gutes Gefühl für Red-Blue Hackenbush. Aber jeder Informatiker weiß:
-Man braucht RBG und nicht nur RB. Also grün..
+Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 
-Wir spielen jetzt Hackenbush auch mir grünen Strichen. Die können beide durchschneiden.
+== Zusatzregeln
+- Wir spielen jetzt Hackenbush auch mir grünen Strichen, die können beide durchschneiden.
 
-Bsp: Grüner mit Rotem darüber und Grüner mit blauem darüber. (?) Es soll halt noch nicht dazu führen, dass "Grün - seltsam" ist
+#orga[
+  Teilis sollen noch nicht merken, dass "Grün - seltsam" ist.
+]
+
+
+#puzzle[][
+  Wer gewinnt in dem jeweiligen Spiel?
+  $
+  #hackenbush-position[
+    - G
+      - R
+  ]
+  ..
+
+  #hackenbush-position[
+    - G
+      - B
+  ]
+  $
+][
+]
+
+#comment[LESEZEICHEN]
 
 Schaut euch mal diese Position an:
 
