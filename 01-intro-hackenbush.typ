@@ -31,7 +31,7 @@ Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
 
 
 #example[
-  In diesem Spiel gewinnt immer _Rot_.
+  In diesem Spiel gewinnt immer _Rot_ (wenn man richtig spielt).
   $
   #hackenbush-position[
     - R
@@ -156,33 +156,66 @@ Ergibt sinn.
 
 #puzzle[Followup-Frage][
   Welche Zahlen koennen wir also mit endlich vielen Strichen darstellen?
+  #comment[
+    Leute bitten, dass einfach heuristisch zu machen, sonst nehmen wir glaube ich schon Erkenntnisse vorweg, die wir erst bei "Binärdarstellung" haben wollen.
+  ]
 ][
   $+- n/2^m$, fuer beliebige natuerliche Zahlen $n$ und $m$.
 ]
 
-Kennt ihr das beliebig nah dran kommen irgendwo her?
-=> Dezimaldarstellung... Vervollständigung Q => R
-Da können wir Dinge darstellen als a/10^n ...
+#puzzle[Dezimaldarstellung $1/3$][
+  Wie wird $1/3$ in Dezimalschreibweise dargestellt? Und wie haengt das mit unserer Situation zusammen.
+  #comment[
+    Diese Frage ist noch zu inkronkret um ein gutes Raetsel zu sein.
+    Im Allgemeinen fuehlt sich diese Frage komisch als "Raetsel" an.
+  ]
+][
+  $0.3333 dots$
 
-Das Problem:
-Wie übertragen wir das in eine Hackenbush position?
-Also wir wollen irgendwie den Grenzwert als eine Position darstellen, aber..
-Wenn wir a mal 2^-k nebeineinander Stellen ist das doof, weil sie sehr unterschiedlich aussehen.
-Bei a/2^n ist alles gleich für den Anfang und nur das Ende (was immer weniger wichtig wird - epsilon und so - wird verändert)
-Nach vorschlägen hören
-=> Vielleicht, wenn man die immer weiter aufeinander stellt.
+  - Krasse Antwort (nicht erwartet): Mit Dezimaldarstellung lassen sich im Allgemeinen nur _rationale Zahlen_ der Form $a/10^n$ darstellen. Irrationale Zahlen lassen so gar nicht darstellen. Durch Vervollständigung, also das Hinzufuegen aller Grenzwerte finden wir die uebrigen reellen Zahlen.
+]
 
-Frage: Was passiert, wenn wir einen blauen haben, dann einen Roten und dann in irgendeiner Reihenfolge
-=> Binärdarstellung!!! (WOOOOOWWWW)
-^^ die antwort kann abstrakt oder explizit sein
+_Wie koennen wir diese Idee von der Vervollständigung von $QQ$ zu $RR$ auf Hackenbush-Spiele uebertragen?_
 
-Das heißt, wenn wir einen guten unendlichen Stack haben ist alles toll.
-(Ergibt das Sinn fragen)
+Etwas konkreter, wir wollen eine kanonische Darstellung von einer Zahl als Hackenbush-Position haben, die sinnvoll ist.
+_Als kleiner Gedankenanstoss:  Wenn wir a mal 2^-k nebeineinander Stellen ist das doof, weil sie sehr unterschiedlich aussehen.
+Bei a/2^n ist alles gleich für den Anfang und nur das Ende (was immer weniger wichtig wird - epsilon und so - wird verändert)_
+
+#orga[Nach Vorschlaegen hoeren, aber kein Raetsel]
+
+Wie waere es wenn man, wenn man die immer weiter aufeinander stellt?
+
+#puzzle[Binärdarstellung][
+  Was passiert, wenn wir einen blauen haben, dann einen Roten und dann in irgendeiner Reihenfolge
+][
+  _Die antwort kann abstrakt oder explizit sein_
+
+  $-->$ Binärdarstellung!!! (WOOOOOWWWW)
+]
+
+Das heißt, wenn wir einen guten (abzaehlbar) unendlichen Stack haben ist alles toll.
+
+#orga[Leute fragen, ob das allen klar ist.]
+
 So vorstellen undendlich viele übereinander, aber wenn man unten einen wegnimmt verschwinden alle drüber.
 
-Frage: Was ist 2/3?
-=> Immer abwechselnd rot, blau
-=> Austesten lassen!
+#puzzle[$2/3$][
+  Diesmal ernsthaft: Wie kann man $2/3$ als Hackenbush-Position darstellen?
+  Probiert es aus!
+][
+  Immer abwechselnd rot und blau ergeben
+  $
+  #hackenbush-position[
+    - R
+      - B
+        - R
+          - B
+            - R
+              - B
+                - ...
+  ] = 2/3
+  $.
+]
 
 Jetzt experimentieren wir etwas rum.
 
