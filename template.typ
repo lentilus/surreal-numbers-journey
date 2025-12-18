@@ -13,6 +13,11 @@
   #it
 ]
 
+#let definition(it) = [
+  *Definition*.
+  #it
+]
+
 #let orga(it) = [
   *Organisatorisch*.
   #it
