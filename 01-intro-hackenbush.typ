@@ -16,29 +16,17 @@ Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie
   Longterm maybe we want to add some formatting or so on top of it.
 ]
 
-== Spielregeln
+== Spielregeln von RG-Hackenbush
 - Es gibt zwei Spieler, _Rot_ und _Blau_.
-- Ein Spiel sieht z.B so aus:
+- Dazu passend gibt es _blaue_ und _rote_ Striche.
+- Jeder Strich ist entweder direkt, oder ueber andere Striche mit dem Boden verbunden.
+- Und so sehen Spiele aus.
 
-#hackenbush(
-  (
-    (0, 0),
-    (0, 1),
-    (0, 2),
-    (1, 0),
-    (1, 1),
-  ),
-  (
-    (0, 1, blue),
-    (1, 2, red),
-    (3, 4, red),
-  ),
-)
-
-#directed_hackenbush((
-  ("B", "R"),
-  "R",
-))
+$
+#directed_hackenbush((("R", "B"), "B"))
+#directed_hackenbush((("R", "B", "R"),))
+#directed_hackenbush((("R", "R"),))
+$
 
 - Das Spiel wird in abwechselnden Zuegen gespielt. Im eigenen Zug darf ein Strich der eigenen Farbe entfernt werden.
   Stirche die dann nicht mehr mit dem Boden verbunden sind werden auch entfernt.
@@ -46,23 +34,14 @@ Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie
 
 
 #example[
-  In diesem Spiel gewinnt immer _Rot_ (wenn man richtig spielt).
+  Nehmen wir an, es wird optimal gespielt.
+  Dann gewinnt in (a) immer _Rot_,
+  in (b) immer blau und
+  in (c) immer der zweite Spieler.
   $
-    #directed_hackenbush((("R", "R"), "B"))
-  $
-]
-
-#example[
-  In diesem Spiel gewinnt immer _Blau_.
-  $
-    #directed_hackenbush((("B", "R"), "B"))
-  $
-]
-
-#example[
-  In diesem Spiel gewinnt immer der zweite Spieler.
-  $
-    #directed_hackenbush(("R", "B"))
+   limits(#directed_hackenbush((("R", "R"), "B")))_"(a)"
+   limits(#directed_hackenbush((("B", "R"), "B")))_"(b)"
+   limits(#directed_hackenbush(("R", "B")))_"(c)"
   $
 ]
 
@@ -71,82 +50,99 @@ Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie
   Vielleicht kann man ein paar am Whiteboard besprechen?
 ]
 
-
-#comment[Warum fragen wir das hier?]
-- 1/2
-- ein kompliziereres -1/2
-- Irgendwas mit kreisen
-
 #comment[AB HIER MUSS ALLES AUF VORZEICHEN GEPRUEFT WERDEN, WEIL ICH LOST WAR]
 
-<<<<<<< HEAD
-Was wir jetzt machen können:
-Wissen das zwei Spiele win für rot sind: Wenn wir sie zusammen tun immernoch win für rot.
-Wir wollen das irgendwie quantifizieren.
-Vielleicht erinnern: Spiele sind Zahlen... was wäre, wenn wir sagen
-=======
->>>>>>> 27d1be3d8e0e8fae11e467744c56d5892a6174df
-
 Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
-und wir "tun die Spiele zusammen",
-dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
+und wir "tun die Spiele zusammen", dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
 
-<<<<<<< HEAD
-#let one = directed_hackenbush(("R",))
-#let minus-one = directed_hackenbush(("B",))
-=======
-#let one = hackenbush-position[ - B ]
-#let minus-one = hackenbush-position[ - R ]
->>>>>>> 27d1be3d8e0e8fae11e467744c56d5892a6174df
-$
-  #one := 1, .. "und" #minus-one := -1
-$
+#let one = directed_hackenbush(("B",))
+
+#definition[
+  Ein Spiel wo stehts der Startspieler verliert heisst $0$-Spiel. Und
+  $
+   #one := 1,
+  $
+]
+
+//#let zero = directed_hackenbush(((),))
+#comment[TODO]
+#let zero = $dots dots dots$
+#let minus-one = directed_hackenbush(("R",))
 
 Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
 
-#let two = directed_hackenbush(("R", "R"))
+#let two = directed_hackenbush(("B", "B"))
+#let one-minus-one = directed_hackenbush(("R", "B"))
 #let zero = directed_hackenbush(("R", "B"))
+#let half = directed_hackenbush((("R", "B"),))
+#let minus-half = directed_hackenbush((("B", "R"),))
+#let three-halfs = directed_hackenbush((("B", ("R", "B")),))
+#let minus-three-fourths = directed_hackenbush((("R", ("B", "R")),))
 
-#puzzle($2$)[
-  $#two = dots$
-][
-  $#two = 2$
-]
-
-#puzzle($0$)[
-  $#one + minus-one = dots$
-][
-  $#one + minus-one = 0$
-]
+#puzzle[Ganzzahlige Werte][
+  $
+  limits(two)_2 .. limits(#minus-one)_(-1) .. limits(#one-minus-one)_0
+  $
+][]
 
 Fazit: Das kling sinnvoll.
-Wir legen fest: *Spiele addiert man indem man sie zusammen tut.*
+
+#definition[
+  Wir legen fest, Spiele addiert man indem man sie zusammen tut.
+]
 
 #puzzle[$1/2$][
-  Findet ihr eine Position die den Wert $1/2$ haette?
+  Findet ihr Spiele mit den folgenden Werten?
+  $
+   "(a)" 1/2 .. "(b)" 3/2 .. "(c)" -3/4 .. "(d)" -1/2
+  $
 ][
-  $#directed_hackenbush((("R", "B"),))$
+  Loesungen waeren zum Beispiel:
+  $
+   limits(half)_(1/2)
+   limits(#three-halfs)_(3/2)
+   limits(#minus-three-fourths)_(-3/4)
+   limits(#minus-half)_(-1/2)
+  $
 ]
 
-#puzzle[$-3/4$][
-  Findet ihr eine Position die den Wert $-3/4$ haette?
-][
-  #comment[TODO]
-]
-
-#puzzle[$-1/2$][
-  Findet ihr eine Position die den Wert $-1/2$ haette?
-][
-  $#directed_hackenbush((("B", "R"),))$
-]
 
 Wie ist die Beziehung von $1/2$ und $-1/2$? Wir sehen:
-*Man negiert Spiele, indem man _Rot_ mit _Blau_ und _Blau_ mit _Rot_ ersetzt.*
+
+#definition[
+  Man negiert Spiele, indem man _Rot_ mit _Blau_ und _Blau_ mit _Rot_ ersetzt.
+]
 
 
 Rmk: Es gibt versch Spiele mit dem selben Wert. Aber die Addition ist davon unabhängig.
 Wir können also sagen, das zwei Spiele äquivalent sind, wenn G-H =ca= 0
 Ergibt sinn.
+
+#puzzle[Rechnen, rechnen, rechnen][
+$
+  limits(#directed_hackenbush(
+    (("B", "R", "R"),)
+  ))_(1/4)
+  limits(#directed_hackenbush(
+    (("R", ("B", "B")),)
+  ))_(-1/4)
+  limits(#directed_hackenbush(
+    (("R", ("R" ,"B")),)
+  ))_(-1 1/2)
+  limits(#directed_hackenbush(
+    (("B", "B", ("R" ,"B")),)
+  ))_(1 1/2)
+  limits(#directed_hackenbush(
+    (("B", "R", "R", "R"),)
+  ))_(1/8)
+  limits(#directed_hackenbush(
+    (("R", "B", ("B", "B")),)
+  ))_(-1/8)
+  limits(#directed_hackenbush(
+    (("B", "R", ("R", "B")),)
+  ))_(3/8)
+$
+][]
 
 #puzzle[$1/3$][
   Findet ihr ein Spiel mit dem Wert $1/3$?
@@ -204,134 +200,86 @@ So vorstellen undendlich viele übereinander, aber wenn man unten einen wegnimmt
   Probiert es aus!
 ][
   Immer abwechselnd rot und blau ergeben
-  $ #hackenbush(
+  $
+  #hackenbush(
     ((0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5)),
     ((0, 1, red), (1, 2, blue), (2, 3, red), (3, 4, blue), (4, 5, black, "dashed")),
-  ) = 2/3 $.
+  ) = 2/3
+  $.
 ]
 
 Jetzt experimentieren wir etwas rum und wollen ein Gefuehl fuer solche _Tuerme_ bekommen.
 
+
 #puzzle[Blauer Turm][
   Welchen Wert wuerdet ihr dem (unendlich hohen) Turm aus nur blauen Segmenten zuordnen?
-  $#hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-  ]$
+  $
+   #hackenbush(
+    ((0, 0), (0, 1), (0, 2), (0,3)),
+    ((0, 1, red), (1, 2, red), (2, 3, red, "dashed")),
+  )
+ $
 ][
-  Der Turm ist groesser als jede endliche Zahl. Egal welches Spiel mit endlich vielen Segmenten wir dazu addieren, blau gewinnt immer. Sei Wert ist also irgendwie $oo$
+  Der Turm ist groesser als jede endliche Zahl. Egal welches Spiel mit endlich vielen Segmenten wir dazu addieren, blau gewinnt immer. Sei Wert ist also irgendwie $oo$.
 ]
 
 #puzzle[Blauer Turm + roter Turm][
   Welchen Wert wuerdet ihr diesem Turm zuordnen?
-  $#hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-    - R
-      - R
-        - R
-          - dots.v
-  ]$
+
+  $
+  #hackenbush((
+    (0,0), (0,1), (0,2), (0,3),
+    (1,0), (1,1), (1,2), (1,3),
+  ),
+    (
+      (0,1, blue), (1,2, blue), (2,3, blue, "dotted"),
+      (4,5, red), (5,6, red), (6,7, red, "dotted")
+    )
+
+  )
+  $
 ][
   1. Ein Argument dafuer, dass der Wert 0 ist, waere, dass das Spiel genauso aussieht, wenn wir es invertieren.
   2. Anderes Argument: Erster Spieler muss seinen Stamm auf Hoehe $n$ abschneiden. Zweiter Spieler schneidet dann seinen bei $n+1$ ab.
      Also verliert, wer beginnt, also $0$.
 ]
 
+#let blue-tower = directed_hackenbush((("B", "...B"),))
+
 #puzzle[Blauer + blauer + roter Turm][
-  Wie ist dann der Wert von
+  Welches "einfachere" Spiel hat den gleichen Wert wie dieses Spiel?
   $
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-    - B
-      - B 
-        - B
-          - dots.v
-    - R
-      - R
-        - R
-          - dots.v
-  ]
-  $?
+  #directed_hackenbush((
+      ("B", "...B"),
+      ("B", "...B"),
+      ("R", "...R"),
+  ))
+  $
 ][
   $
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-    - B
-      - B 
-        - B
-          - dots.v
-    - R
-      - R
-        - R
-          - dots.v
-  ] =
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-    - R
-      - R
-        - R
-          - dots.v
-  ] +
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-  ] =
-  0 +
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-  ] =
-  #hackenbush-position[
-    - B
-      - B 
-        - B
-          - dots.v
-  ]
-  $.
+  #directed_hackenbush((
+      ("B", "...B"),
+      ("B", "...B"),
+      ("R", "...R"),
+  )) = #blue-tower
+  $
+
 ]
 
 #definition[
-  Wir nennen $#hackenbush-position[
-    - B
-      - B
-        - B
-          - dots.v
-  ]$ ab jetzt $omega$
+  Wir nennen $#blue-tower$ jetzt $omega$.
 ]
 
 Wir haben jetzt spielen (t.w. sehr große) Zahlen zugeordnet.
 Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt immer... bla.
+
 
 #puzzle[Seeehr kleine Zahl][
   Könnt ihr euch Zahl ausdenken, die kleiner ist als $1/n$ für alle $n$?
 ][
   Ein Beispiel waere
   $
-  #hackenbush-position[
-    - B
-      - R
-        - R
-          - R
-            - dots.v
-  ] = 1/omega
+  #directed_hackenbush((("B", ("R", ("...R", ))),))
   $
   #comment[Hier stand 1/omega^n, aber ich denke, dass sollte 1/omega sein, oder?]
 ]
@@ -371,24 +319,22 @@ Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 ]
 
 
+
 #puzzle[][
   Wer gewinnt in dem jeweiligen Spiel?
   $
-  #hackenbush-position[
-    - G
-      - R
-  ]
+
+  #directed_hackenbush((("G", "R"),))
   ..
 
-  #hackenbush-position[
-    - G
-      - B
-  ]
+  #directed_hackenbush((("G", "B"),))
+
   $
 ][
 ]
 
 #comment[LESEZEICHEN]
+
 
 Schaut euch mal diese Position an:
 
