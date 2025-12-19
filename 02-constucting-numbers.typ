@@ -143,8 +143,22 @@ Zuletzt brauchen wir eine Ordnung auf den natürlichen Zahlen.
 #rmk[
   Wenn euch sowas Spaß macht und ihr damit spannendere Dinge machen wollt, dann mögt ihr mathematische Logik. Wenn man das richtig aufzieht kann man z.B. solche Dinge beweisen wie:
 
-  #thm[(Ax's Theorem)
-    Jede Aussage in Logik erster Ordnung in der Sprache $op("Fld")$ (also mit Symbolen $forall, exists, not, times,plus, 0, 1$, Variablen und logischen Ausdrücken) ist genau dann in $QQ$ wahr, wenn sie in $FF_p$ wahr ist für hinreichend große Primzahlen $p$. Insbesondere kann man damit gut über Polynome reden.
+  // #thm[
+  //   Jede Aussage in Logik erster Ordnung in der Sprache $op("Fld")$ (also mit Symbolen $forall, exists, not, times,plus, 0, 1$, Variablen und logischen Ausdrücken) ist genau dann in $QQ$ wahr, wenn sie in $FF_p$ wahr ist für hinreichend große Primzahlen $p$. Insbesondere kann man damit gut über Polynome reden.
+  // ]
+  #thm[(Ax's theorem)
+    Jede injektive Polynomfunktion $f: CC^n -> CC^n$ is auch surjektiv.
+  ]
+  #proof[
+    (Sketch)
+    Wir können diese Aussage für ein bestimmtes $f$ als logische Formel erster Ordnung in der Sprache $op("CFld")_0$ (algebraisch abgeschlossene Körper mit Charakteristik $p=0$) aufschreiben. Wir brauchen folgende Schritte:
+
+    1. Für jede logische Formel $phi$ in $op("CFld")_p$ ist entweder $phi$ oder $-phi$ aus den Axiomen herleitbar. ($op("CFld")_p$ ist eine vollständige Theorie.)
+    2. Die Aussage gilt für endliche Körper.
+    3. Die Aussage gilt für den angebraischen Abschluss endlicher Körper. Folgt mit $2.$ aus
+    $ K = uuu_{F subset K | F text("endlich")} F. $
+
+    Sei $phi$ die Formel die für ein injektives $f$ beschreibt, dass es injektiv ist. Dann ist sie mit $1.$ beweisbar aus den Axiomen von $op("CFld")_0$. Ein solcher Beweis ist endlich und benutzt daher nur endlich viele Axiome der Form $1+1+...+1 != 0$. Deshalb funktioniert er auch für $op("CFld")_p$ für hinreichend großes $p$. Sei nun $psi$ die Formel die beschreibt, dass $f$ nicht surjektiv ist. Analog ist $psi$ beweisbar für hinreichend großes $p$ und damit $f$ nicht surjektiv für hinreichend großes $p$. Ein Wiederspruch nach $3.$.
   ]
 ]
 
@@ -156,7 +170,7 @@ Mit natürlichen Zahlen können wir additive Gleichungen aufstellen:
 $ 7 + x = 11 $
 $ 11 + x = 7 $
 
-Manche diese Gleichungen haben aber keine Lösungen. Deshalb wollen wir negative Zahlen einführen.
+Manche diese Gleichungen haben aber keine Lösungen. Um das zu lösen führen wir negative Zahlen ein.
 
 #rmk[
   Wir können dieso Motivation auch etwas anders darstellen. Wir hätten zum Beispiel gerne, dass für feste $n, m$ jede Aussage
@@ -166,13 +180,13 @@ Manche diese Gleichungen haben aber keine Lösungen. Deshalb wollen wir negative
   Alternativ halten wir fest das Gruppen toll sind. Diese sind auch Monoide. Es gibt also einen Funktor $op("Grp") -> op("Mnd")$ der Inverse vergisst. Wir suchen einen adjungierten Funktor.
 ]
 
-Die Gleichung $m + x = n$ für feste $m$ und $n$ charakterisiert $x$ schon komplett. (Also wenn wir einen größeren Zahlraum hätten.) Wir würden gerne sagen
+Die Gleichung $n + x = m$ für feste $n$ und $m$ charakterisiert $x$ schon komplett. (Zumindest wenn wir einen größeren Zahlraum hätten.) Wir würden gerne sagen
 $
-  x approx (m+x = n).
+  x approx (n+x = m).
 $
 Etwas kürzer:
 $
-  x approx (m, n) in NN.
+  x approx (n, m) in NN
 $
 Das einzige Problem dabei ist, dass z.B.
 
@@ -183,43 +197,59 @@ dieselbe Zahl beschreiben sollen.
 
 #puzzle(
   [Equivalenzrelation],
-  [Wie können wir mit den Mitteln der natürlichen Zahlen beschreiben, wann $(m+x = n) approx (p + x = q)$, kurz $(m,n) approx (p,q)$ gelten sollte?],
+  [Wie können wir mit den Mitteln der natürlichen Zahlen beschreiben, wann $(n+x = m) approx (p + x = q)$, kurz $(n,m) approx (p,q)$ gelten sollte?],
   [
-    $ n + p = m + q $
+    $ n + q = m + p $
   ],
 )
 
-Dies ist eine Äquivalenzrelation und entspricht unserem Ziel, hätten wir einen größeren Zahlkörper.
+Dies ist eine Äquivalenzrelation und erfüllt unsere Erwartungen, wie sich die Gleichungen verhalten sollten.
 
 #definition[
-  abc
+  Die natürlichen Zahlen sind die Menge $NN^2 \/ ~$ wobei
+  $ (n,m) ~ (p,q) :<=> n+q = m+p $
 ]
 
-Wir wollen negative Zahlen einführen, Minus rechnen.
-Aber wenn wir 7-11 rechnen, haben wir ein Problem, weil wir keine natürliche Zahl mehr haben.
-Idee: Identifiziere Zahlen mit solchen Rechnungen, wir wollen also
+x = m - n
+y = q - p
+xy = (np + mq) - (mp + nq)
 
-7-11 "=" -4
-und
-11-7 "=" 4
 
-=> Die ganzen Zahlen definieren wir als N x N / \equiv
-(Also tupel (n,n) sodass wir bestimmte Tupel identifizieren)
+#puzzle([Rechenregeln], [Wie würdet ihr Addition/Multiplikation und Subtraktion definieren?], [
+  $ [(n,m)] + [(p,q)] = [(n+p, m+q)] $
+  $ [(n,m)] - [(p,q)] = [(n+q, m+p)] $
+  $ [(n,m)] + [(p,q)] = [(m p + n q, m q + n p)] $
 
-(7, 11) "=" (2,6)
-7-11 "=" 2-6
+  Das ist alles wohldefiniert. (Unabhängig vom Repräsentanten.)
+])
 
-Idee, wie wir das defnieren können mit Sachen die wir mit nat. Zahlen machen können?
-=> 11+2 = 7+6
-Evt. Q: Wie würdet ihr Addition und Multiplikation definieren?
+#rmk[
+  $ NN arrow.r.hook ZZ "via" n |-> [(0, n)] $
+]
 
+#rmk[
+  Diese Konstruktion gibt einen Funktor $op("Mnd") -> op("Grp")$.
+]
 
 == Rationale Zahlen
 
-Q: Wie ist das mit rationale Zahlen?
+#puzzle([Rationale Zahlen], [Wie definiert ihr rationale Zahlen und ihre Rechenoperationen?], [
 
-A: (a, b) (b != 0)
-=> Wir benutzen sogar die Notation.
+  #definition([
+    Die rationalen Zahlen sind die Menge
+    $ QQ = ZZ xx (ZZ - {0}) \/ ~ $
+    mit
+    $ (p,q) ~ (r,s) :<=> p s = r q. $
+    Die Körperoperationen sind gegeben durch:
+
+    $ 0 = [(0,1)] $
+    $ 1 = [(1,1)] $
+    $ [(p,q)] * [(r,s)] = [(p r,q s)] $
+    $ [(p,q)] + [(r,s)] = [(p s + q r,q s)] $
+    $ - [(p,q)] = [(-p, q)] $
+    $ [(p,q)]^(-1) = [(q, p)] $
+  ])
+])
 
 == Reelle Zahlen
 
