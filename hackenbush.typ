@@ -88,6 +88,8 @@
 
 
 #let to_color(v) = {
+  v = v.trim("...")
+
   if v == "R" {
     return red
   }
@@ -98,6 +100,14 @@
     return blue
   }
   return black
+}
+
+#let to_style(v) = {
+  if v.starts-with("...") {
+    "dotted"
+  } else {
+    "solid"
+  }
 }
 
 #let concat(l, s) = {
@@ -142,6 +152,7 @@
             from_to_col.at(0) + prev_node_count,
             from_to_col.at(1) + prev_node_count,
             from_to_col.at(2),
+            from_to_col.at(3),
           ),
         ),
     )
@@ -151,6 +162,7 @@
       0,
       prev_node_count,
       to_color(gnf.at(i).at(0)),
+      to_style(gnf.at(i).at(0))
     ))
     prev_node_count = nodes.len()
   }
@@ -189,6 +201,7 @@
           new_nodes.len(),
           edge.at(1) - 1,
           edge.at(2),
+          edge.at(3)
         ),
       )
       new_nodes.push((
@@ -201,6 +214,7 @@
           edge.at(0) - 1,
           edge.at(1) - 1,
           edge.at(2),
+          edge.at(3)
         ),
       )
     }
