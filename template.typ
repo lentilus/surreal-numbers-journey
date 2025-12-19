@@ -8,6 +8,11 @@
   #it
 ]
 
+#let thm(it) = [
+  *Theorem*.
+  #it
+]
+
 #let example(it) = [
   *Beispiel*.
   #it
@@ -15,6 +20,11 @@
 
 #let definition(it) = [
   *Definition*.
+  #it
+]
+
+#let construction(it) = [
+  *Konstruktion*.
   #it
 ]
 
@@ -33,6 +43,27 @@
   #answer
 ]
 
+#let diff_puzzle(name, question, answer) = [
+  *Schweres Raetsel* *#name*.
+  #question
+
+  *Loesung*.
+  #answer
+]
+
+#let question(body) = [
+  *Frage:* #body
+]
+
+#let interactive_question(body, answer) = [
+  *Frage:* #body
+
+  *Antwort:* #answer
+]
+
+#let rmk(remark) = [
+  *Remark:* #remark
+]
 
 // Here we can put some definitions we want to use
 #let up = $arrow.t$

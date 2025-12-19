@@ -1,72 +1,199 @@
 #import "template.typ": *
 #show: template
 
-= Konstruktionen bekannter Zahlenraeume
+= Konstruktionen bekannter Zahlenräume
 
-Wir haben jetzt Spiele gesehen und ihnen Zahlen zugeordnet.
-Sind auf seltsame Dinge gestoßen (Grün?)
-Und auch diese unendlichen hohen Türme und wollen das jetzt etwas formalisieren.
+Wir haben jetzt Spiele gesehen und ihnen Zahlen zugeordnet. Dabei sind wir auf sehr seltsame Dinge gestoßen:
 
-Fangen wir am zur Wiederholung mal die "normalen Zahlen zu definieren" (also N, Z, Q, R)
-Vorallem um ein Gefühl dafür zu bekommen, wie Definitionen für sowas aussehen können, wenn ihr das noch nie gemacht habt 
+- Wie funktionieren unendlich hohe Türme genau?
+- Was machen diese grünen Zweige?
 
-Habt ihr das schonmal gesehen?
-=> Wenn nicht, nicht schlimm, nicht sooo wichtig. Aber ganz nett.
+In diesem und dem folgenden Abschnitt schauen wir uns an, wie wir Spiele richtig formalisieren können. Zur Motivation konstruieren wir dafür erstmal die uns schon bekannten Zahlräume und werden dabei schon einigen interessanten Techniken begegnen.
 
-== Natürliche Zahlen (Peano)
+#question[Habt ihr das schonmal gesehen?]
 
-Natürliche Zahlen...
-haben 0
-und wenn n eine natürliche Zahl ist, dann kann man den Nachfolger s(n) "=" n+1 bilden
-und wir haben
+== Natürliche Zahlen
 
-s(n) != s(m) fall n != m
-s(n) != 0
+Die natürlichen Zahlen kennen wir alle. Es ist einfach die Menge
 
-Also können wir eine natürliche Zahlen eindeutig darstellen als
-s(....s(0))
-Oder als Abkürzung:
-xxxxxxxxxxxx (12)
-(freier Monoid in einer Variable)
+$ { 0, 1, 2, 3, 4, ... }. $
 
+Allerdings hat diese Definition ein großes Problem: Was bedeutet "$...$"?
 
-Jetzt können wir den Zahlen Namen geben...
-1, 2, ...
+#question[Was ist euer erster Impuls, wenn ihr probieren wollt das zu formalisieren?]
 
-Wir haben eine strikte Ordnung auf den Zahlen
+Jede Definiton von natürlichen Zahlen sollte das folgende erfüllen:
 
-Jetzt brauchen wir Addition..
-Wir sagen
+- $0$ ist eine natürliche Zahl.
+- Der Nachfolger einer natürlichen Zahl ist eine natürliche Zahl.
+- $0$ ist die einzige natürliche Zahl die nicht Nachfolger einer anderen natürlichen Zahl ist.
+- Aus $s(n) = s(m)$ folgt $n = m$.
 
-n + 0 = 0
-n + 1 = s(n)
-n + s(m) = s(n) + m
+#definition([
+  Ein $NN$-Objekt ist eine Menge $M$ mit einem besonderen Element $0 in M$ und einer Nachfolgerfunktion $s: M -> M$ sodass
 
-Und das ist wohldefiniert
-=> Glaubt ihr das?
+  $ not exists n in M : s(n) = 0 $
+  $ forall n,m in M : s(n) = s(m) -> m = n. $
+])
 
-Wir können jetzt damit Induktionen machen:
+#puzzle([], [Gibt es $NN$-Objekte die nicht $NN$ sind?], [
+  $NN union.sq ZZ$. Allgemeiner $NN union.sq G$ mit einem Automorphismus $G -> G$.
+])
 
-Eine Aussage gilt für alle natürlichen Zahlen g.d.w. sie für 0 gilt und wenn sie für n gilt, gilt sie auch für s(n).
-(Bild)
-Weil genau Definition.
-Wir können das auch anders sagen:
-Eine Aussage gilt für alle n, g.d.w. wenn sie für alle m < n folgt die Aussage für m
+#rmk[Es gibt keine Menge an logischen Formeln erster Ordnung, welche genau von $NN$ erfüllt wird.]
 
-Kommt euch das bekannt vor?
-(Dann evt.) Beispiel:
+Wie finden wir aber nun unser $NN$?
 
-Question: Sum_k=1^n k = 1 + 2 + ... = n(n+1)/2
-Question: Könnt ihr mit diesem Bild einen grafischen Beweis finden (Halbes Rechteck)
+#definition(
+  [
+    $NN$ ist bis auf Isomorphie das eindeutig bestimmte $NN$-Objekt, welches kein  $NN$-Unterobjekt besitzt.
+  ],
+)
 
-Multiplikation:
-```
-m * 0 = 0
-m * 1 = m
-m * s(n) = m * n + m
-```
+#rmk[
+  Es gibt eine Kategorie von $NN$-Objekten. $NN$ ist das initiale $NN$-Objekt.
+]
+
+#rmk[
+  Sobald wir zeigen, dass es so ein Objekt gibt, dann beschreibt die obige Eigenschaft es vollkommen und wir brauchen theoretisch keine explizite Konstruktion mehr um damit zu arbeiten. (vgl. Tensorprodukt)
+]
+
+#construction[
+  (Nach Peano)
+
+  Eine natürliche Zahl ist ein Symbol der Form
+  $
+    0, s(0), s compose s(0), s compose s compose s(0), ...
+  $
+  Wir können dies abkürzen als
+  $
+    0, x, x x, x x x, ...
+  $
+  Die Menge aller solchen Symbole nennen wir $NN$.
+]
+
+Man sieht intuitiv (und damit je nach den Axiomen mit denen man arbeitet leicht), dass diese Konstruktion die universellen Eigenschaften der natürlichen Zahlen hat.
+
+#rmk[Mit dieser Darstellung (und der späteren Addition) sieht man, dass $NN$ der freie Monoid in einer Variable ist.]
+
+Mit die wichtigste Eigenschaft der natürlichen Zahlen ist, dass man mit ihnen Induktion machen kann:
+
+#thm[
+  Sei $P: NN -> {T,F}$ eine Aussage die jeder natürlichen Zahl einen Wahrheitswert zuordnet. Wenn gilt:
+
+  $ P(0) $
+  $ forall n : P(n) => P(s(n)) $
+
+  Dann gilt $P(n)$ für alle $n in NN$. (Man könnte auch sagen, dass $P$ konstant ist, aber wer würde das tun?)
+]
+
+#proof[
+  Die $n in NN$ für die $P$ gilt bilden eine induktive Menge. Aber die einzige iduktive Teilmenge von $NN$ ist $NN$.
+]
+
+#rmk[
+  Unsere Definition von $NN$ kann man mit dem Prinzip der Induktion in Logik zweiter Ordnung formalisieren, da $(NN, s, 0)$ die eindeutige Struktur ist mit
+
+  $ not exists n in M : s(n) = 0 $
+  $ forall n,m in M : s(n) = s(m) -> m = n. $
+  $ forall P: M -> {T,F}: (P(0) = T and (P(n) = T -> P(s(n)) = T)) -> (forall n in NN: P(n)) $
+]
+
+#puzzle(
+  [
+    Euler Formel
+  ],
+  [Zeige dass für $n in NN$
+    $ sum_(k=0)^n k = 1+ ... + n= frac(n(n+1), 2) $
+  ],
+  [
+    Die Aussage gilt für $n=0$. Wenn sie für ein festes $n$ gilt, dann ist
+
+    $ sum_(k=0)^(n+1) k = sum_(k=0)^n k + (n+1) = frac(n(n+1), 2) + (2(n+1))/2 = ((n+1)(n+2))/2. $
+  ],
+)
+
+Eine weitere wichtige Eigenschaft von natürlichen Zahlen ist _Addition_. Tatsächlich haben wir Addition noch nicht definiert.
+
+#definition[
+  Seien $n$ und $m$ zwei natürliche Zahlen. Definiere
+  $ n + 0 = n $
+  $ n + s(m) = s(n + m) $
+]
+
+#thm[Für alle $m$ und $n$ ist $m+n$ wohl definiert. (Also die Rekusion terminiert.)]
+
+#proof[Für $m=0$ haben wir es definiert. Für $m = n+1$ ist es wohldefiniert, falls es für $n$ wohldefiniert ist.]
+
+#rmk[Induktive Definitionen werden später noch wichtig sein. Denkt gerne immer wieder an dieses Beispiel zurück.]
+
+Aus dieser Definition können wir Kommutativität und Assoziativität und so herleiten. Das ersparen wir euch (;
+
+#puzzle([Multiplikation], [Wie würdet ihr Multiplikation definieren?], [
+  $ m * 0 = 0 $
+  $ m * s(n) = m * n + m $
+])
+
+Zuletzt brauchen wir eine Ordnung auf den natürlichen Zahlen.
+
+#puzzle([Ordnung], [Wie würdet ihr $x <= y$ definieren?], [
+  $ x <= y :<=> exists n in NN: x + n = y $
+])
+
+#rmk[
+  Wenn euch sowas Spaß macht und ihr damit spannendere Dinge machen wollt, dann mögt ihr mathematische Logik. Wenn man das richtig aufzieht kann man z.B. solche Dinge beweisen wie:
+
+  #thm[(Ax's Theorem)
+    Jede Aussage in Logik erster Ordnung in der Sprache $op("Fld")$ (also mit Symbolen $forall, exists, not, times,plus, 0, 1$, Variablen und logischen Ausdrücken) ist genau dann in $QQ$ wahr, wenn sie in $FF_p$ wahr ist für hinreichend große Primzahlen $p$. Insbesondere kann man damit gut über Polynome reden.
+  ]
+]
+
 
 == Ganze Zahlen
+
+Mit natürlichen Zahlen können wir additive Gleichungen aufstellen:
+
+$ 7 + x = 11 $
+$ 11 + x = 7 $
+
+Manche diese Gleichungen haben aber keine Lösungen. Deshalb wollen wir negative Zahlen einführen.
+
+#rmk[
+  Wir können dieso Motivation auch etwas anders darstellen. Wir hätten zum Beispiel gerne, dass für feste $n, m$ jede Aussage
+  $ exists x : n + x = m $
+  wahr wird.
+
+  Alternativ halten wir fest das Gruppen toll sind. Diese sind auch Monoide. Es gibt also einen Funktor $op("Grp") -> op("Mnd")$ der Inverse vergisst. Wir suchen einen adjungierten Funktor.
+]
+
+Die Gleichung $m + x = n$ für feste $m$ und $n$ charakterisiert $x$ schon komplett. (Also wenn wir einen größeren Zahlraum hätten.) Wir würden gerne sagen
+$
+  x approx (m+x = n).
+$
+Etwas kürzer:
+$
+  x approx (m, n) in NN.
+$
+Das einzige Problem dabei ist, dass z.B.
+
+$ 11 + x = 7 $
+$ 5 + x = 1 $
+
+dieselbe Zahl beschreiben sollen.
+
+#puzzle(
+  [Equivalenzrelation],
+  [Wie können wir mit den Mitteln der natürlichen Zahlen beschreiben, wann $(m+x = n) approx (p + x = q)$, kurz $(m,n) approx (p,q)$ gelten sollte?],
+  [
+    $ n + p = m + q $
+  ],
+)
+
+Dies ist eine Äquivalenzrelation und entspricht unserem Ziel, hätten wir einen größeren Zahlkörper.
+
+#definition[
+  abc
+]
 
 Wir wollen negative Zahlen einführen, Minus rechnen.
 Aber wenn wir 7-11 rechnen, haben wir ein Problem, weil wir keine natürliche Zahl mehr haben.
@@ -178,8 +305,8 @@ Ordinal numbers sind
 
 Wir können mit Ordinals coole Induktion machen, erstmal ein Beispiel:
 
-Jede absteigende Folge von Ordinals terminiert. 
-Proof: 
+Jede absteigende Folge von Ordinals terminiert.
+Proof:
 Angenommen es gibt eine eine unendliche tiefe absteigende Folge. Wegen well-foundedness gibt es keine unendlich tiefen Mengen
 => Wdspr.
 (Wenn ihr den Beweis nicht mögt => könnt das einfach annehmen.)
@@ -190,7 +317,7 @@ Nimm eine absteigende Folge an Ordinals => Terminiert
 === Transfinite Induktion
 Angenommen P(X) ist eine Eigenschaft von Ordinals. Wenn
 P(Y) für alle Y < X => P(X)
-Dann gilt die Aussage P(X) für alle Ordinals. 
+Dann gilt die Aussage P(X) für alle Ordinals.
 Sonst gibt es kleinstes für das das nicht gilt.
 
 Q: Every infinite ordinal can be uniquely written as the sum of a limit ordinal and a finite ordinal
