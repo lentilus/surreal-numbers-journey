@@ -1,23 +1,112 @@
 #import "template.typ": *
+#import "hackenbush.typ": *
 #show: template
 
 = Konstruktion der Surrealen Zahlen
 
 Wir bleiben erstmal bei Red-Blue Hackenbush.
-Wenn ihr eine Position habt, wie habt ihr deren Wert bestimmt? Also wie bestimmt ihr den Wert von 3/4?
-=> Was kann der eine machen, was kann der andere machen?
-Das heißt ein Spiel ist beschrieben dadurch, was für Positionen jeder spieler daraus ableiten kann.
 
-Und wir haben folgende Eigenschaft:
-Q: Wenn L einen Zug macht ist es immer besser für ??, als wenn R einen Zug macht.
-Jeden Zug den du machst wird das Spiel für dich schlechter und für den anderen nicht unbedingt
-Heuristisch: Stacks anschauen
+#question[
+  Wenn ihr eine Position habt, wie habt ihr herausgefunden, wer gewinnt? Also wer gewinnt zum Beispiel bei folgenden Spielen:
 
-Wenn rot einen Zug macht ist es danach schlechter für Rot, als wenn blau einen Zug gemacht hätte
-[Entweder heuristisch, oder Argument ausdenken]
+  #align(center, [
+    #hackenbush(
+      (
+        (0, 0),
+        (0, 1),
+        (1, 1),
+        (1, 0),
+        (2, 1),
+        (2, 0),
+      ),
+      (
+        (0, 1, blue),
+        (2, 3, blue),
+        (1, 2, red),
+        (4, 5, red),
+      ),
+    )
+    #directed_hackenbush((("B", ("B", "R")), ("R", "B", "R"), ("B", "R", "R", "R")))
+  ])
+]
 
-Zudem sind Spiele sind ja endlich. Wenn wir also alle möglichen Werte durchnummerieren wollen, dann können wir einfach nach Maximalanzahl der Züge gehen.
+Wir bestimmen das Ergebnis rekursiv dadurch, indem wir schauen auf welche Spiele wir es zurück führen können. In welche Spielsituation kann der eine das Spiel überführen und in welche der andere?
 
+Tatsächlich können wir den Wert einer Position komplett dadurch beschreiben, was die beiden Spieler machen können! Das heißt zwei Spiele, die man in dieselben Spiele überführen kann durch einen Zug subtrahieren sich zu $0$.
+
+#example[
+  Die Position $omega$
+
+  #align(center, [#directed_hackenbush((("R", ("R", ("R", "...R"))),))])
+
+  ist jene, welche Rot in eine Position des Wertes $n in NN$ umformen kann und wo Blau keinen Zug hat.
+]
+
+Zudem haben wir die folgende Eigenschaft:
+
+#puzzle(
+  [],
+  [
+    Git es eine Position für (oBdA.) Rot in der es vorteilhaft ist erst einen extra Zug zu machen und dann mit der neuen Position zu spielen als direkt anzufangen zu Spielen?
+  ],
+  [
+    Nein! Sei $G$ ein Spiel und $G'$ ein Spiel was aus $G$ folgt, nachdem $G$ einen Zug gemacht hat. Schauen wir uns $G' - G$ an. Wenn blau anfängt kann es mit dem ersten Zug $-G$ in $-G'$ überführen und gewinnt damit als nun zweiter Spieler die Position $G' - G'$ durch einfach kopieren von Rots zügen. Also ist $G' <= G$ (angenommen unsere Arithmetik ergibt Sinn.)
+  ],
+)
+
+#puzzle(
+  [],
+  [
+    Gibt es eine Position sodass es Rot egal ist, ob es zuerst einen Zug macht?
+  ],
+  [
+    Ja! Zum Beispiel folgende Position:
+
+    #align(center, [
+
+      #hackenbush(
+        (
+          (0, 0),
+          (0, 1),
+          (1, 0),
+          (1, 1),
+          (2, 0),
+          (2, 1),
+          (2.5, 0),
+          (2.5, 1),
+          (2.8, 0),
+          (2.8, 1),
+          (3, 0),
+          (3, 1),
+          (3.2, 0),
+          (3.2, 1),
+        ),
+        (
+          (0, 1, blue),
+          (2, 3, red),
+          (4, 5, red),
+          (6, 7, red),
+          (8, 9, red),
+          (10, 11, red),
+          (12, 13, red, "dashed"),
+        ),
+      )
+    ])
+  ],
+)
+
+- was ist ein Spiel?
+- diese Spiele haben ein Problem: Summe von 2 SPielen ist kein Spiel
+- wir wollen iterativ Spiele herstellen, wo wenn ein Spieler alleine sie spielen würde, dass sie irgendwann vorbei wären. Das heißt er maximal 0 dann 1, dann 2, ... dann omega..
+- => wollen, dass es strikt besser ist keinen Zug zu machen (Summe...)
+
+
+===
+
+mit komplexität omega.. ... als...
+definieren Induktiv.. ist wohldefiniert
+
+Ordinalzahlen betten ein durch... {ordinal kleiner | größer }
 
 Damit können wir surreal numbers wiefolgt definieren:
 
@@ -101,7 +190,7 @@ Dieser Körper ist sehr groß (eine echte Klasse.) (Tatsächlich lässt sich jed
 - ...
 - universelle Konstruktion
 
-Wir wollen uns mal ein bisschen mit lustigen Unterkörpern beschäftigen. Fangen an mit 
+Wir wollen uns mal ein bisschen mit lustigen Unterkörpern beschäftigen. Fangen an mit
 Hyperreals
 
 Wir haben ja dieses Epsilon und wollen damit jetzt Dinge machen.
