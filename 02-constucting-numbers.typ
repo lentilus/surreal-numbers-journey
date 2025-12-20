@@ -207,6 +207,7 @@ dieselbe Zahl beschreiben sollen.
 Dies ist eine Äquivalenzrelation und erfüllt unsere Erwartungen, wie sich die Gleichungen verhalten sollten.
 
 #definition[
+  #comment[Soll hier ZZ stehen?]
   Die natürlichen Zahlen sind die Menge $NN^2 \/ ~$ wobei
   $ (n,m) ~ (p,q) :<=> n+q = m+p $
 ]

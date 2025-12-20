@@ -5,62 +5,67 @@
   edges,
   size: 0.7,
 ) = {
-  cetz.canvas({
-    import cetz.draw: *
+  let minx = nodes.at(0).at(0)
+  let maxx = nodes.at(0).at(0)
+  let miny = nodes.at(0).at(1)
+  let maxy = nodes.at(0).at(1)
 
-    scale(size)
+  for node in nodes {
+    let x = node.at(0)
+    let y = node.at(1)
+    minx = if x < minx { x } else { minx }
+    maxx = if x > maxx { x } else { maxx }
+    miny = if y < miny { y } else { miny }
+    maxy = if y > maxy { y } else { maxy }
+  }
 
-    // Draw edges
-    for edge in edges {
-      let from = nodes.at(edge.at(0))
-      let to = nodes.at(edge.at(1))
-      let color = edge.at(2)
-      let style = if edge.len() > 3 { edge.at(3) } else { "solid" }
+  let baseline_shift = (-miny) * size * 1cm
+
+  box(baseline: baseline_shift, {
+    cetz.canvas({
+      import cetz.draw: *
+
+      scale(size)
+
+      for edge in edges {
+        let from = nodes.at(edge.at(0))
+        let to = nodes.at(edge.at(1))
+        let color = edge.at(2)
+        let style = if edge.len() > 3 { edge.at(3) } else { "solid" }
+
+        line(
+          from,
+          to,
+          stroke: (
+            dash: style,
+            paint: color,
+            thickness: 2.5pt
+          ),
+        )
+      }
+
+      for node in nodes {
+        circle(
+          node,
+          fill: white,
+          stroke: (
+            paint: black,
+            thickness: 0.8pt
+          ),
+          radius: 2.0pt,
+        )
+      }
 
       line(
-        from,
-        to,
+        (minx - 1, 0),
+        (maxx + 1, 0),
         stroke: (
-          dash: style,
-          paint: color,
-          thickness: 2.5pt
-        ),
-      )
-    }
-
-    // Draw nodes
-    for node in nodes {
-      circle(
-        node,
-        fill: white,
-        stroke: (
+          dash: "dotted",
           paint: black,
-          thickness: 0.8pt
+          thickness: 1pt,
         ),
-        radius: 2.0pt,
       )
-    }
-
-    // Compute x-range
-    let min-x = nodes.at(0).at(0)
-    let max-x = nodes.at(0).at(0)
-
-    for node in nodes {
-      let x = node.at(0)
-      if x < min-x { min-x = x }
-      if x > max-x { max-x = x }
-    }
-
-    // Baseline
-    line(
-      (min-x - 1, 0),
-      (max-x + 1, 0),
-      stroke: (
-        dash: "dotted",
-        paint: black,
-        thickness: 1pt,
-      ),
-    )
+    })
   })
 }
 
@@ -200,7 +205,7 @@
         (
           new_nodes.len(),
           edge.at(1) - 1,
-          edge.at(2),
+          edge.at(2) ,
           edge.at(3)
         ),
       )
@@ -263,6 +268,7 @@
   }
 }
 
+// for some reason this wrapper moves the hackebush game up one stroke
 #let directed_hackenbush(game) = {
   let nf = game.map(to_normal_form)
   let res = game_normal_form_to_graphics_input(nf)
