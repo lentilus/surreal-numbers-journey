@@ -13,6 +13,11 @@
   #it
 ]
 
+#let axiom(it) = [
+  *Axiom*.
+  #it
+]
+
 #let example(it) = [
   *Beispiel*.
   #it

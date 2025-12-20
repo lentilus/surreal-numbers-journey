@@ -1,4 +1,5 @@
 #import "template.typ": *
+#import "@preview/cetz:0.4.2"
 #show: template
 
 = Konstruktionen bekannter Zahlenräume
@@ -253,110 +254,291 @@ xy = (np + mq) - (mp + nq)
 
 == Reelle Zahlen
 
-Jetzt machen wir etwas interessanteres. Wisst ihr was die reellen Zahlen sind?
-=> Basically "alle" Zahlen auf dem Zahlenstrahl
-- pi, e, wurzel 2, jede Kommazahl
+#question([Wisst ihr, was die rellen Zahlen sind?])
 
-Es gibt bei Q ganz viele Lücken. Also zB keine Zahl die zum Quadrat 2 hat (!)
-(Interessante Übungsaufgabe)
+Die Grundidee ist die Folgende: Wenn wir nur den Zahlenstrahl mit $QQ$ haben, dann haben wir ganz ganz viele Lücken. Immer wenn wir beschränkte, monotone Folge $(a_n)_(n in NN)$ von (rationalen) Zahlen haben
 
-Schauen wir uns zB die Zahl
-0.110100100010000...
-an. Sie ist nicht rational
-(Interessante Übungsaufgabe)
+$
+  #cetz.canvas({
+    import cetz.draw: *
 
-Aber wir wissen genau, wo sie hin kommt. Zwischen die Menge.. und die Menge ..
-Beachte: Die linke Menge reicht aus.
-=> Machen das zur Definition
 
-Ein Dedekind Schnitt ist ...
-Wir definieren relle Zahlen als Menge aller Dedekind Schnitte.
+    line((-5.5, 0), (5.5, 0), stroke: (paint: black, thickness: 1pt))
 
-Q: Dedekind Schnitt für Wurzel 2?
-A: ... x^2 < 2, sign ... x^2 >= 2, sign
+    let tiks = range(-5, 6)
+    for tik in tiks {
+      line((tik, -0.1), (tik, 0.1))
+      content((tik, -0.5), [#tik])
+    }
 
-Rmk: Seht wie rationale Zahlen eingebettet werden?
-Q: Wie ist Mult/ Addition definiert?
+    let nodes = (-4.2, -2.3, -0.8, 0.2, 0.5, 0.7, 0.9, 1.1, 1.141)
 
-```
-===============
-Pause
-===============
-```
+    for node in nodes { circle((node, 0), fill: blue, stroke: (thickness: 0pt), radius: 2pt) }
+  })
+$
 
-== Ordinals
-Wir haben bei Hackenbush immer mehr Striche aufeinander gesetzt. Und irgendwann waren das (abzählbar) unendlich viele.
-Und dann haben wir noch einen Strich oben drauf gesetzt? Was haben wir eigentlich da gemacht?
-Wie können wir Infty + 1 rechnen, sodass es Sinn ergibt?
+hätten wir gerne, dass diese gegen eine relle Zahl konvergiert. Also dass ein $x in RR$ existiert mit
 
-Implizit haben wir die Ordinal Numbers benutzt.
-[Everything is fine meme, dog in fire, "alles in Ordnung"]
-[Bishofe der Mathematik / kleine Brüder von Kardinälen]
-[Schön aufgereiht aber sehr viele]
+$ forall QQ in.rev epsilon > 0 exists N in NN forall n in NN, n <= N: |a_n - x| < epsilon. $
 
-Wie wollen zählen und um das mathematisch zu machen ordnen wir jeder Zahl eine Menge zu.
+#example[
+  Jede Dezimalzahl
+  $ a_n a_(n-1) ... a_1 . b_(-1) b_(-2) b_(-3) ... ", mit" a_i, b_i in { 0, ..., 9}, (n = 0 "oder" a_n != 0) $
+  sollte eine (reelle) Zahl sein.
+]
 
-0 = {}
-1 = {0}
-2 = {0, 1}
-...
+#rmk(
+  [Man kann leicht zeige, dass genau die Dezimalzahlen rationale Zahlen darstellen, deren Nachkommadarstellung irgendwann periodisch wird.],
+)
 
-Das tolle dabei ist, die Kardinalität der Zahl entspricht der Zahl.
-Teilbarkeit entspricht der Ordnungsrelation.
+Wir wollen also informell eine relle Zahl mit den Äquivalenzklassen aller (monoton von unten) gegen sie konvergierenden Zahlen beschreiben. Eine Möglichkeit das zu tun ist über die folgende Definition:
 
-Wir können definieren n + 1 = {...n , n}
-=> Modell für natürliche Zahlen
+#definition[
+  Ein *Dedekind Schnitt* ist eine Aufteilung der rationalen Zahlen in zwei disjukte Mengen
+  $ QQ = L union.sq R $
+  mit $L, R != emptyset$ und
+  $ forall x in L exists y in L : x < y $
+  $ forall x in L forall y in R : x < y. $
+  Also $L$ "liegt links" von $R$ und hat kein größtes Element. Wir identifizieren einen Dedekind Schnitt $(L, R)$ im folgenden mit $L$.
+]
 
-Und wir haben n \subset m für n \in m
+#definition[
+  Die reellen Zahlen $RR$ sind als Menge genau die Dedekind-Schnitte.
+]
 
-Formal Def: Eine Ordinal number, ist eine Menge, die diese Eigenschaft erfüllt.
+#example[
+  Wir können $QQ$ durch
+  $ q in QQ |-> { r | r < q} = L in RR $
+  in $RR$ einbetten.
+]
 
-(aber uns genügt es einfach weiter mit der Konstruktion zu machen und ein Gefühl dafür zu bekommen)
+#question[
+  Wie würdet ihr $sqrt(2) in RR$ definieren?
+]
 
-Wir können uns jetzt die Menge aller natürlichen anschauen
-{0, ..., n , ...}
-die nennen wir Omega. Hat wieder die Ordinal number property. Und es ist nicht n +1 für ein n
-=> Nennen wir Limit Ordinal
-Aber wir können wieder +1 rechnen!
-{...N, N}
+#puzzle(
+  [Körperoperationen],
+  [
+    Wie würdet ihr Addition, Multiplikation, Additive und Multiplikative Inverse und Ordnung auf $RR$ definieren?
+  ],
+  [
+    $ 0 = 0 in QQ subset RR $
+    $ 1 = 1 in QQ subset RR $
+    $ L_1 + L_2 = { r + s | r in L_1, s in L_2} $
+    $ - L = { -r | r in QQ - L, exists s in Q-L : s < r} $
+    $ L_1 <= L_2 :<=> forall r in L_1 exists s in L_2: r <= s $
 
-Wenn wir so weiter machen können wir ganz viele Zahlen konstruieren, und zwar
+    Bei Multiplikation braucht man irgendwo Fallunterscheidungen. Wenn $L_1, L_2 <= 0$ können wir das Produkt definieren als
+    $ L_1 * L_2 = { p in QQ | forall r in L_1 forall s in L_2 exists q in QQ: p < q < r s} $
+    Für positive $L_1$ oder $L_2$ können wir durch additives Invertieren die definition von $L_1 * L_2$ darauf zurück führen.
 
-a) Successer ordinals
-b) Limit ordinals = Ordinal Property + Nicht successor ordinal
+    Zuletzt ist für $L != 0$
+    $ 1/ L = { q in QQ_(-) | forall l in L: l q < 1}. $
+  ],
+)
 
-{...N,  ...N+N} = 2N
-{...N,  ...2N} = NN
-{...NN, ...NN^NN, ..NN^NN^NN, ...NN^NN^NN^NN} = ...
+Man kann leicht prüfen, dass damit gilt:
 
-Ordinal numbers sind
-- Total geordnet (Teilbarkeit)
-- Sehr foundational (für jede Kardinal gibt es ein Ordinal === Axiom of Choice)
+- $RR$ ist ein Körper.
+- $QQ arrow.hook RR$ in eine Einbettung geordneter Körper.
+- $sqrt(2) * sqrt(2) = 2$
 
-Wir können mit Ordinals coole Induktion machen, erstmal ein Beispiel:
+Mit die wichtigste Eigenschaft von $RR$, der Grund warum wir es konstruiert haben ist, dass es _vollständig_ ist, also dass jede Cauchy-Folge konvergiert. Für unsere Zwecke genügt uns diese äquivalente Aussage:
 
-Jede absteigende Folge von Ordinals terminiert.
-Proof:
-Angenommen es gibt eine eine unendliche tiefe absteigende Folge. Wegen well-foundedness gibt es keine unendlich tiefen Mengen
-=> Wdspr.
-(Wenn ihr den Beweis nicht mögt => könnt das einfach annehmen.)
+#thm[Jede nach oben beschränkte Menge $A$ in $RR$ hat ein Supremum, also eine kleinste obere Schranke $s in RR$:
+  $ (forall a in A : a < s) and (forall r in RR : (forall a in A: a < r) -> s <= r) $
+]
 
-=== Jede nicht-leere Sammlung an Ordinals hat ein Minimum
-Nimm eine absteigende Folge an Ordinals => Terminiert
+#proof[
+  Falls $A subset QQ subset RR$, so ist
+  $ L = { q in QQ | exists a in A: q < a} $
+  das Supremum von $A$. Andernfalls betrachte
+  $ B := {b in QQ | exists a in A : b < a} subset QQ. $
+  Dann ist $ op("sup") A = op("sup") B $ und wir gewinnen.
+]
 
-=== Transfinite Induktion
-Angenommen P(X) ist eine Eigenschaft von Ordinals. Wenn
-P(Y) für alle Y < X => P(X)
-Dann gilt die Aussage P(X) für alle Ordinals.
-Sonst gibt es kleinstes für das das nicht gilt.
+== Ordinalzahlen
 
-Q: Every infinite ordinal can be uniquely written as the sum of a limit ordinal and a finite ordinal
+#image("assets/allesInOrdnung.jpg")
+
+Wir haben jetzt einige wichtige Zahlräume abgefrühstückt und ein paar Ideen gelernt die wir auch im Folgenden brauchen werden. Ab jetzt schauen wir, wie man diese gängigen Ideen erweitern oder modifizieren kann um über Hackenbush zu reden.
+
+Bei Hackenbush immer mehr Striche aufeinander gesetzt. Und irgendwann waren das (abzählbar) unendlich viele. Und dann haben wir noch einen Strich oben drauf gesetzt. Was haben wir eigentlich da gemacht?
+Wie können wir $infinity + 1$ rechnen, sodass es Sinn ergibt?
+
+Implizit haben wir die Ordinalzahlen benutzt. Wohingegen Kardinalzahlen angeben wie groß eine Menge ist, so haben Ordinalzahlen etwas mit Reihenfolge und Zählen zu tun.
+
+#example[
+  Im Deutschen gibt es die Unterscheidung
+  #align(center, ["Drei Äpfel" $<->$ "Der dritte Apfel"])
+]
+
+#definition[
+  Eine *Kardinalzahl* $kappa$ ist eine Isomorphieklasse von Mengen. Kardinalzahlen haben eine offensichlichen Ordnung.
+]
+
+#definition[
+  Eine *Ordinalzahl $M$* ist eine Menge sodass jedes Element von $M$ eine Teilmenge ist und $M$ bezüglich der Mengeninklusion total geordnet ist:
+
+  $ forall A in M : A subset M $
+  $ forall x,y in M : x in y or x = y or y in x $
+]
+
+Diese Definition ist am besten zu verstehen wenn man sich ein paar Beispiele anschaut. Die einfachste Ordinalzahl ist
+$ 0 := emptyset = {}. $
+Hier gilt die obige Aussage, weil es kein Element gibt, für welches man sie prüfen muss. Hier sind noch ein paar weitere Beispiele:
+$ 1 :={0} $
+$ 2 := {0,1} $
+
+#definition[
+  Die _Von-Neumann Konstruktion_ gibt ein Modell für die natürlichen Zahlen wie wir sie oben eingeführt haben durch die Definitionen
+  $ 0 := emptyset $
+  $ s(n) := n uu { n } $
+]
+
+#rmk[
+  Eine nützliche Eigenschaft an dieser Konstruktion ist, dass
+  $ |n| = n $
+  wobei wir links die Kardinalität von $n in NN$ als Menge meinen und rechts die (abstrakte) natürliche Zahl $n$.
+]
+
+Es gibt aber nicht nur endliche Ordinalzahlen:
+
+#example[
+  Die Menge $NN = { 0, 1, ...}$ ist zum Beispiel eine Ordinalzahl! Hierbei sehen wir wieder $n in NN$ als Menge an. Wir nennen $NN$ mit dieser Interpretation auch $omega$.
+]
+
+Immer wenn wir eine Ordinalzahl $alpha$ haben, können wir aus ihr eine neue Ordinalzahl konstruieren:
+
+#definition[
+  Sei $alpha$ eine Ordinalzahl. Wir nennen $s(alpha) = alpha uu { alpha }$ ihren _Nachfolger_. Falls $alpha = s(beta)$, so nennen wir $alpha$ eine _Nachfolger-Ordinalzahl_.
+]
+
+#proof[
+  Um das Verständnis zu verbessern zeigen wir kurz, dass dabei immer eine Ordinalzahl rauskommt.
+
+  Offensichtlich ist $s(alpha)$ transitiv. Um die totale Ordnung zu prüfen, müssen wir uns nur vergleiche mit $alpha$ anschauen. Aber für $alpha != beta in s(alpha)$ ist $beta in alpha$.
+]
+
+Mit dieser Definition haben wir auch die natürlichen Zahlen konstruiert!
+
+#question[Ist $omega$ eine Nachfolger-Ordinalzahl?]
+
+Allerdings können wir $omega$ anders mittels kleinerer Ordinalzahlen darstellen:
+
+#definition[
+  Eine Ordinalzahl $alpha$ is eine _Limit-Ordinalzahl_, falls
+  $ alpha = uuu_(beta < alpha) beta $
+]
+
+#example[
+  Die natürlichen Zahlen sind die Menge ${0, 1, 2, ...}$. Wir können sie durch die Teilmengen $0 = {}, 1 = {0}, 2 = {0,1}, "usw."$ komplett ausschöpfen. Dies steht im Gegensatz zu z.B. $2 = {0,1}$, da $0 uu 1 = 1$.
+]
+
+Ein vielleicht hilfreicher Gedanke beim Verständnis ist der Folgende: Die Definition, dass eine Ordinalzahl eine Limit-Ordinalzahl ist, ist ein Test und weniger einer Konstruktion. Das heißt, ich gebe euch eine Ordinalzahl, (die ich irgendwie anders konstruiert habe) und ich könnt damit prüfen, ob es eine Limit-Ordinalzahl ist.
+
+#thm[
+  Folgende Dinge sind leicht zu verifizieren (oder glauben):
+
+  1. Jedes Element einer Ordinalzahl ist eine Ordinalzahl
+  2. Jede beschränkte Menge einer Ordinalzahl hat ein Supremum
+
+  Ein _initialer Abschnitt_ einer Ordinalzahl $alpha$ sei eine Teilmenge $M subset alpha$ mit
+
+  $ forall x in alpha : ( exists m in M : x <= m ) -> x in M $
+
+  3. Für jeden initialen Abschnitt $M$ einer Ordinalzahl $alpha$ gilt
+  $ M = alpha or M in alpha $
+]
+Es ist leicht zu sehen, dass Elemente von Ordinalzahlen wieder Ordinalzahlen sind. Damit können wir zeigen:
+
+#thm[Jede Ordinalzahl ist entweder eine Nachfolger-Ordinalzahl oder eine Limit-Ordinalzahl]
+
+#proof[
+  Sei $alpha$ eine Ordinalzahl. Betrachte
+  $ alpha' = uuu_(beta in alpha) beta $
+  Angenommen $alpha != alpha'$.
+
+  Die Menge $alpha'$ ist transitiv, da
+  $ x in alpha' => exists beta in alpha: x in beta => exists beta in alpha : x subset beta => x subset alpha'. $
+  Also ist $alpha' in alpha$.
+
+  Sei $alpha'' = s(alpha')$. Diese Menge ist wieder transitiv. Angenommen $alpha != alpha''$, dann ist $alpha'' in alpha$. Aber dann ist $alpha' supset alpha'' in.rev alpha'$ nach Konstruktion, ein Wiederspruch. (Nach dem Fundierungsaxiom darf keine Menge sich selbst beinhalten.)
+]
+
+Ordinalzahlen haben viele tolle Eigenschaft. Mit die wichtigste für uns ist die Folgende:
+
+#thm[Sein $alpha$, $beta$ zwei Ordinalzahlen. Dann ist $alpha subset beta$ oder $beta subset alpha$.(\* Je nach Axiomensystem bis auf sehr starke Isomorphie.)]
+
+#question[Kennt ihr das Lemma von Zorn?]
+
+#axiom[
+  (Lemma von Zorn)
+  Sei $M$ eine nicht-leere partiell geordnete Menge. Angenommen jede (total geordnete) Kette
+  $ a_0 <= a_1 <= ... <= a_n <= ... $
+  in $M$ hat eine obere Schranke $x$
+  $forall n in NN : a_n <= x,$
+  dann hat $M$ ein maximales Element.
+]
+
+#rmk[Dieses Axiom is äquivalent zum Auswahlaxiom (engl. Choice wie in ZFC):]
+
+// #axiom[
+//   (Auswahlaxiom)
+//
+//   Sei $M$ eine Menge nichtleerer Mengen. Dann gibt es eine Funktion
+//
+//   $ F: M -> uuu_(X in M) X $
+//
+//   genannt _Auswahlfunktion für M_, die jedem Elmenet $X in M$ ein element $F(X) in X$ zuordnet.
+// ]
+
+#axiom[
+  (Auswahlaxiom)
+
+  Sei $f : A -> B$ eine Surjektion von Mengen. Dann gibt es eine Funktion $j : B -> A$ mit $ f compose j = id_A. $
+]
+
+#proof[
+  Sein $alpha$ und $beta$ zwei Ordinalzahlen. Betrachte die Menge $M$ von Mengen die sowohl initiale Abschnitte von $alpha$ als auch von $beta$ sind. OBdA. sind $alpha, beta != 0$, also $M$ nicht leer.
+
+  Sei ${m_i}_{i in NN}$ eine aufsteigende Folge (bzgl. der totalen Ordnung $in$) von initialen Abschnitten in $alpha$ und $beta$. Dann ist auch $m = uuu_(i in NN) m_i$ ein initialer Abschnitt in $alpha$ und $beta$.
+
+  Nach dem Lemma von Zorn hat $M$ damit ein maximales Element $gamma subset alpha, beta$. Nehmen wir an $alpha != gamma$ und $alpha != beta$. Dann ist $gamma in alpha, beta$. Das ist ein Wiederspruch zur Maximalität von $gamma$.
+]
+
+Damit können wir also jede zwei beliebigen Ordinalzahlen vergleichen! Wir bekommen direkt die folgende Eigenschaft geschenkt:
+
+#thm[Jede absteigende Folge $(a_n)_(n in NN)$ von Ordinalzahlen terminiert.
+  $ exists N in NN forall n > N: a_n = a_(n+1) $
+]
+#proof[
+  Alle Ordinalzahlen $a_n$ sind Teilmengen von $a_0$. Angenommen es gibt eine unendlich lange strikt absteigende Teilfolge von Ordinalzahlen
+  $ a_0 = b_0 > b_1 > ... $
+  Dann ist
+  $ a_0 = b_0 in.rev b_1 in.rev b_2 in.rev ... $
+  eine unendlich absteigende Folge von Mengen. Ein Wiederspruch zum Fundierungsaxiom.
+]
+
+Wir haben bereits Induktion für natürliche Zahlen gesehen. Wir können das auch verallgemeinern:
+
+#thm[
+  (Transfinite Induktion)
+
+  Sei $P(alpha)$ eine Aussage über Ordinalzahlen. Falls
+  $ forall beta < alpha: P(beta) => P(alpha), $
+  so gilt $P$ für alle Ordinalzahlen.
+]
+
+#proof[
+  Angenommen es gibt eine Ordinalzahl für die $P$ nicht gilt. Dann gibt es auch eine kleinste Ordinalzahl $alpha$ für die es nicht gilt. (Wähle so lange wie möglich eine echt kleinere Ordinalzahl für die $P$ nicht gilt. Dieser Prozess muss terminieren.)
+
+  Aber dann gilt $P$ für alle $beta < alpha$. Damit gilt $P$ aber auch für $alpha$.
+]
+
+// #question[Why will $omega + 1$ never become pope? Because it isn't a kardinal.]
+// [Bishofe der Mathematik / kleine Brüder von Kardinälen]
+// [Schön aufgereiht aber sehr viele]
 
 Wir können das Prinzip von transfiniter Induktion auch umdrehen und rekursiv Dinge definieren.
-
-Bsp: Konstruktion einer Basis einer Vektorraums mittels Choice, für jeden Ordinal einen Vektor der nicht schon gespannt wird.
-
-Das wichtigste Beispiel für uns kommt aber mit den Surrealen Zahlen
-
-
-Q: Ein paar Spiele/Positionen überlegen, anschauen
+Wir können damit zum Beispiel endlich die surrealen Zahlen definieren.

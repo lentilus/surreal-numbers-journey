@@ -33,3 +33,5 @@ Manchmal gibt es auch schwerere Rätsel die ihr machen könnt, wenn die anderen 
 Je nach mathematischer Erfahrung können Sachen schwerer oder leichter/langweiliger sein. Wir wollen auf jeden Fall niemanden verlieren! Meldet euch also gerne. Es gibt keine dummen Fragen. (Und zu vielen Fragen gibt es auch mehr Trivia/interessanten Kontext.)
 
 Ab der zweiten/dritten Schiene bauen die Schienen nicht mehr stark aufeinander auf. Also wenn ihr mal nicht denken könnt oder wirklich nicht mit kommt, dann ist das auch kein Problem.
+
+Wir haben ein Skript! (Dieses hier.) Es ist absolut nicht notwendig, dass ihr euch das für den Kurs anschaut. Aber ich findet da noch mehr Erklärungen und Referenzen für verschiedene mathematische Level.
