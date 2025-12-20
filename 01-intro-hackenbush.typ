@@ -52,6 +52,7 @@ $
 
 #comment[AB HIER MUSS ALLES AUF VORZEICHEN GEPRUEFT WERDEN, WEIL ICH LOST WAR]
 
+== Ganzzahliges Hackenbush
 Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
 und wir "tun die Spiele zusammen", dann sollte _Rot_ dieses Spiel immernoch gewinnen. Jetzt sagen wir
 
@@ -90,6 +91,8 @@ Fazit: Das kling sinnvoll.
 #definition[
   Wir legen fest, Spiele addiert man indem man sie zusammen tut.
 ]
+
+== Diadisch
 
 #puzzle[$1/2$][
   Findet ihr Spiele mit den folgenden Werten?
@@ -211,6 +214,8 @@ So vorstellen undendlich viele übereinander, aber wenn man unten einen wegnimmt
 Jetzt experimentieren wir etwas rum und wollen ein Gefuehl fuer solche _Tuerme_ bekommen.
 
 
+== Grosses Hackebush
+
 #puzzle[Blauer Turm][
   Welchen Wert wuerdet ihr dem (unendlich hohen) Turm aus nur blauen Segmenten zuordnen?
   $
@@ -273,6 +278,16 @@ Jetzt experimentieren wir etwas rum und wollen ein Gefuehl fuer solche _Tuerme_ 
 Wir haben jetzt spielen (t.w. sehr große) Zahlen zugeordnet.
 Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt immer... bla.
 
+#puzzle[Wald der grossen Baueme][
+  $
+  #directed_hackenbush((("B","B", ("B", "B", ("B", "B", ("B", "...B", "...B", "...B") ,"B"), "B"),"B"),))
+
+  #directed_hackenbush((("R","B", ("R", "B", ("R", "B", ("R", "...B", "...R", "...B") ,"B"), "B"),"B"),))
+  #directed_hackenbush((("B",("B", "...B"), ("B", ("B", "...B"), ("B", ("B", "...B"), "...B" ,("B", "...B")), ("B", "...B")),("B", "...B")),))
+  #directed_hackenbush(((("B", ("B", ("B", "...B", "...B"), ("B", "...B", "...B")), ("B", ("B", "...B", "...B"), ("B", "...B", "...B")))),))
+  $
+][]
+
 
 #puzzle[Seeehr kleine Zahl][
   Könnt ihr euch Zahl ausdenken, die kleiner ist als $1/n$ für alle $n$?
@@ -306,12 +321,14 @@ Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt imme
   Der Titel ist Programm.
 ][
   $omega$ viele $omega$ hohe blaue Tuerme.
+  #comment[Das stimmt glaube ich nicht. Omega 1er Tuerme neben einander ist nicht einfach nur omega. Tatsaechlich ist das Spiel nicht einmal mehr finite. Aso muss das irgendwie anders sein.]
 ]
 
 Wir haben jetzt ein ziemlich gutes Gefühl für Red-Blue Hackenbush. Aber jeder Informatiker weiß:
 Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 
-== Zusatzregeln
+= RGB-Hackenbush
+=== Zusatzregeln
 - Wir spielen jetzt Hackenbush auch mir grünen Strichen, die können beide durchschneiden.
 
 #orga[
@@ -319,32 +336,33 @@ Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 ]
 
 
+#let one-over-hundred-sixty-four = ("B", ("R", ("R", ("R", ("R", ("R", "R"))))))
+#let minus-one-over-hundred-sixty-four = ("R", ("B", ("B", ("B", ("B", ("B", "B"))))))
 
-#puzzle[][
-  Wer gewinnt in dem jeweiligen Spiel?
+#puzzle[Felix-Blume][
+  Jetzt schaut euch dieses Spiel an. Kleiner Spoiler, wir kennen noch nichts woraus wir auf den genauen Wert schliessen koennen, aber versucht mal moeglichst nah dran zu kommen. 
   $
-
-  #directed_hackenbush((("G", "R"),))
-  ..
-
-  #directed_hackenbush((("G", "B"),))
-
+  limits(#directed_hackenbush((("G", "B"),)))_"Felix-Blume"
   $
 ][
+  Wir sehen, dass $-1/(2^n) < "Felix-Blume" < 1/(2^n)$.
+  $
+  limits(#directed_hackenbush((("G", "B"), one-over-hundred-sixty-four)))_"(a)"
+  ..
+    limits(#directed_hackenbush((("G", "B"), minus-one-over-hundred-sixty-four)))_"(b)"
+    $
+
+  #definition[
+    Wir nennen den Wert von der Felix-Blume jetzt $up$ (_up_).
+  ]
 ]
 
-#comment[LESEZEICHEN]
 
-
-Schaut euch mal diese Position an:
-
-Felix Blume
-- Ist sie positiv? => Ja
-- Ist sie < 1/2?
-- Welchen Wert hat sie?
-=> Kleiner als 1/omega
-
-Nennen wir UP
+#puzzle[Ultra klein][
+  Ist $up$ auch kleiner als $1/omega$?
+][
+  Ja.
+]
 
 Vlt schauen wir uns mal einfach nur den grünen Stängel an..
 Wer gewinnt?
