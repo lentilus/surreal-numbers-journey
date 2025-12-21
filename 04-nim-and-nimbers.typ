@@ -1,50 +1,112 @@
 #import "template.typ": *
+#import "hackenbush.typ": *
 #show: template
 
 = Getting Nimble with Nimbers
 
 ~ Es folgt kleine Wiederholung von Schiene 1 ~
 
-Neue Regel
-----------
-Gruene Striche duerfen von beiden Spieler*innen entfernt werden.
+== Regeln fuer RGB-Hackenbush
+- Wir erweitern die bekannten RB-Hackenbush-Regeln.
+- Es gibt jetzt auch _gruene_ Striche. Diese duerfen von beiden Spieler*innen entfernt werden
 
-Raetsel: Wie ist der Wert von
- B
-_G_?
-Antwort: Schwer zu sagen.
+Wir haben in der ersten Schiene gesehen, dass wir nicht wirklich wissen was der Wert von
+$#directed_hackenbush((("G", "B"),))$ ist.
 
-Raetsel: Was ist mit _G_? Was kann man zu _G_ dazu addieren, um auf 0 zu kommen?
-Antwort: _G_G_ = 0, aber wir wissen trotzdem nicht, was _G_ ist.
+Als wir das erste mal Addition fuer surreale Zahlen eingefuehrt haben,
+haben Werte von Spielen bestimmt, indem wir zu anderen Spielen addiert haben,
+sodass das die Summe ein $0$-Spiel ist. Darueber konnten wir Rueckschlueese auf
+den Wert Spiels schliessen. Vielleicht koennen wir so den gruenen Stengel versuchen
+zu verstehen.
 
-Wir schreiben Spiele wie _G_ erstmal in unserer _Strichnotation_ und machen uns ueber den "Wert" spaeter Gedanken.
-_G_ = {0 | 0}
+#let single-green = directed_hackenbush((("G"),))
+#let double-green = directed_hackenbush((("G"),("G")),)
+#puzzle[Dem Gruenling auf die Schliche kommen][
+  Wie kann man unseren mysterioesen gruenen Freund in eine Summe stecken, dessen Wert wir klar bestimmen kennen?
+  $
+  limits(#single-green)_"Der Gruenling"
+  $
+][
+  Wir sehen, dass 2 _Gruenlinge_ 0 ergeben.
+  $
+  #double-green = 0
+  $
+]
 
-Wie ist es mit n langen Schlangen? Also:
- G
- .
- .
- G
-_G_
-Antwort: Bei Laenge n stehen in der Strichnoation auf beiden Seiten alle "gekoepften" Schlangen.
+Man koennte jetzt sagen, wenn zwei _Gruenlinge_ 0 ergeben, sollte der einzelne
+_Gruenling_ auch 0 sein. Das wollen wir aber nicht, denn wir haben ja gesagt, dass
+genau die 0-Spiele den Wert 0 haben sollen. Wenn man den _Gruenling_ aber ausspielt,
+ist direkt klar, dass es sich hier nicht um ein 0-Spiel handelt.
 
-```
-Notation
---------
-*0 = { | }
-*1 = {*0 | *0} = {0 | 0}
-*2 = {*0,*1 | *0,*1} = {0,* | 0,*}
-...
-```
 
-```
-Raetsel: Was ist * + *2 ?
-Antwort: { {*|*}, *, *2 | {*|*}, *, *2 } = {0, *, *2 | 0, *, *2} = *3
+Der _Gruenling_ pass also nicht ohne weiteres in unsere Vorstellung der Arithmetik surrealer Zahlen,
+die wir letzte Schiene studiert haben. Die Idee ist, wir studieren jetzt erstmal
+wie gruenes Hackenbush sich unter unserer Definition von Addition und Multiplikation verhaelt.
+Dann koennen wir uns spaeter der etwas schwierigeren Aufgabe widmen, beide zusammen zu bringen
+um zum Beipiel das Raetsel um die _Felix-Blume_ zu lueften.
 
-Raetsel: Was ist *3 + *5? A: *6
-         Was ist *3 + *6? A: *5
-         Was ist *5 + *6? A: *3
-```
+
+Wir greifen jetzt auf die Strichnation zurueck, und sehen.
+
+$
+"Gruenling" = { 0 | 0}
+$
+
+Hier faellt uns direkt schon etwas auf, was bei RB-Hackenbush nicht so war.
+Naemlich ist das, was links steht, nicht mehr strikt kleiner als das was rechts steht.
+In diesem Detail liegt schon sehr viel der Struktur, die RGB-Hackenbush besonders macht verborgen.
+Aber dazu spaeter mehr.
+
+Jetzt schauen wir uns erstmal an was fuer Verwandte des Gruenlings es so gibt.
+
+#let two-snake = directed_hackenbush((("G", "G"),))
+#let three-snake = directed_hackenbush((("G", ("G", ("G"))),))
+#let n-snake = directed_hackenbush((("G", ("G", ("...G", "G"))),))
+$
+
+  limits(... ... ... ...)_"0-Schlange"
+  .. limits(#single-green)_("1-Schlange" \ "(Gruenling)")
+  .. limits(#two-snake)_"2-Schlange"
+  .. limits(#three-snake)_"3-Schlange"
+  .. limits(#n-snake)_"n-Schlange"
+$
+
+Guecken wir uns gruene $n$-Schlangen an, erkennen wir den _Gruenling_ direkt als
+$1$-Schlange und die $0$ als $0$-Schlange. Damit wir nicht mehr so viel Schreib-Arbeit haben,
+schreiben fuehren wir Notation fuer $n$-Schlangen ein.
+$
+**0 &:= { " " | " "} = 0 \
+**1 &:= { **0 | **0} = 0 \
+**2 &:= { **0, **1 | **0, **1 } = 0 \
+& dots.v \
+**n &:= { **0, **1, ... , **(n-1) | **0, **1, ..., **(n-1) } = 0
+$
+
+Fuer $**1$ schreiben wir auch einfach nur $**$.
+
+
+#puzzle[Rechnen, rechnen, rechnen][
+  Was sind die Ergebnisse der folgenden Summen? Tipp: Am besten benutzt ihr direkt die _Strichnotation_, dass ist einfacher, als wenn ihr die Spiele spielt.
+  $
+    ** + **2, .. **3 + **5, .. **3 + **6, .. **5 + **6
+  $
+][
+  $
+    ** + **2 = **3, .. **3 + **5 = **6, .. **3 + **6 = **5, .. **5 + **6 = **3
+  $
+]
+
+#puzzle[Gruene Induktion][
+  Die Notation fuer $n$-Schlangen suggeriert, dass wir den Zahlenraum der
+  $n$-Schlangen induktiv/rekursiv definieren koennen. Solche Objekte schreien nach Induktion.
+  In Schiene 2 haben wir Induktion in verschiedenen Kontexten gesehen.
+  Ueberlegt euch, wie ein Inuktionsbeweis fuer eine Aussage ueber $n$-Schlangen aussehen muesste
+  und zeigt damit die folgenden Aussagen.
+  - #comment[Hier fehlen jetzt ein paar lustige Aussagen]
+  - #comment[...]
+][
+  - TODO 
+]
 
 Raetsel: Blume mit einem gruenen Staengel unten und unendlich vielen roten/blauen Blaettern.
 A: Up / Down
