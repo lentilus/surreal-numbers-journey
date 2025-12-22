@@ -543,3 +543,119 @@ Wir haben bereits Induktion für natürliche Zahlen gesehen. Wir können das auc
 
 Wir können das Prinzip von transfiniter Induktion auch umdrehen und rekursiv Dinge definieren.
 Wir können damit zum Beispiel endlich die surrealen Zahlen definieren.
+
+
+Zuletzt schauen wir uns noch große Ordinalzahlen an und werden feststellen, dass diese sehr seltsam sind.
+
+#puzzle([$2 omega$], [Wie sieht $2 omega$ als Menge aus?], [
+  $ { 0, 1, 2, ..., omega, omega + 1, ...} = omega uu { s^n (omega) | n in NN} $
+])
+
+
+#puzzle([$omega^omega$], [Wie sieht $omega^omega$ als Menge aus?], [
+  $ { 0, 1, 2, ..., omega, omega + 1, ..., 2omega , 2 omega+1,...} = uuu_(n in NN) n omega $
+])
+
+#puzzle([], [Welche Kardinalität hat $omega^omega$?], [
+  $ | omega^omega | = aleph_0 := |NN| $
+
+  Es ist eine abzählbare Vereinigung abzählbarer Mengen.
+])
+
+#puzzle(
+  [Überabzählbare Ordinalzahlen],
+  [Kannst du eine überabzählbare Ordinalzahl finden? Wie genau kannst du sie angeben?],
+  [
+    Hast du eine konkrete Darstellung gefunden? Dann ist ZFC inkonsistent (;
+  ],
+)
+
+Im Folgenden schauen wir uns kurz an, was es schwer macht über große Ordinalzahlen zu reden. Zunächst aber haben wir folgendes Ergebnis:
+
+#axiom[(Wohlordnungssatz)
+  Jede Menge lässt sich mit einer Wohlordnung ausstatten. (Äquivalent steht jede Menge in Bijektion mit einer Ordinalzahl.)
+]
+
+Dieses Axiom ist ebenso äquivalent zum Auswahlaxiom. Insbesonder impliziert es, dass es ein Ordinalzahl der Kardinalität $|RR| = |P(ZZ)|$ gibt.
+
+#rmk[Für jede Kardinalität $kappa$ gibt es eine kleinste Ordinalzahl, welche ebenfalls diese Kardinalität hat. Falls $kappa >= aleph_0 = NN$ nicht endlich ist, ist dies eine Limit-Ordinalzahl.]
+
+Tatsächlich braucht man auch das Auswahlaxiom um so eine Ordinalzahl zu definieren bzw. anzugeben.
+Nehmen wir zunächst ZF ohne Auswahlaxiom an. Dann kann man nämlich zeigen, dass ZF genau dann wiederspruchsfrei ist, wenn ZF + "Die reellen Zahlen lassen sich nicht wohlordnen" wiederspruchstfrei ist.
+
+Das bedeutet insbesondere: Falls ZF konsistent ist, können wir damit nicht beweisen, dass es eine Wohlordnung auf $RR$ gibt, da sonst ZF + "$RR$ lässt sich nicht wohlordnen" inkonsistent wäre.
+
+
+// _Melodie: „Ein Loch ist im Eimer“ (2005)_
+#pagebreak()
+
+#align(center)[
+  #set heading(numbering: none)
+  #block[
+    #set align(left)
+    == Äquivalenz
+    Melodie: "Ein Loch ist im Eimer" (2005)
+
+    *1.*
+    Wie beweis ich das Lemma, das Lemma, das Lemma, \
+    Wie beweis ich das Lemma, das Lemma von Zorn?
+
+    *2.*
+    So nimm doch zu Hilfe, zu Hilfe, zu Hilfe, \
+    So nimm doch zu Hilfe das Auswahlaxiom!
+
+    *3.*
+    Wer hat's mir gegeben, gegeben, gegeben, \
+    Wer hat's mir gegeben das Auswahlaxiom?
+
+    *4.*
+    Zermelo und Fraenkel, und Fraenkel, und Fraenkel, \
+    Zermelo und Fraenkel mit dem Wohlordnungssatz!
+
+    *5.*
+    Woher kommt er denn wirklich, denn wirklich, denn wirklich, \
+    Woher kommt er denn wirklich, der Wohlordnungssatz?
+
+    *6.*
+    Der folgt aus dem Lemma, dem Lemma, dem Lemma, \
+    Der folgt aus dem Lemma, dem Lemma von Zorn!
+
+    Und nun von vorn! Und dabei immer schneller werden!
+  ]
+]
+
+#pagebreak()
+
+// Melodie: Ein Loch ist im Eimer (2005)
+//
+//     Wie beweis ich das Lemma, das Lemma, das Lemma,
+//     Wie beweis ich das Lemma, das Lemma von Zorn?
+//
+//     So nimm doch zu Hilfe, zu Hilfe, zu Hilfe,
+//     So nimm doch zu Hilfe das Auswahlaxiom!
+//
+//     Wer hat's mir gegeben, gegeben, gegeben,
+//     Wer hat's mir gegeben das Auswahlaxiom?
+//
+//     Zermelo und Fraenkel, und Fraenkel, und Fraenkel,
+//     Zermelo und Fraenkel mit dem Wohlordnungssatz!
+//
+//     Woher kommt er denn wirklich, denn wirklich, denn wirklich,
+//     Woher kommt er denn wirklich, der Wohlordnungssatz?
+//
+//     Der folgt aus dem Lemma, dem Lemma, dem Lemma,
+//     Der folgt aus dem Lemma, dem Lemma von Zorn!
+//
+//     Und nun von vorn! Und dabei immer schneller werden!
+
+// Jetzt geben wir noch zwei heuristische Argumente an um zu verdeutlichen, dass wir einfach nicht so viel Kontrolle über große Ordinalzahlen haben.
+//
+// Es ist eine unbeantwortbare Frage ob folgende Aussage in ZFC stimmt:
+//
+// #axiom[(Kontinuumshypothese CH) Es gibt keine Kardinalität echt zwischen $aleph_0$ und $|RR|$.]
+//
+// Tatsächlich ist ZFC + CH, also ZFC zusammen mit der Kontinuumshypothese genau dann Wiederspruchsfrei, wenn ZFC das ist. Man sagt, dass ZFC und ZFC + CH äquikonsistent sind. Genauso ist aber ZFC und ZFC + CH äquikonsistent.
+//
+// Heuristisch können wir nun wiefolgt argumentieren:
+//
+// Angenommen wir können eine Ordinalzahl $hat(omega)$ mit $|hat(omega)| = |RR|$ explizit angeben. Sei $aleph_1 <= |RR|$ die erste Kardinalzahl größer als $aleph_0$. Dann gibt es eine (kleinste) Ordinalzahl $hat(omega)' subset hat(omega)$ mit dieser Kardinalität. Da ZFC unabhängig von CH ist, kann unsere Konstruktion von $hat(omega)$ aber nicht genug Information haben um CH zu testen.
