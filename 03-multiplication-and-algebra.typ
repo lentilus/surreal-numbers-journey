@@ -228,21 +228,15 @@ $
 $
 
 Transfinit induktiv können wir nun jedem Spiel eine surreale Zahl zurordnen. Man kann leicht prüfen, dass unsere Definitionen von $x = 0$ und $x <= y$ von Spielen miteinander übereinstimmen.
-Insbesondere können wir damit zeigen, dass zwei surreale Zahlen gleich sind, wenn wir jeweils eine Position für sie finden. Bevor wir mit unserer Intuition für Hackenbush den surrealen Spielen mehr Struktur geben können brauchen wir noch das nächste Resultat. Wir haben gesehen, das ganz viele verschiedenen Hackenbush Positonen denselben Wert haben können. Es wäre praktisch, wenn wir eine regel hätten um für eine bestimmte Darstellung $x = {X_L, X_R}$ eine kanonische leichteste Darstellung hätten.
+Insbesondere können wir damit zeigen, dass zwei surreale Zahlen gleich sind, wenn wir jeweils eine Position für sie finden. Bevor wir mit unserer Intuition für Hackenbush den surrealen Spielen mehr Struktur geben können brauchen wir noch das nächste Resultat. Wir haben gesehen, das ganz viele verschiedenen Hackenbush Positonen denselben Wert haben können. Es wäre praktisch, wenn wir eine regel hätten um für eine bestimmte Darstellung $x = {X_L| X_R}$ eine kanonische leichteste Darstellung hätten.
 
 #thm[
-  (Einfachkeitssatz) Sei $y = {Y_L, Y_R}$ eine surreale Zahl. Dann ist $y = x$ für eine surreale Zahl mit dem kleinsten Geburtstag mit $ Y_L < x < Y_R. $
+  (Einfachkeitssatz) Sei $y = {Y_L, Y_R}$ eine surreale Zahl. Dann ist $y = x$ für eine (die) surreale Zahl mit dem kleinsten Geburtstag für welche gilt $ Y_L < x < Y_R. $
+  Hier sagen wir
+  $ x < Y_R :<=> not exists y in Y_R: y <= x. $
 ]
 
-#proof[
-  Angenommen $y = {Y_L|Y_R}$ ist eine surreale Zahl und $x={X_L, X_R}$ eine kleinste surreale Zahl sodass $Y_L < x < Y_R$.
-  Betrachte $z = {X_L uu Y_L | X_R uu Y_R}$. Wir haben $z <= x$, da $X_L, Y_L < x$ und $z < X_R uu Y_R => z < X_R$. Similarly $z >= x$.
-
-  Jetzt ist $y <= z$, da $Y_L < x <= z$ und $y < Y_R <= Z_R$. Analog ist $y >= z$.
-
-  Also ist
-  $x = z = y.$
-]
+Wir werden später noch einen Beweis dazu sehen.
 
 #puzzle(
   [Tisch],
@@ -282,183 +276,140 @@ Insbesondere können wir damit zeigen, dass zwei surreale Zahlen gleich sind, we
   ],
 )
 
-- ratsel, wie sehen spiele aus mit der zahl ...
-- inklusive Zahl die kein Spiel hat..
-- was ware die zahl für dieses spiel ...
+#puzzle(
+  [Lagerfeuer],
+  [
+    Welchen Wert haben diese Lagerfeuer?
 
-- geburtstag
-- es ist alles wohldefiniert
-- Addition?
-- eventually: Multiplikation
+    $
+      #hackenbush(((-1, 0), (0, 0), (1, 0), (0, 1), (0, 2)), ((0, 3, blue), (1, 3, blue), (2, 3, blue), (3, 4, red)))
+      #hackenbush(((-1.5, 0), (-0.4, 0), (0.4, 0), (1.5, 0), (0, 1), (-0.4, 2), (0.4, 2)), (
+        (0, 4, blue),
+        (1, 4, blue),
+        (2, 4, blue),
+        (3, 4, blue),
+        (4, 5, red),
+        (4, 6, red),
+      ))
+    $
+  ],
+  [
+    Wie nennen ein $(m,n)$-Lagerfeuer ein Lagerfeuer $G_(m,n)$ mit $m$ blauen und $n$ roten Zweigen. Dann haben wir die folgenden Werte:
 
-// #puzzle([Normales Hackenbush], [Welche Spiele gibt es, wo jeder Spieler maximal $0$, $1$ oder $2$ Züge machen kann?], [
-//   Mit $0$ Zügen gibt es nur das leere Hackenbushspiel $0$:
-//
-//   #align(center, [#hackenbush(((0, 0),), ())])
-//
-//   Mit einem Zug gibt es die Spiele:
-//
-//   #directed_hackenbush(("B",))
-//   #directed_hackenbush(("R",))
-//   #directed_hackenbush(("R", "B"))
-//
-//   Mit zwei Zügen die neuen Spiele:
-//
-//   #directed_hackenbush(("B", "B"))
-//   #directed_hackenbush(("B", "B", "R"))
-//   #directed_hackenbush(("B", "B", "R", "R"))
-//   #directed_hackenbush(("B", "R"))
-//   #directed_hackenbush(("R", "B"))
-//   ...
-// ])
+    $
+      G_(0,0) = 0 \
+      G_(1,n) = - 1/2^n \
+      G_(m,n) = {G_(m,n-1) | G_(m-1, n)} \
+      G_(m,0) = -m \
+      G_(2,1) = {G_(2,0) | G_(1,1)} = {-2 | - 1/2} = -1 \
+      G_(3,1) = {G_(3,0) | G_(2,1)} = {-3 | - 1} = -2 \
+      G_(2,2) = {G_(2,1) | G_(1,2)} = {-1 | - 1/2^2} = -1/2 \
+      // G_(2,3) = {G_(2,2) | G_(1,3)} = {-1/2 | - 1/2^3} = -1/4 \
+      G_(3,2) = {G_(3,1) | G_(2,2)} = {-2 | - 1/2} = -1 \
+      // G_(3,3) = {G_(3,2) | G_(2,3)} = {-2 | - 1} = -3/2 \
+      G_(4,1) = {G_(4,0) | G_(3,1)} = {-4 | - 2} = -3 \
+      G_(4,2) = {G_(4,1) | G_(3,2)} = {-3 | - 1} = -2 \
+      // G_(4,3) = {G_(4,2) | G_(3,3)} = {-2 | - 3/2} = -7/4 \
+    $
 
+    Entweder durch ausspielen, ausarbeiten oder finden einer rekusiven Formel erhalten wir:
+    $ G_(3,1) = -2 $
+    $ G_(4,2) = -2 $
+    So eine rekursive Formel kann nicht zu einfach sein, da
+    $ G_(4,3) = -7/4 $
+  ],
+)
 
+#puzzle(
+  [],
+  [
+    Was ist der Wert folgender Position?
 
-===
+    $
+      // #directed_hackenbush((
+      //   ("R", ("R", ("R", ("R", "...R", "...B"), ("B", "...B")), ("B", ("B", "...B"))), ("B", ("B", ("B", "...B")))),
+      // ))
+      #directed_hackenbush((("R", ("R", ("R", ("R", "...R", "B"), ("B",)), ("B",)), "B"),))
+    $
+  ],
+  [
+    Wir könnten es ausrechnen. Tatsächlich ist es hier aber leichter zu sehen, dass $G - 1 = 0$.
+    // Sei $B_n$ ein endlicher Baum $B_n$ dieser Art mit Höhe $n$ (also $n$ roten und $n-1$ blauen Zweigen.)
+    //
+    //
+    // Sei $B_n^k$ so ein Baum mit dem blauen Strich in Höhe $k$ entfernt. Dann ist
+    // $ B_n^k >= B_n^{k+1}. $
+    // Wir nehmen erstmal an, dass $B_(n-1) <= B_{n}$. Diese Aussage wird induktiv aus unseren Berechnungen folgern.
+    //
+    // Nun haben wir:
+    // $
+    //   B_1 = 1 \
+    //   B_2 = {1/2 | 2} = 1 \
+    //   B_3^3 = {B_2 | B_3^(3,2)} = {1| 2} = 3/2 \
+    //   B_3 = {1 | B_3^3} = {1, 3/2} = 5/4 \
+    // $
+  ],
+)
 
-mit komplexität omega.. ... als...
-definieren Induktiv.. ist wohldefiniert
+Kehren wir nochmal zurück zur Theorie. Wir verstehen endliche Ordinalzahlen (natürliche Zahlen) ja sehr gut.
 
-Ordinalzahlen betten ein durch... {ordinal kleiner | größer }
+#puzzle([], [Wie viele surreale Zahlen gibt es an Tag $n$?], [
+  Genau $2^(n+1) - 1$. Seien $ x_1 < ... < x_m $ die Zahlen an Tag $n-1$. Dann gibt es am nächsten Tag neu genau die folgenden Zahlen:
+  ${x_1 |} < {x_1 | x_2} < { x_2 | x_3 } < ... < {x_(m-1)| x_m} < {|x_m}$
+  Also $m+1$ neue Zahlen.
+  $ (2^(n+1) - 1) + (2^(n+1) - 1 + 1) = 2^(n+2) - 1 $
+])
 
-Damit können wir surreal numbers wiefolgt definieren:
+#question[Spiele konnten wir addieren, indem wir sie einfach zusammen tun. Wie würdet ihr Addition für surreale Zahlen definieren?]
 
-Jede surreale zahl ist einer Zahl X = { left | right }, sodass left und right Mengen von Surrealen zahlen sind, die früher entstanden sind.
-sodass alles aus left < alles aus right
+#definition[
+  Seien $x={X_L | X_R}$ und $y={Y_L | Y_R}$ zwei sureelle Zahlen.
+  Dann ist addition induktiv definiert durch
+  $ x + y := {X_L +y, x + Y_L | X_R + y, x + Y_L}. $
+]
 
-Eine Zahl ist kleiner gleich als eine andere Zahl, wenn alle linken zahlen des ersten kleiner gleich sind als die zweite Zahl und alle rechten des zweiten (echt) größer als die erste Zahl.
-Zwei Zahlen sind gleich, falls jeweils <=
+#question[Wie sehen additive Inverse aus?]
 
-Beispiele: 0, 1, -1
-Direkt zu Hackenbush mappen
-Beispiel: 2 = ..
-Beispiel: -1, 1
+#definition[
+  Seien $x={X_L | X_R}$ eine sureelle Zahl. Definiere das additive Inverse als
+  $ -x := {-X_R|-X_L}. $
+]
 
-Man kann sich das auch formaler mit rekusiver Definition vorstellen:
+Wir können wieder mit Induktion zeigen, dass tatsächlich $x-x = 0$ und $-x$ die einzige Zahl mit dieser Eigenschaft ist.
 
-Am ersten Tag entsteht 0
-Am zweiten Tag entsteht dann -+1
-Am dritten Tag ...
-Was ist mit {1, -1}
-Was ist mit {-1, 1}
+Wir können mit Addition und mit Multiplikation mit $-1$ immerhin schonmal mit ganzen Zahlen multiplizieren. Mit allgemeinen surrealen Zahlen (oder sogar nur rationalen Zahlen) multiplizieren oder Inverse finden, ist sehr schwer.
 
-Und am Omega Tag gibt es zB...
-=> Die rellen Zahlen werden an Tag Omega geboren.
+#puzzle([$1/3$], [Was ist eine Hackenbush-Position für $1$ geteilt durch $3$?], [
+  Es gibt keine gute (endliche) Lösung. Deshalb gibt es auch keinen guten Algoritmus eine Hackenbush-Position durch $3$ zu teilen. Hier wäre eine mit $omega +1$ Strichen:
+  $ #hackenbush(
+    ((0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (1, 0), (1, 1)),
+    ((0, 1, blue), (1, 2, red), (2, 3, blue), (3, 4, red), (4, 5, black, "dashed"), (6, 7, red)),
+  ) $.
+])
 
-https://www.whitman.edu/Documents/Academics/Mathematics/Grimm.pdf
+Welche Eigenschaften sollte eine Multiplikation für (surreale) Zahlen erfüllen?
 
-Rmk/Question: <= Transitiv
+- Distributivität $ a(b+c) = a b + a c $
+- Kommutativität $ a b = b a $
+- Einheit $ 1 a = a $
+- Null $ 0 a = 0 $
+- Verallgemeinert Multiplikation für z.B ganze Zahlen.
+- Wohldefiniertheit
 
-Wie definiert ihr Addition?
-Und additive Inverse?
+#puzzle(
+  [Multiplication],
+  [
+    Findet ihr eine Definition für Multiplikation, die einige der Sachen erfüllt?
 
-Question: Ein Paar positionen für surreale Zahlen finden
+    Hinweise:
+    - Sie ist schön, aber irgendwo auch nicht.
+    - Sie ist induktiv. Wie könnt ihr die Hälften benutzen?
+    - Was funktioniert für ganze/dyadische Zahlen?
+  ],
+  [
+    #definition[Die Produkt von zwei surrealen Zahlen ist definiert...]
+  ],
+)
 
-Rmk/Question: <= XL <= X <= XR
-Finding the correct number is simplicity itself?
-=> Die erste Zahl die entsteht die kleiner links und größer rechts ist.
-Beweis?
-
-Jetzt wollen wir un Multiplikation anschauen.
-
-Erstmal an Hackenbush positionen
-Q: Wie rechne ich ... mal drei? ... mal -1?
-
-Wenn wir mehr machen wollen, müssen wir erstmal arbeiten. Aber wir schauen uns erstmal Stacks an:
-Q: Jetzt habe ich so einen Stack.. welchen Wert hat der (3/4). Wie kann ich daraus einen Stack machen mit dem wert 3/8?
-=> Stacks halbieren, mal vielfache rechnen..
-A: Was passiert, wenn ich oben einer in einer Farbe drauf tue? (pm 1/2^n)
-
-Q: Was ist Omega/2 in Hackenbush?
-Q: Wie sieht Omega/2 als Surreale Zahl aus?
-
-Aber im allgemeinen Zahlen mulitplizieren oder Teilen ist sehr schwer. Z.b 3*1 = 3, aber 1/3 ist sehr schlimm.
-Also müssen wir uns den formalismus genauer anschauen.
-
-Welche eigenschaften muss so eine Multiplikation haben?
-- distributiv
-- kommutativ
-- unit
-- 0
-- sollte allgemeine Multiplikation verallgemeinern
-- invertierbar
-- wohldefiniert
-
-Q: Herum experimentieren:
-- vlt grafisch?
-- vlt mit kleinen Zahlen?
-- relle Zahlen ist auch doof
-
-```
-Q: Was ist Omega * epsilon?
-(Als positionen)
-A: 1!!!
-```
-
-Rmk: Es gibt auch inverse und wir bekommen einen Körper, aber Inverse sind so doof wie multiplikation.. Siehe reelle Zahlen.
-
-Dieser Körper ist sehr groß (eine echte Klasse.) (Tatsächlich lässt sich jeder geordnete Körper - basierend auf einer Menge) - darin einbetten.
-- wenn man ihn versteht, versteht man alle
-- wenn man etwas für ih definiert, definiert man es für alle
-- ...
-- universelle Konstruktion
-
-Wir wollen uns mal ein bisschen mit lustigen Unterkörpern beschäftigen. Fangen an mit
-Hyperreals
-
-Wir haben ja dieses Epsilon und wollen damit jetzt Dinge machen.
-
-
-Warum machen wir das? Motivation: Ermoeglicht Rechnen mit Zahlen groesser als Omega, die konsistent mit uns bekannter multiplikation ist.
-andere Motivation: Wir konnten nicht nur die reellen Zahlen in den surrealen recovern, sondern auch noch ihre struktur.
---> Haben also einen groesseren Zahlenraum geschaffen ohne Struktur zu verlieren (Sternchen: kein Kontinuum mehr)
-Antworten:
-- Objekte kennen lernen; damit andere Spiele analysieren können
-- Transfinite Induktion => Anwenden auf konkrete Probleme, wie zB Nim Kreise (Multiplikation definieren)
--
-DAS ist Mathematk. Wir nehmen irgendwelche Spielregeln. Und spielen.
-=> Wir sollten das irgendwie noch benutzen
-
-```
-Rätsel: Epsilon * Omega (sehr toll)
-?? Rätsel: Finde ein Bild für Omega x Omega
-?? Rätsel: Find ein Bild für 1/2 Omega
-
-=> Wir können damit Alles einbettern, Analysis machen, etc.
-(Einziges Problem: Sehr viele Zahlen -> nicht die optimale Menge für manche Dinge)
-```
-
-zB: Hyperreals, Analysis
-R + Epsilon => Definiere Limits, ...
-Frage: Verallg. Reelle Zahlen?
-- Addition, Negation (Fokus auf Herstellung aus vorher entstandenen Zahlen)
-- Multiplikation... mit natürlichen /ganzen Zahlen
-Raetsel: Binärdarstellung Stack
-Raetsel: Wie teilt man einen Stack durch 2?
-=> Es gibt keine tolle grafische Regel (units und nachkommastellen und separat)
-- Formale Definition (mit transfiniter Induktion)
-- evt. prüfen, dass es Definition erfüllt
-- Zu tedious -- nicht machen: (Raetsel : Finde zu allg. Zahl ein inverses.)
-- Es gibt Inverse => Körper; aber nicht schön
-
-Warum machen wir das? Motivation: Ermoeglicht Rechnen mit Zahlen groesser als Omega, die konsistent mit uns bekannter multiplikation ist.
-andere Motivation: Wir konnten nicht nur die reellen Zahlen in den surrealen recovern, sondern auch noch ihre struktur.
---> Haben also einen groesseren Zahlenraum geschaffen ohne Struktur zu verlieren (Sternchen: kein Kontinuum mehr)
-Antworten:
-- Objekte kennen lernen; damit andere Spiele analysieren können
-- Transfinite Induktion => Anwenden auf konkrete Probleme, wie zB Nim Kreise (Multiplikation definieren)
--
-DAS ist Mathematk. Wir nehmen irgendwelche Spielregeln. Und spielen.
-=> Wir sollten das irgendwie noch benutzen
-
-```
-Rätsel: Epsilon * Omega (sehr toll)
-?? Rätsel: Finde ein Bild für Omega x Omega
-?? Rätsel: Find ein Bild für 1/2 Omega
-```
-
-=> Wir können damit Alles einbettern, Analysis machen, etc.
-(Einziges Problem: Sehr viele Zahlen -> nicht die optimale Menge für manche Dinge)
-
-zB: Hyperreals, Analysis
-R + Epsilon => Definiere Limits, ...
+- ratsel: position mit omega/2
+- ratsel: $omega * 1/epsilon$
