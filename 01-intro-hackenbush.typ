@@ -59,7 +59,7 @@ und wir "tun die Spiele zusammen", dann sollte _Rot_ dieses Spiel immernoch gewi
 #let one = directed_hackenbush(("B",))
 
 #definition[
-  Ein Spiel wo stehts der Startspieler verliert heisst $0$-Spiel. Und
+  Ein Spiel wo stets der Startspieler verliert heisst $0$-Spiel. Und
   $
    #one := 1,
   $
@@ -327,8 +327,7 @@ Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt imme
 Wir haben jetzt ein ziemlich gutes Gefühl für Red-Blue Hackenbush. Aber jeder Informatiker weiß:
 Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 
-= RGB-Hackenbush
-=== Zusatzregeln
+== RGB-Hackenbush
 - Wir spielen jetzt Hackenbush auch mir grünen Strichen, die können beide durchschneiden.
 
 #orga[
@@ -372,7 +371,7 @@ Passt also nicht ganz zu unseren Sachen
 
 Schauen wir mal an, wie sich die Sachen verhalten.
 
-Wir haben immernoch die Definitionen:
+Wir haben immer noch die Definitionen:
 a = b, falls...
 Sagen jetzt a | b falls... n-m immer gewonnen oder verloren wird => größer/kleiner 0
 

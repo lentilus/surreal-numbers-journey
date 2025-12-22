@@ -106,29 +106,37 @@ Fuer $**1$ schreiben wir auch einfach nur $**$.
   - #comment[...]
 ][
   - TODO 
+  Nimber sind also irgendwie komisch, aber woran liegt das?
+  Was waren eure Strategien um die Werte der Summen auszurechnen?
 ]
 
-Raetsel: Blume mit einem gruenen Staengel unten und unendlich vielen roten/blauen Blaettern.
-A: Up / Down
 
-Ratsel: Blume + Blume
-Takeaway: Summe endlicher Spiele kann unendlich sein.
+#orga[
+Vielleicht ist allen schon klar, dass _something_ + _something_ = 0
+Dann kann man das naechste skippen
+]
 
-Nimber sind also irgendwie komisch, aber woran liegt das?
-Was waren eure Strategien um die Werte der Summen auszurechnen?
 
-~ Vielleicht ist allen schon klar, dass _something_ + _something_ = 0 ~
-~ Dann kann man das naechste skippen ~
+#puzzle[][
+  Wie sieht es mit $**16 + **4$ aus?
+][
+  $**16 + **4 = 0$. Erkennt ihr ein Muster?
+  Wir haben das nicht formal gezeigt, aber die Antwort ist, dass der Koerper der Nimber Charakteristik 2 hat. Das bedeutet, dass sich die Zwei bzgl. der Multiplikation wie 0 verhaelt. Deshalb ist $ a + a = 0$ fuer alle nimber.
+]
 
-Raetsel: Was ist mit *16 + *4? A: 0.
+Das hat sehr lutige Implikationen.
 
-Takeaway (nicht formal gezeigt): Nimbers sind Koerper mit Charakteristik 2.
+Die Charakteristik des Koerpers der Nimber erklaert warum sie sich so "komisch" verhalten und hilft uns optimale Strategien fuer ein ganze Klasse an Spielen zu entwickeln, in denen Nimber wohnen.
 
-Ein Beispiel fuer ein Spiel wo Nimber auftauchen ist Nim:
-Nim: Mehrere Stapel mit Muenzen.
+Die Geburtsstaette der Nimber ist das Spiel _Nim_. Nimber sind sogar die einzige Spezies die im Spiel der Nim anzutreffen ist.
 
-Regeln (so grob)
-------
+#puzzle[mex][
+  #comment[Hier die Leute erkennen lassen wie man aus der Strichnotation] auf die formulierung der Addition als mex (minimal excluded value) erkennt.
+][
+]
+
+== Nim Spielregeln
+#comment[TODO]
 1. Abwechselnde Zuege beider Spieler
 2. Ein Zug ist: Einen Stapel um beliebige Anzahl Muenzen kleiner machen
 3. Wer nicht ziehen kann verliert.
@@ -140,12 +148,11 @@ Nimb-Arithmetik erlaubt uns solche Spiele, oder solche Teile von Spielen zu unte
 
 ~ Hier moeglicherweise noch mehr Spiele Erwaehnen, die Nimber beherbergen ~
 
-Noch ein Nim Raetsel
-Raetsel: (\*Omega)³ = \*2 (ansonsten analoges raetsel)
-Note: Omega^3 haben wir nicht definiert, stattdessen denke an Omega-Cube aus "Spiel".
+== Green Trees
+#comment[Muss man noch aus dem Stackexchange post und winning ways rausarbeiten.]
 
+Lasst uns zurueck zu Spielen kommen.
 Wir untersuchen jetzt systematisch Baeume
-
 ```
 Raetsel: Wie ist der Wert von
     G G
@@ -159,4 +166,97 @@ Siehe auch
 - https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
 - Winning Ways p. 191
 
+== Jetzt aber wirklich RGB
+#comment[
+  TODO: Hier ist noch viel zu tun: Wie kommen wir jetzt von G-Hackenbush zu einer systematischen Theorie ueber RGB-Hackenbush? Maybe hier schon connection zu cooling processes aufzeigen.
+]
+Kommen wir von _G-Hackenbush_ zurueck zu _RGB-Hackenbush_.
+
+
+#puzzle[Omega-Cube][
+  #comment[Hier muss man noch sehr genau ueberlegen wie man dieses Raetse stellt damit man das ueberhaupt ausgerechnet bekommt]
+][]
+
+#puzzle[Blume mit vielen Blaetter][
+  Wie ist der Wert dieser Blumen mit genau $omega$ vielen Blaettern?
+  $
+  limits(#directed_hackenbush(((
+    "G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"
+  ),)))_"(a)"
+
+  limits(#directed_hackenbush(((
+    "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R"
+  ),)))_"(b)"
+
+  limits(#directed_hackenbush((
+    ("G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"),
+    ( "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R")
+  ),))_"(a) + (b)"
+  
+  $
+][
+  #comment[Notes sagen a und b waeren up bzw down, aber not so sure about that if I am honest]
+
+
+  In der Summe (a) + (b) ist es fuer keinen Spieler von Vorteil, einen der Staemme abzuschneiden. Im naechsten Zug wuerde der andere Spieler den uebrigen Stamm kappen, und das Spiel gewinnen. Die Spieler beschneiden also bin in alle Ewigkeit die Blueten ihrer Blume.
+  In anderen Worten: Die Summe endlicher Spiele kann unendlich sein.
+]
+
+
+
+
+== Exkurs $"On"_2$
+http://www.neverendingbooks.org/on2-conways-nim-arithmetics/
+
+Mithilfe der Addition und Multiplikation auf Nimbern koennen wir die Klasse aller _Ordinalzahlen_ mit einer Koerperstruktur ausstatten.
+Tatsaechlich ist die Konstruktion, die wir uns gleich anschauen wollen, die "einfachste" Konstruktion die _Ordinalzahlen_ zum einem Koerper mit Charakteristik 2 machen.
+
+Dafuer werden wir uns die _Simpicity-Rule_ zu Herzen nehmen. Wir erinnern uns, die _Simpicity-Rule_ hatte uns gesagt, wenn fuer die _Strichnotation_ mehrere Zahlen infrage kommen, die unsere Anforderungen erfuellen, dann ist die "korrekte" Zahle die simpelste -- das bedeutet, die Zahl die am fruehesten geboren wurde.
+
+Sinnvoller Weise fuehren wir die Summe zweier Ordinalzahlen $alpha + beta$ auf die Summe kleiner, insbesondere vorher geborener Zahlen zurueck. Wir sagen jetzt.
+$
+alpha + beta := "mex" {alpha' + beta | alpha' < alpha} uu {alpha + beta' | beta' < beta}
+$
+
+#comment[Hier sichertellen, dass mex schon einmal eingefuehrt wurde oder hier dann einfueren.]
+
+Sind $alpha$ und $beta$ endliche Ordinalzahlen erkennen wir die Addition als die Addition der Nimber $**alpha$ und $**beta$.
+
+#comment[Das muessen wir die Teilis selber feststellen lassen]
+
+Lasst uns jetzt ueber Multiplikation nachdenken. Sei $alpha' < alpha$ und $beta' < b$, dann sind $alpha - alpha'$ und $beta - beta'$ beide nicht-negativ, also groesser als $0$.
+Wenn wir jetzt wollen, dass $"On"_2$ ein Koerper mit diese Multiplikation wird, dann muss also auch $(alpha-alpha') * (beta-beta') > 0$ Das koennen wir aber auch schreiben als $alpha * beta > alpha' * beta + alpha * beta' - alpha' * beta'$. Jetzt lassen wir wieder _Simplicity_ fuer uns arbeiten und kommen an bei
+$
+  alpha * beta := "mex" {alpha' * beta + alpha * beta' - alpha' * beta' | alpha' < alpha, beta' < beta}
+$
+
+#puzzle[][
+  #comment[Leute Assoziativitaet, Kommutativitaet und Distibutivitaet pruefen lassen.]
+][]
+
+
+#puzzle[][
+  #comment[Leute ein paar Produkte ausrechnen lassen]
+][]
+
+#puzzle[][
+  #comment[Was passiert mit Fermat 2-er Potenzen?]
+  #comment[Was passiert mit Quadraten von Fermat-2er-Potenzen?]
+][
+  normales Produkt, "sesquimultiple"
+]
+
+#puzzle[][
+  Leute $5 * 9$ ausrechnen lassen.
+][]
+
+
+#comment[
+  TODO: A small section on calculing products of ordinals smaller than $omega^omega^omega$
+]
+
+
+
 Noch offen : Circle collapsing und Fusion Principle (Winning Ways p. 193)
+
+
