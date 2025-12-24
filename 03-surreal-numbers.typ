@@ -546,7 +546,7 @@ Wir können nun endlich den Begriff der Ableitung (fast) definieren:
 #definition[
   Sei $f: op("Surr") -> op("Surr")$ eine Funktion.
   Sei $x in RR$ und $epsilon$ eine infinitesimale Zahl. Dann heißt
-  $ f'(x, epsilon) = ("st")((f(x+epsilon) - f(x))/epsilon) in RR $
+  $ f'(x, epsilon) = op("st")((f(x+epsilon) - f(x))/epsilon) in RR $
   Ableitung von $f$ im Punkt $x$, falls $f'(x, epsilon)$ von $epsilon$ unabhängig ist.
 
   Sei $g : RR -> RR$ eine Funktion, für welche es eine Funktion $f: op("Surr") -> op("Surr")$ gibt, welche sich auf $RR$ zu $g$ einschränkt und welche in $x in RR$ differenzierbar ist. Dann heißt $g'(x) := f'(x)$ die Ableitung von $g$ in $x$ und sie ist eindeutig bestimmt.
@@ -577,4 +577,27 @@ Viele Aussagen - auch in der Analysis - benutzen das Auswahlaxiom  für Existenz
 Wir brauchen für die Konstruktion der hyperrellen Zahlen (surrealen Zahlen), oder zumindest für manche Eigenschaften bereits das Auswahlaxiom. Intuitiv, haben wir es damit schon "benutzt." Viele Aussagen oder Gleichungen, welche sonst nicht explizit zu machen sind, können durch benutzen einer hyperrellen Zahl $H$ explizit hingeschrieben werden.
 Insbesondere hat man damit die Probleme durch das Auswahlaxiom nur beim Ausgangspunkt - den surrellen Zahlen - und kann damit konkret über ganz viele Probleme zu reden anstatt jedes mal eine neue Anwendung des Auswahlaxioms zu finden.
 
+#puzzle(
+  [],
+  [
+    Berechne die Ableitungen mithilfe von schlau gewählten Surrealen Zahlen. (Angenommen sie existieren ;)
 
+    $ sqrt(x), 1/x, e^x $
+  ],
+  [
+
+    Sei $epsilon'$ eine infinitesimale surrele Zahl.
+
+    Für $sqrt(x)$ betrachte $epsilon = 2 sqrt(x) epsilon' + (epsilon')^2$. Dann ist
+    $
+      (sqrt((sqrt(x)+epsilon')^2) - sqrt(x))/(2 sqrt(x) epsilon')
+      = (epsilon')/ (2 sqrt(x) epsilon' + (epsilon')^2)
+      = 1/ (2 sqrt(x) + epsilon') = 1/2 sqrt(x).
+    $
+
+    Analog folgen die Ableitungen für $1/x$ und
+    $e^x = sum_(k=0)^infinity (x^k)/k! = 1 + x + x^2/2 + ...$
+  ],
+)
+
+Diese spezifischen Beispiele lassen sich $1 : 1$ zu Aussagen mittels bestimmter gegen $0$ konvergierender Folgen übersetzen.
