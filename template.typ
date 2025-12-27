@@ -44,8 +44,10 @@
   *Raetsel* *#name*.
   #question
 
-  *Loesung*.
-  #answer
+  #if answer != [] [
+    *Loesung*.
+    #answer
+  ]
 ]
 
 #let diff_puzzle(name, question, answer) = [
