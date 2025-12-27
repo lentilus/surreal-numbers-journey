@@ -1,7 +1,45 @@
 #import "template.typ": *
+#import "hackenbush.typ": *
 #show: template
 
-= Sehr coole Sachen
+= Sehr coole Sachen \ _Mixed Games_
+
+== Jetzt aber wirklich RGB
+#comment[
+  TODO: Hier ist noch viel zu tun: Wie kommen wir jetzt von G-Hackenbush zu einer systematischen Theorie ueber RGB-Hackenbush? Maybe hier schon connection zu cooling processes aufzeigen.
+]
+Kommen wir von _G-Hackenbush_ zurueck zu _RGB-Hackenbush_.
+
+
+#puzzle[Omega-Cube][
+  #comment[Hier muss man noch sehr genau ueberlegen wie man dieses Raetse stellt damit man das ueberhaupt ausgerechnet bekommt]
+][]
+
+#puzzle[Blume mit vielen Blaetter][
+  Wie ist der Wert dieser Blumen mit genau $omega$ vielen Blaettern?
+  $
+  limits(#directed_hackenbush(((
+    "G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"
+  ),)))_"(a)"
+
+  limits(#directed_hackenbush(((
+    "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R"
+  ),)))_"(b)"
+
+  limits(#directed_hackenbush((
+    ("G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"),
+    ( "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R")
+  ),))_"(a) + (b)"
+  
+  $
+][
+  #comment[Notes sagen a und b waeren up bzw down, aber not so sure about that if I am honest]
+
+
+  In der Summe (a) + (b) ist es fuer keinen Spieler von Vorteil, einen der Staemme abzuschneiden. Im naechsten Zug wuerde der andere Spieler den uebrigen Stamm kappen, und das Spiel gewinnen. Die Spieler beschneiden also bin in alle Ewigkeit die Blueten ihrer Blume.
+  In anderen Worten: Die Summe endlicher Spiele kann unendlich sein.
+]
+
 
 Motivation:
 Wir haben Strategien gesehen um in RB und G Hackenbush den besten Zug zu finden. Aber wie sieht es aus, wenn wir die Spiele mischen?

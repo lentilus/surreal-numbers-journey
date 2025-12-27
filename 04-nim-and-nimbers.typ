@@ -2,7 +2,7 @@
 #import "hackenbush.typ": *
 #show: template
 
-= Getting Nimble with Nimbers
+= Getting Nimble with Nimbers \ _Impartial Games_
 
 #orga[
   Es folgt kleine Wiederholung von Schiene 1
@@ -11,16 +11,6 @@
  - Jetzt erinnern wir uns aber, da war ja noch gruen, und gruen war irgendwie komisch...
  $-->$ Darum geht es jetzt!
 ]
-
-
-Q: Ist größer, kleiner transitiv?
-Ja
-Q: Ist vergleichbar transitiv?
-Nein
-
-Rmk: Asymmetrie
-Es gibt viele Postionen, wo der erste Spiele gewinnt - die qualitativ underschiedlich sind. Aber wenn der zweiter Spieler gewinnt (0) sind sie alle ähnlich (First Move advantage)
-
 
 == Regeln fuer RGB-Hackenbush
 - Wir erweitern die bekannten RB-Hackenbush-Regeln.
@@ -137,6 +127,17 @@ Fuer $**1$ schreiben wir auch einfach nur $**$.
   $
 ]
 
+#rmk[
+ Wir werden geich noch sehen, wie man die Addition von zwei Nimbern ganz formal mit _Strichnotation_ definiert.
+]
+
+#puzzle[][
+  Untersucht was passiert, wenn ihr die Addition zweier Nimber $n$ und $m$ unter Binaerschreibweise von $n$, $m$ und $n+m$ betrachtet.
+][
+  XOR
+]
+
+
 #puzzle[Gruene Induktion][
   Die Notation fuer $n$-Schlangen suggeriert, dass wir den Zahlenraum der
   $n$-Schlangen induktiv/rekursiv definieren koennen. Solche Objekte schreien nach Induktion.
@@ -161,25 +162,15 @@ Dann kann man das naechste skippen
 #puzzle[][
   Wie sieht es mit $**16 + **4$ aus?
 ][
+  #comment[Is it really 16 + 4 = 0?]
   $**16 + **4 = 0$. Erkennt ihr ein Muster?
   Wir haben das nicht formal gezeigt, aber die Antwort ist, dass der Koerper der Nimber Charakteristik 2 hat. Das bedeutet, dass sich die Zwei bzgl. der Multiplikation wie 0 verhaelt. Deshalb ist $ a + a = 0$ fuer alle nimber.
+  Wir haben noch gar nicht gesehen, wie die multiplikation auf Nimbern funktioniert, deshalb wissen wir technically hier noch gar nicht, dass Nimber ueberhaupt ein Koerper sind, aber wie die Multiplikation aussieht sehen wir gleich noch, wenn wir uns $"On"_2$ anschauen.
 ]
 
-Das hat sehr lutige Implikationen.
-
-Die Charakteristik des Koerpers der Nimber erklaert warum sie sich so "komisch" verhalten und hilft uns optimale Strategien fuer ein ganze Klasse an Spielen zu entwickeln, in denen Nimber wohnen.
-
-Die Geburtsstaette der Nimber ist das Spiel _Nim_. Nimber sind sogar die einzige Spezies die im Spiel der Nim anzutreffen ist.
-
-#puzzle[mex][
-  #comment[Hier die Leute erkennen lassen wie man aus der Strichnotation] auf die formulierung der Addition als mex (minimal excluded value) erkennt.
-][
-]
-
-#definition[
-  MEX #comment[TODO]
-]
-
+Das hat sehr lutige Implikationen und erklaert so ein bisschen warum die Nimber sich 
+so "komisch" verhalten. Diese Erkenntinis hilft uns jetzt optimale Strategien fuer ein ganze Klasse an Spielen zu entwickeln, in denen Nimber wohnen.
+Eines dieser Spiele ist Nim.
 
 == Nim Spielregeln
 #comment[TODO]
@@ -187,16 +178,27 @@ Die Geburtsstaette der Nimber ist das Spiel _Nim_. Nimber sind sogar die einzige
 2. Ein Zug ist: Einen Stapel um beliebige Anzahl Muenzen kleiner machen
 3. Wer nicht ziehen kann verliert.
 
-~ Leute kurz Nim spielen lassen, damit sie sehen, dass es genau wie G-Hackenbush ist ~
+#orga[
+Leute kurz Nim spielen lassen, damit sie sehen, dass es genau wie G-Hackenbush ist.
+]
 
 Nimber tauchen ueberall auf, wo beide Spieler die gleichen Zuege machen koennen.
-Nimb-Arithmetik erlaubt uns solche Spiele, oder solche Teile von Spielen zu untersuchen.
+Diese Spiele nennt man auch _Impartial Games_.
 
-~ Hier moeglicherweise noch mehr Spiele Erwaehnen, die Nimber beherbergen ~
+
+
+Nimb-Arithmetik erlaubt uns solche Spiele, oder solche Teile von Spielen zu untersuchen.
 
 #comment[
   TODO: How to win nim
 ]
+
+#puzzle[Win Nim][
+  Wie gewinnt man nim?
+  Tipp: Wenn der erste Spieler es schafft, das Spiel zu einem 0-Spiel zu machen,
+  hat er gewonnen. Natuerlich kann man nicht jedes Nim-Spiel gewinnen, wenn man am Zug ist (ein ganz einfach Genbeispiel waere 0),
+  aber vielleicht findet ihr trotzdem eine gute Strategie, fuer die Faelle, die nicht hoffnungslos sind.
+][]
 
 == Green Trees
 Wir hatten eben die Schlangen gesehen. Dort war es ja nicht besonders schwer den Wert einer Schlangen zu ermitteln.
@@ -220,48 +222,13 @@ Jetzt laufen wir entlang jeder kante zum naechsten Knoten. Dort treffen sich dan
 #image("./assets/green-tree.png")
 
 
-Siehe auch
-- https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
-- Winning Ways p. 191
-
-== Jetzt aber wirklich RGB
 #comment[
-  TODO: Hier ist noch viel zu tun: Wie kommen wir jetzt von G-Hackenbush zu einer systematischen Theorie ueber RGB-Hackenbush? Maybe hier schon connection zu cooling processes aufzeigen.
+  Noch offen : Circle collapsing und Fusion Principle (Winning Ways p. 193)
+  - Winning Ways p. 191
 ]
-Kommen wir von _G-Hackenbush_ zurueck zu _RGB-Hackenbush_.
 
-
-#puzzle[Omega-Cube][
-  #comment[Hier muss man noch sehr genau ueberlegen wie man dieses Raetse stellt damit man das ueberhaupt ausgerechnet bekommt]
-][]
-
-#puzzle[Blume mit vielen Blaetter][
-  Wie ist der Wert dieser Blumen mit genau $omega$ vielen Blaettern?
-  $
-  limits(#directed_hackenbush(((
-    "G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"
-  ),)))_"(a)"
-
-  limits(#directed_hackenbush(((
-    "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R"
-  ),)))_"(b)"
-
-  limits(#directed_hackenbush((
-    ("G", "B", "B", "B", "B", "B", "B", "B", "B", "B", "...B"),
-    ( "G", "R", "R", "R", "R", "R", "R", "R", "R", "R", "...R")
-  ),))_"(a) + (b)"
-  
-  $
-][
-  #comment[Notes sagen a und b waeren up bzw down, aber not so sure about that if I am honest]
-
-
-  In der Summe (a) + (b) ist es fuer keinen Spieler von Vorteil, einen der Staemme abzuschneiden. Im naechsten Zug wuerde der andere Spieler den uebrigen Stamm kappen, und das Spiel gewinnen. Die Spieler beschneiden also bin in alle Ewigkeit die Blueten ihrer Blume.
-  In anderen Worten: Die Summe endlicher Spiele kann unendlich sein.
-]
 
 == Exkurs $"On"_2$
-http://www.neverendingbooks.org/on2-conways-nim-arithmetics/
 
 Mithilfe der Addition und Multiplikation auf Nimbern koennen wir die Klasse aller _Ordinalzahlen_ mit einer Koerperstruktur ausstatten.
 Tatsaechlich ist die Konstruktion, die wir uns gleich anschauen wollen, die "einfachste" Konstruktion die _Ordinalzahlen_ zum einem Koerper mit Charakteristik 2 machen.
@@ -273,41 +240,55 @@ $
 alpha + beta := "mex" {alpha' + beta | alpha' < alpha} uu {alpha + beta' | beta' < beta}
 $
 
-#comment[Hier sichertellen, dass mex schon einmal eingefuehrt wurde oder hier dann einfueren.]
+#orga[Hier sichertellen, dass mex schon einmal eingefuehrt wurde oder hier dann einfueren.]
 
 Sind $alpha$ und $beta$ endliche Ordinalzahlen erkennen wir die Addition als die Addition der Nimber $**alpha$ und $**beta$.
 
 
-#comment[Das muessen wir die Teilis selber feststellen lassen]
+#orga[Das muessen wir die Teilis selber feststellen lassen]
 
-#image("./assets/nimaddition.jpg", width: 45%)
+
+#figure(
+  image("./assets/nimaddition.jpg", width: 50%),
+  caption: [Eine Additionstafel fuer Nimber mit Nim-Addition]
+)
 
 Lasst uns jetzt ueber Multiplikation nachdenken. Sei $alpha' < alpha$ und $beta' < b$, dann sind $alpha - alpha'$ und $beta - beta'$ beide nicht-negativ, also groesser als $0$.
+
+#orga[
+  Folgendes kann man auch sehr gut als Raetsel stellen, wenn man _mex_ vorher einfuert. Dann koennen Teilis selber darauf kommen und untersuchen, was well-behaved ist, und was nicht.
+]
+
 Wenn wir jetzt wollen, dass $"On"_2$ ein Koerper mit diese Multiplikation wird, dann muss also auch $(alpha-alpha') * (beta-beta') > 0$ Das koennen wir aber auch schreiben als $alpha * beta > alpha' * beta + alpha * beta' - alpha' * beta'$. Jetzt lassen wir wieder _Simplicity_ fuer uns arbeiten und kommen an bei
 $
   alpha * beta := "mex" {alpha' * beta + alpha * beta' - alpha' * beta' | alpha' < alpha, beta' < beta}
 $
 
-#image("./assets/nimmultiplication.jpg", width: 45%)
+
+#figure(
+  image("./assets/nimmultiplication.jpg", width: 50%),
+  caption: [Eine Multiplikationstafel fuer Nimber mit Nim-Multiplikation]
+)
 
 #puzzle[][
-  #comment[Leute Assoziativitaet, Kommutativitaet und Distibutivitaet pruefen lassen.]
+  Zeigt, dass die Nim-Multiplikation Assoziativitaet, Kommutativitaet und Distibutivitaet erfuellt.
 ][]
 
 
 #puzzle[][
-  #comment[Leute ein paar Produkte ausrechnen lassen]
+  Rechnet ein paar *kleine* Produkte von Nimbern aus.
 ][]
 
 #puzzle[][
-  #comment[Was passiert mit Fermat 2-er Potenzen?]
-  #comment[Was passiert mit Quadraten von Fermat-2er-Potenzen?]
+  1. Was passiert mit Fermat-2er-Potenzen, also $2^(2^n+1)$ bei der Multiplikation?
+  2. Was passiert mit den Quadraten von Fermat-2er-Potenzen?
 ][
-  normales Produkt, "sesquimultiple"
+  1. Fuer Fermat-2er-Potenzen ist das Nimber-Produkt das gleiche wie das Produkt natuerlicher Zahlen.
+  2. Quadrate von Fermat-2er-Potenzen $n$ sind $3/2 * n$ als Produkt von natuerlichen Zahlen.
 ]
 
 #puzzle[][
-  Leute $5 * 9$ ausrechnen lassen.
+  Leute $5 * 9$ _systematisch_ ausrechnen lassen.
 ][]
 
 
@@ -316,5 +297,5 @@ $
 ]
 
 
-
-Noch offen : Circle collapsing und Fusion Principle (Winning Ways p. 193)
+- https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
+- http://www.neverendingbooks.org/on2-conways-nim-arithmetics/

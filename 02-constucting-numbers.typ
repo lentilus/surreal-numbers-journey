@@ -2,7 +2,7 @@
 #import "@preview/cetz:0.4.2"
 #show: template
 
-= Konstruktionen bekannter Zahlenräume
+= Graf Zahl und sein Vermaechtnis \ _Konstruktionen bekannter Zahlenräume_
 
 Wir haben jetzt Spiele gesehen und ihnen Zahlen zugeordnet. Dabei sind wir auf sehr seltsame Dinge gestoßen:
 

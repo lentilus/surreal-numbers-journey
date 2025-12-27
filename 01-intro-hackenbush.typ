@@ -2,7 +2,7 @@
 #import "hackenbush.typ": *
 #show: template
 
-= Rot-Gruen-Hackenbush
+= Rot-Blau-Hackenbush \ _Partisan Games_
 
 Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie folgt.
 
