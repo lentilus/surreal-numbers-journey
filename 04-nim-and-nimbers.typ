@@ -291,11 +291,12 @@ $
   Leute $5 * 9$ _systematisch_ ausrechnen lassen.
 ][]
 
-
-#comment[
-  TODO: A small section on calculing products of ordinals smaller than $omega^omega^omega$
+== Circle Collapsing and the Fusion Principle
+#puzzle[][
+  Ueberlegt zusammen, was passiert, wenn ein Hackenbush spiel nicht einfach nur veraestelt ist, sondern der Graph den die Striche aufspannen auch noch Zyklen hat.
+  Koennt ihr fuer ein beliebiges Spiel mit Zyklen ein aequivalentes Zyklus-freies Spiel konstruieren?
+][
+  #todo[Provide a statisfactory answer here.]
 ]
-
-
 - https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
 - http://www.neverendingbooks.org/on2-conways-nim-arithmetics/

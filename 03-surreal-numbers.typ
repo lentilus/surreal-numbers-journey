@@ -474,6 +474,7 @@ Unsere Mengendarstellung kann man auch benutzen, um über RGB Hackenbush zu rede
   [],
   [
     Finde eine Hackenbushpositionen, welche folgende "Werte" haben:
+    #comment[Hier glaube ich star 2 und nicht 2 star.]
 
     $
       star = { 0 | 0 } \

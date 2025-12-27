@@ -5,6 +5,7 @@
 = Sehr coole Sachen \ _Mixed Games_
 
 == Jetzt aber wirklich RGB
+
 #comment[
   TODO: Hier ist noch viel zu tun: Wie kommen wir jetzt von G-Hackenbush zu einer systematischen Theorie ueber RGB-Hackenbush? Maybe hier schon connection zu cooling processes aufzeigen.
 ]
@@ -40,6 +41,11 @@ Kommen wir von _G-Hackenbush_ zurueck zu _RGB-Hackenbush_.
   In anderen Worten: Die Summe endlicher Spiele kann unendlich sein.
 ]
 
+== Hot and Cold Games
+
+In RB-Hackenbush ist jeder Zug fuer "schlecht" fuer den jeweiligen Spieler. Durch's am Zug sein erhaelt man keinen Vorteil.
+
+In _G-Hackenbush_ scheint es meist genau umgekehrt zu sein.
 
 Motivation:
 Wir haben Strategien gesehen um in RB und G Hackenbush den besten Zug zu finden. Aber wie sieht es aus, wenn wir die Spiele mischen?
@@ -50,6 +56,18 @@ Aendert L durch seinen Zug die Spielposition von G zu G^L, dann aendert sich die
 Umgekehrt kann R die Spielposition um G-G^R aendern. G^L-G jetzt _Vorteil_ fuer L. (Opportunity Cost)
 TODO: Wir brauchen ein besseres Wort 
 
+== Cooling
+- mean and temperature
+
+== Thermographs
+#todo[use screenshots from winning ways here?]
+
+== Comparing Games
+- compare games by mean and temperature
+
+
+
+NOTES
 Raetsel: Berechnet den Vorteil einiger Zuege in Spielen die Zahlen sind.
 Takeaway: Der Vorteil ist stehts negativ.
 
@@ -75,3 +93,5 @@ TODO: hier vielleicht ein passendes RGB-Hackbush  finden.
 TODO
   Stops sind die Enden der Wolke
   Warum funktioniert Cooling um den Mean zu finden?
+
+
