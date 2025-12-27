@@ -80,6 +80,7 @@
   set heading(numbering: "1.")
   set par(justify: true)
   set text(lang: "de")
+  set quote(block: true)
 
   show: scribe
   // show: thmrules
