@@ -6,16 +6,6 @@
 
 Wir wollen uns ein Spiel namens _Hackenbush_ anschauen. Die Spielregeln sind wie folgt.
 
-#comment[
-  Getting back the list from a comment is reallllly hard.
-  If you want to use that syntax though, you can try to convert it into my normal form (see also hackenbush.typ)
-
-  I have written two methods to render hackenbush. One for general applications and one for easy applications. For examples see the comments in hackebush.typ
-  I didn't write docs (yet?) though.
-
-  Longterm maybe we want to add some formatting or so on top of it.
-]
-
 == Spielregeln von RG-Hackenbush
 - Es gibt zwei Spieler, _Rot_ und _Blau_.
 - Dazu passend gibt es _blaue_ und _rote_ Striche.
@@ -50,7 +40,6 @@ $
   Vielleicht kann man ein paar am Whiteboard besprechen?
 ]
 
-#comment[AB HIER MUSS ALLES AUF VORZEICHEN GEPRUEFT WERDEN, WEIL ICH LOST WAR]
 
 == Ganzzahliges Hackenbush
 Jetzt ist die Idee: wenn wir wissen das zwei Spiele von _Rot_ gewonnen werden,
@@ -59,18 +48,17 @@ und wir "tun die Spiele zusammen", dann sollte _Rot_ dieses Spiel immernoch gewi
 #let one = directed_hackenbush(("B",))
 
 #definition[
-  Ein Spiel wo stets der Startspieler verliert heisst $0$-Spiel. Und
+  + Ein Spiel wo stets der Startspieler verliert heisst $0$-Spiel. Ihm geben wir den _Wert_ $0$. (a)
+  + Und dem Spiel mit einem einzelnen _blauen_ Strich geben wir den _Wert_ $1$.
   $
-   #one := 1,
+   limits(... ... ... ... )_0 .. limits(one)_1 
   $
 ]
 
 //#let zero = directed_hackenbush(((),))
-#comment[TODO]
 #let zero = $dots dots dots$
 #let minus-one = directed_hackenbush(("R",))
 
-Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
 
 #let two = directed_hackenbush(("B", "B"))
 #let one-minus-one = directed_hackenbush(("R", "B"))
@@ -80,11 +68,12 @@ Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
 #let three-halfs = directed_hackenbush((("B", ("R", "B")),))
 #let minus-three-fourths = directed_hackenbush((("R", ("B", "R")),))
 
-#puzzle[Ganzzahlige Werte][
+#interactive_question[
+  Was wuerdet ihr denken welchen Wert die folgenden Spiele haben?
   $
   limits(two)_2 .. limits(#minus-one)_(-1) .. limits(#one-minus-one)_0
   $
-][]
+][ Siehe Annotationen. ]
 
 Fazit: Das kling sinnvoll.
 
@@ -117,11 +106,14 @@ Wie ist die Beziehung von $1/2$ und $-1/2$? Wir sehen:
 ]
 
 
-Rmk: Es gibt versch Spiele mit dem selben Wert. Aber die Addition ist davon unabhängig.
-Wir können also sagen, das zwei Spiele äquivalent sind, wenn G-H =ca= 0
-Ergibt sinn.
+#rmk[
+  Es gibt versch Spiele mit dem selben Wert. Aber die Addition ist davon unabhängig.
+  Wir können also sagen, das zwei Spiele $G$ und $H$ äquivalent sind, wenn gilt $G-H=0$.
+  -- Ergibt Sinn.
+]
 
 #puzzle[Rechnen, rechnen, rechnen][
+  Bestimmt die Werte der Folgenden Spiele.
 $
   limits(#directed_hackenbush(
     (("B", "R", "R"),)
@@ -154,10 +146,7 @@ $
 ]
 
 #puzzle[Followup-Frage][
-  Welche Zahlen koennen wir also mit endlich vielen Strichen darstellen?
-  #comment[
-    Leute bitten, dass einfach heuristisch zu machen, sonst nehmen wir glaube ich schon Erkenntnisse vorweg, die wir erst bei "Binärdarstellung" haben wollen.
-  ]
+  Jetzt habt ihr ein bisschen rumprobiert und vielleicht erkennt ihr schon ein Muster. Welche Zahlen sind es, die wir _genau_ mit endlich vielen Strichen darstellen koennen?
 ][
   $+- n/2^m$, fuer beliebige natuerliche Zahlen $n$ und $m$.
 ]
@@ -186,10 +175,22 @@ Wie waere es wenn man, wenn man die immer weiter aufeinander stellt?
 
 #puzzle[Binärdarstellung][
   Was passiert, wenn wir einen blauen haben, dann einen Roten und dann in irgendeiner Reihenfolge
+  #orga[Hier ist es wirklich wichig, dass wir direkt einen Farbwechsel von dem ersten zum zweiten Strich haben.
+  Man kann die Teilis auch pruefen lassen, was mit Tuermen passiert, wo das nicht gegeben ist.
+]
 ][
   _Die antwort kann abstrakt oder explizit sein_
+  #let R = directed_hackenbush((("R"),))
+  #let B = directed_hackenbush((("B"),))
+  Wir sehen, wir erhalten eine Art Binaerdarstellung, in Hackenbush!
+  $
+    #directed_hackenbush((("B", ("R", ("R", ("B", ("R", "..."))))),)) &= #B + 1/2 #R + 1/4 #R + 1/8 #B + 1/16 #R + dots \
+    & = 1 -1/2 -1/4 + 1/8 - 1/6 + dots
+  $
+]
 
-  $-->$ Binärdarstellung!!! (WOOOOOWWWW)
+#rmk[
+  Der erste "Farbwechsel" funktioniert hier aehnlich wie ein Dezimalkomma.
 ]
 
 Das heißt, wenn wir einen guten (abzaehlbar) unendlichen Stack haben ist alles toll.
@@ -225,7 +226,7 @@ Jetzt experimentieren wir etwas rum und wollen ein Gefuehl fuer solche _Tuerme_ 
   )
  $
 ][
-  Der Turm ist groesser als jede endliche Zahl. Egal welches Spiel mit endlich vielen Segmenten wir dazu addieren, blau gewinnt immer. Sei Wert ist also irgendwie $oo$.
+  Der Turm ist groesser als jede endliche Zahl. Egal welches Spiel mit endlich vielen Segmenten wir dazu addieren, blau gewinnt immer. Sein Wert ist also irgendwie $oo$.
 ]
 
 #puzzle[Blauer Turm + roter Turm][
@@ -290,19 +291,19 @@ Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt imme
 
 
 #puzzle[Seeehr kleine Zahl][
-  Könnt ihr euch Zahl ausdenken, die kleiner ist als $1/n$ für alle $n$?
+  Könnt ihr euch Zahl ausdenken, die kleiner ist als $1/n$ für alle $n$, aber immernoch positiv?
 ][
   Ein Beispiel waere
   $
   #directed_hackenbush((("B", ("R", ("...R", ))),))
   $
-  #comment[Hier stand 1/omega^n, aber ich denke, dass sollte 1/omega sein, oder?]
+  Tatsaechlich hat dieser Turm den Wert $1/omega$. Aber das koennen wir jetzt noch nicht wissen.
 ]
 
 #puzzle[Noch kleiner][
   Könnt ihr euch noch eine kleinere Zahl vorstellen?
 ][
-  Wie waere es mit $1/(omega + 1)$
+  Wie waere es mit $1/(omega + 1)$?
 ]
 
 #orga[
@@ -310,18 +311,8 @@ Und damit können wir sie vergleichen. Und wenn Zahl größer als 0 gewinnt imme
   Wir werden nächste? Schiene formalisieren was diese Zahlen sind. Und dann wird hoffentlich auch direkt klar, was mögliche Hackenbush Spiele sind. Aber die Kurze antwort: Wenn es keine Kreise gibt, dann hast du eine Funktion die jeder kleineren Zahl als Ordinal eine Farbe zuordnet. (Insb. sind alle Spiele endlich)
 ]
 
-
-#puzzle[Omega Halbe][
-  Wie koennen wir $1/2 omega$ als Hackenbush-Position konstruieren?
-][
-  Müsste rot und blau Omega übereinander sein?
-]
-
-#puzzle[Omega x Omega ][
-  Der Titel ist Programm.
-][
-  $omega$ viele $omega$ hohe blaue Tuerme.
-  #comment[Das stimmt glaube ich nicht. Omega 1er Tuerme neben einander ist nicht einfach nur omega. Tatsaechlich ist das Spiel nicht einmal mehr finite. Aso muss das irgendwie anders sein.]
+#orga[
+  Warum koennen wir nicht fuer "Omega", $omega$ viele Stiele nebeneinander Stellen. Das geht nicht, weil wir das Spiel in der Strichnotation die wir spaeter einfuehren nicht aufschreiben koennen.
 ]
 
 Wir haben jetzt ein ziemlich gutes Gefühl für Red-Blue Hackenbush. Aber jeder Informatiker weiß:
@@ -362,43 +353,4 @@ Man braucht RBG und nicht nur RB. Wo bleibt also _Gruen_?
 ][
   Ja.
 ]
-
-Vlt schauen wir uns mal einfach nur den grünen Stängel an..
-Wer gewinnt?
-=> der erste Spieler
-Passt also nicht ganz zu unseren Sachen
-=> (RB)G Hackenbush ist seltsam
-
-Schauen wir mal an, wie sich die Sachen verhalten.
-
-Wir haben immer noch die Definitionen:
-a = b, falls...
-Sagen jetzt a | b falls... n-m immer gewonnen oder verloren wird => größer/kleiner 0
-
-Schauen uns mal ein Paar bespiele an..
-Was ist das inverse von 1 grün? (Stern)
-Was ist das inverse von 2 grün? (Stern2)
-=> Inverse von allen grünen ist toll
-
-Was ist
-1 grün + 2 grün? ... 3 grün
-Was ist
-1 grün + 3 grün? ... 2 grün
-(entweder: selbst-invers, oder ausprobieren)
-=> Nicht mit 0 vergleichbar
-
-Q: Ist größer, kleiner transitiv?
-Ja
-Q: Ist vergleichbar transitiv?
-Nein
-
-Wir wissen: 0 ist nicht vergleichbar mit $*$
-Q: Findet ihr eine Stellung die sowohl mit 0 als auch 1 nicht vergleichbar ist?
-
-[Important Mindfuck]
-Q: Findet ihr eine Stellung, die mit 0 nicht vergleichbar ist, aber so dass 2 mal die Stellung mit 0 vergleichbar ist?
-A: Omega grün, dann 1 Blau
-
-Rmk: Asymmetrie
-Es gibt viele Postionen, wo der erste Spiele gewinnt - die qualitativ underschiedlich sind. Aber wenn der zweiter Spieler gewinnt (0) sind sie alle ähnlich (First Move advantage)
 
