@@ -4,7 +4,23 @@
 
 = Getting Nimble with Nimbers
 
-~ Es folgt kleine Wiederholung von Schiene 1 ~
+#orga[
+  Es folgt kleine Wiederholung von Schiene 1
+ - Wir hatten _rot_ und _blau_, und alles war schoen.
+ - Das haben wir dann in der letzten Schiene richtig gut formalisiert.
+ - Jetzt erinnern wir uns aber, da war ja noch gruen, und gruen war irgendwie komisch...
+ $-->$ Darum geht es jetzt!
+]
+
+
+Q: Ist größer, kleiner transitiv?
+Ja
+Q: Ist vergleichbar transitiv?
+Nein
+
+Rmk: Asymmetrie
+Es gibt viele Postionen, wo der erste Spiele gewinnt - die qualitativ underschiedlich sind. Aber wenn der zweiter Spieler gewinnt (0) sind sie alle ähnlich (First Move advantage)
+
 
 == Regeln fuer RGB-Hackenbush
 - Wir erweitern die bekannten RB-Hackenbush-Regeln.
@@ -18,6 +34,14 @@ haben Werte von Spielen bestimmt, indem wir zu anderen Spielen addiert haben,
 sodass das die Summe ein $0$-Spiel ist. Darueber konnten wir Rueckschlueese auf
 den Wert Spiels schliessen. Vielleicht koennen wir so den gruenen Stengel versuchen
 zu verstehen.
+
+Wir wollen, jetzt ein bisschen Theorie fuer gruenes Hackenbush entwickeln, aber
+damit wir das spaeter hilft _RGB_ zu verstehen, muss alles was wir mit gruen machen kompatibel bleiben,
+mit den Sachen, die wir fuer _RB_ gefordert haben. Wir sagen also weiterhin, dass
+
+- $0$ genau die Spiele sind, die vom Startspieler verloren werden,
+- zwei Spiele $G$ und $C$ gleich sind, wenn $G - C = 0$ ist,
+- und $a$ groesser als $b$, in Zeichen $a | b$, wenn $a - b$ stehts von _Blau_ gewonnen wird.
 
 #let single-green = directed_hackenbush((("G"),))
 #let double-green = directed_hackenbush((("G"),("G")),)
@@ -38,8 +62,25 @@ _Gruenling_ auch 0 sein. Das wollen wir aber nicht, denn wir haben ja gesagt, da
 genau die 0-Spiele den Wert 0 haben sollen. Wenn man den _Gruenling_ aber ausspielt,
 ist direkt klar, dass es sich hier nicht um ein 0-Spiel handelt.
 
+#rmk[
+  Ein kleiner Spoiler, aber ein sinnvolle Anmerkung: In einem Koerper koennen wir nur
+  aus $a + a = 0$ schliessen, dass $a=0$, wenn unser Koerper eine Charakteristik ungleich 2 hat.
+  Wie wir gleich sehen, waere dass aber inkompatibel mit unseren Forderungen an die Addition.
+]
 
-Der _Gruenling_ pass also nicht ohne weiteres in unsere Vorstellung der Arithmetik surrealer Zahlen,
+Wir haben gesehen, der Gruenling ist nicht mit 0 _verleichbar_, denn $0 - ** = **$, denn $** + **$ war ja $0$.
+
+#puzzle[][
+Findet ihr eine Stellung die sowhol mit 0 als auch mit 1 nicht vergleichbar ist?
+][]
+
+#puzzle[Important Mindfuck][
+  Findet ihr eine Stellung, die mit 0 nicht vergleichbar ist, aber so dass 2 mal die Stellung mit 0 vergleichbar ist?
+][
+Omega grün, dann 1 Blau.
+]
+
+Der _Gruenling_ passt also nicht ohne weiteres in unsere Vorstellung der Arithmetik surrealer Zahlen,
 die wir letzte Schiene studiert haben. Die Idee ist, wir studieren jetzt erstmal
 wie gruenes Hackenbush sich unter unserer Definition von Addition und Multiplikation verhaelt.
 Dann koennen wir uns spaeter der etwas schwierigeren Aufgabe widmen, beide zusammen zu bringen
@@ -135,6 +176,11 @@ Die Geburtsstaette der Nimber ist das Spiel _Nim_. Nimber sind sogar die einzige
 ][
 ]
 
+#definition[
+  MEX #comment[TODO]
+]
+
+
 == Nim Spielregeln
 #comment[TODO]
 1. Abwechselnde Zuege beider Spieler
@@ -148,19 +194,31 @@ Nimb-Arithmetik erlaubt uns solche Spiele, oder solche Teile von Spielen zu unte
 
 ~ Hier moeglicherweise noch mehr Spiele Erwaehnen, die Nimber beherbergen ~
 
-== Green Trees
-#comment[Muss man noch aus dem Stackexchange post und winning ways rausarbeiten.]
+#comment[
+  TODO: How to win nim
+]
 
-Lasst uns zurueck zu Spielen kommen.
-Wir untersuchen jetzt systematisch Baeume
-```
-Raetsel: Wie ist der Wert von
-    G G
-  G G G
-    G
- ___G___?
-```
-Antwort: Muss nachrechnen.
+== Green Trees
+Wir hatten eben die Schlangen gesehen. Dort war es ja nicht besonders schwer den Wert einer Schlangen zu ermitteln.
+Man hat einfach gezaehlt, wie lang sie ist. Aber wie sieht es mit Baeumen aus?
+
+#orga[
+  Wenn Leuten langweilig ist, kann man sie schon frueher raetseln lassen, was
+  der Wert von einem gruenen Baum ist.
+]
+
+#orga[
+  Baum ohne Annotation an's Whiteboard malen.
+]
+
+Wir wissen jetzt, wie man nim am besten spielt. Um herauszufinden, wie man "Baeume"
+am besten spielt, finden wir Haeppchen-weise aequivalente Nim-Spiele. Wir starten an den Blaettern des Baums.
+Jedes Blatt kann als _Nim_ 0-Spiel gesehen werden. Also beschriften wir die Blaetter mit 0en.
+
+Jetzt laufen wir entlang jeder kante zum naechsten Knoten. Dort treffen sich dann 1, oder mehr Kanten. Dessen _Wert_ addieren wir dann wieder auf _Nim_-Weise und koennen so den Baum rekursiv bis zur Wurzel runter klettern. Am Ende ist der Ganze Baum bloss noch in _Nim_ Spiel.
+
+#image("./assets/green-tree.png")
+
 
 Siehe auch
 - https://math.stackexchange.com/questions/4834066/what-cut-should-be-made-in-a-green-hackenbush-game-after-solving-its-correspondi
@@ -202,9 +260,6 @@ Kommen wir von _G-Hackenbush_ zurueck zu _RGB-Hackenbush_.
   In anderen Worten: Die Summe endlicher Spiele kann unendlich sein.
 ]
 
-
-
-
 == Exkurs $"On"_2$
 http://www.neverendingbooks.org/on2-conways-nim-arithmetics/
 
@@ -222,13 +277,18 @@ $
 
 Sind $alpha$ und $beta$ endliche Ordinalzahlen erkennen wir die Addition als die Addition der Nimber $**alpha$ und $**beta$.
 
+
 #comment[Das muessen wir die Teilis selber feststellen lassen]
+
+#image("./assets/nimaddition.jpg", width: 45%)
 
 Lasst uns jetzt ueber Multiplikation nachdenken. Sei $alpha' < alpha$ und $beta' < b$, dann sind $alpha - alpha'$ und $beta - beta'$ beide nicht-negativ, also groesser als $0$.
 Wenn wir jetzt wollen, dass $"On"_2$ ein Koerper mit diese Multiplikation wird, dann muss also auch $(alpha-alpha') * (beta-beta') > 0$ Das koennen wir aber auch schreiben als $alpha * beta > alpha' * beta + alpha * beta' - alpha' * beta'$. Jetzt lassen wir wieder _Simplicity_ fuer uns arbeiten und kommen an bei
 $
   alpha * beta := "mex" {alpha' * beta + alpha * beta' - alpha' * beta' | alpha' < alpha, beta' < beta}
 $
+
+#image("./assets/nimmultiplication.jpg", width: 45%)
 
 #puzzle[][
   #comment[Leute Assoziativitaet, Kommutativitaet und Distibutivitaet pruefen lassen.]
@@ -258,5 +318,3 @@ $
 
 
 Noch offen : Circle collapsing und Fusion Principle (Winning Ways p. 193)
-
-
