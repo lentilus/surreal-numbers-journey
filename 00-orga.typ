@@ -6,7 +6,13 @@
   Any sufficiently well explained mathematics is indistinguishable from being obvious.
 ]
 
-#todo[Anderes Zitat]
+#quote(attribution: [Felix])[
+  Wenn alles gut laeuft, wird unser Kurs wie eine richtig schoene Mathematische Sauna. [oder so aehnlich]
+]
+
+#quote(attribution: [Linus])[
+Damit meinte er sicher; viel Schwitzen aber doch ganz entspannend.
+]
 
 = Organisatorisches
 
@@ -18,11 +24,18 @@ Ich bin Felix (he/him) und studiere Mathe und seit neuestem auch Biophysik in Be
 Außerhalb von Mathematik programmiere ich viel und arbeite daran damit irgendwann selbstständig zu werden.
 
 === Linus
-Ich tu so als sei ich Linus. Ich bin studiere auch Mathe. Meine neueste Flamme ist HoTT. Zudem finde ich Proof-Assistant Software wie Agda oder Coq sehr Lean.
+Ich bin der echte Linus (he/him) und studiere Mathe. Meine neuste Flamme ist HoTT, darueber unterhalte ich mich momentan sehr gerne, da muss man sich ein bisschen vor mir in Acht nehmen. Wenn ich gross bin, will ich mal Logiker werden, aber bis dahin dauert es noch.
+Ich programmiere inzwischen nur noch wenig, an irgendwelchen persoenlichen Projekten.
 
 == Unsere Teilis
+- Wer seid ihr?
+- Wie wollt ihr genannt werden?
+- Was sind eure Pronomen?
+- Esst ihr gerne Linsen?
 === Erwartungen / Wünsche
-Hardcore
+#quote(attribution: [jeder Kursteili])[
+  Hauptsache Hardcore
+]
 === Vorwissen
 
 == Aufbau
@@ -35,3 +48,10 @@ Je nach mathematischer Erfahrung können Sachen schwerer oder leichter/langweili
 Ab der zweiten/dritten Schiene bauen die Schienen nicht mehr stark aufeinander auf. Also wenn ihr mal nicht denken könnt oder wirklich nicht mit kommt, dann ist das auch kein Problem.
 
 Wir haben ein Skript! (Dieses hier.) Es ist absolut nicht notwendig, dass ihr euch das für den Kurs anschaut. Aber ich findet da noch mehr Erklärungen und Referenzen für verschiedene mathematische Level.
+
+Felix und Linus wirken bestimmt voll kompetent, aber auch wir werden Fehler machen. Wenn euch irgendetwas auffaellt was unklar, falsch, _whatever_ ist -- unbeding ansprechen. Schliesslich ist Mathematik eine _soziale Aktiviaet_.
+
+== Kontakt
+
+Unsere Kontaktdaten sind [...].
+Falls ihr euch in der Mittagspause im Wald verirrt und beim Nachbardorf wieder zur Zivilisation findet, erreicht ihr uns unter [...].
